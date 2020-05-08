@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysh.garbageRecyle.mapper.GarbageMapper">
+    
+    <resultMap id="BaseResultMap" type="com.ysh.garbageRecyle.entity.GarbageEntity">
+        <id column="garbage_id" jdbcType="INTEGER" property="garbageId" />
+        <result column="garbage_name" jdbcType="VARCHAR" property="garbageName" />
+        <result column="garbage_category_code" jdbcType="INTEGER" property="garbageCategoryCode" />
+        <result column="query_times" jdbcType="INTEGER" property="queryTimes"/>
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+        <result column="category_explain" jdbcType="VARCHAR" property="categoryExplain" />
+        <result column="category_require" jdbcType="VARCHAR" property="categoryRequire" />
+        <result column="category_common" jdbcType="VARCHAR" property="categoryCommon" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        garbage_id, garbage_name, garbage_category_code, query_times
+    </sql>
+    
+    <sql id="Base_Where_Clause">
+        <where>
+            <if test="garbageName != null">
+                 and garbage_name = #{garbageName,jdbcType=VARCHAR}
+            </if>
+            <if test="garbageCategoryCode != null">
+                 and garbage_category_code = #{garbageCategoryCode,jdbcType=INTEGER}
+            </if>
+        </where>
+    </sql>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+        from garbage
+        where garbage_id = #{garbageId,jdbcType=INTEGER}
+    </select>
+    
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select garbage_id, garbage_name, garbage_category_code, query_times
+        from garbage
+        <include refid="Base_Where_Clause" />
+    </select>
+    <select id="getTopGarbage" resultMap="BaseResultMap">
+        SELECT
+            g.garbage_id,
+            g.garbage_name,
+            g.garbage_category_code,
+            g.query_times
+        FROM
+            garbage g
+        ORDER BY
+            g.query_times DESC
+            LIMIT 10;
+    </select>
+    <select id="findGarbageByCondition" resultMap="BaseResultMap" parameterType="com.ysh.garbageRecyle.entity.GarbageEntity">
+        SELECT
+            g.garbage_id,
+            g.garbage_name,
+            g.garbage_category_code,
+            gc.category_name,
+            gc.category_explain,
+            gc.category_require,
+            gc.category_common
+        FROM
+            garbage g left join garbage_category gc ON g.garbage_category_code=gc.category_code
+        <where>
+            <if test="garbageName!=null">
+                AND g.garbage_name LIKE concat('%', #{garbageName,jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" keyColumn="garbage_id" keyProperty="garbageId" parameterType="com.ysh.garbageRecyle.entity.GarbageEntity" useGeneratedKeys="true">
+        insert into garbage (garbage_name, garbage_category_code)
+        values (#{garbageName,jdbcType=VARCHAR}, #{garbageCategoryCode,jdbcType=INTEGER})
+    </insert>
+    
+    <insert id="insertSelective" keyColumn="garbage_id" keyProperty="garbageId" parameterType="com.ysh.garbageRecyle.entity.GarbageEntity" useGeneratedKeys="true">
+        insert into garbage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="garbageName != null">
+                garbage_name,
+            </if>
+            <if test="garbageCategoryCode != null">
+                garbage_category_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="garbageName != null">
+                #{garbageName,jdbcType=VARCHAR},
+            </if>
+            <if test="garbageCategoryCode != null">
+                #{garbageCategoryCode,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.ysh.garbageRecyle.entity.GarbageEntity">
+        update garbage
+        <set>
+            <if test="garbageName != null">
+                garbage_name = #{garbageName,jdbcType=VARCHAR},
+            </if>
+            <if test="garbageCategoryCode != null">
+                garbage_category_code = #{garbageCategoryCode,jdbcType=INTEGER},
+            </if>
+            <if test="queryTimes != null">
+                query_times=#{queryTimes,jdbcType=INTEGER},
+            </if>
+        </set>
+        where garbage_id = #{garbageId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateByPrimaryKey" parameterType="com.ysh.garbageRecyle.entity.GarbageEntity">
+        update garbage
+        set garbage_name = #{garbageName,jdbcType=VARCHAR},
+            garbage_category_code = #{garbageCategoryCode,jdbcType=INTEGER},
+            query_times=#{queryTimes,jdbcType=INTEGER}
+        where garbage_id = #{garbageId,jdbcType=INTEGER}
+    </update>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from garbage
+        where garbage_id = #{garbageId,jdbcType=INTEGER}
+    </delete>
+</mapper>

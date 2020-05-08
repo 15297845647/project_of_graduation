@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysh.garbageRecyle.mapper.NewsMapper">
+    
+    <resultMap id="BaseResultMap" type="com.ysh.garbageRecyle.entity.NewsEntity">
+        <id column="news_id" jdbcType="INTEGER" property="newsId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="annex_id" jdbcType="INTEGER" property="annexId" />
+        <result column="news_title" jdbcType="VARCHAR" property="newsTitle" />
+        <result column="news_link" jdbcType="VARCHAR" property="newsLink" />
+        <result column="news_source" jdbcType="VARCHAR" property="newsSource" />
+        <result column="news_img_url" jdbcType="VARCHAR" property="newsImgUrl" />
+        <result column="news_content" jdbcType="VARCHAR" property="newsContent" />
+        <result column="news_content_html" jdbcType="VARCHAR" property="newsContentHtml" />
+        <result column="news_pub_date" jdbcType="TIMESTAMP" property="newsPubDate" />
+        <result column="is_top" jdbcType="INTEGER" property="isTop" />
+        <result column="city" jdbcType="VARCHAR" property="city" />
+        <result column="see_times" jdbcType="INTEGER" property="seeTimes" />
+        <result column="news_code" jdbcType="VARCHAR" property="newsCode" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        news_id, user_id, annex_id, news_title, news_link, news_source, news_img_url, news_content, 
+        news_content_html, news_pub_date, is_top, city, see_times.news_code
+    </sql>
+    
+    <sql id="Base_Where_Clause">
+        <where>
+            <if test="userId != null">
+                 and user_id = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="annexId != null">
+                 and annex_id = #{annexId,jdbcType=INTEGER}
+            </if>
+            <if test="newsTitle != null">
+                 and news_title = #{newsTitle,jdbcType=VARCHAR}
+            </if>
+            <if test="newsLink != null">
+                 and news_link = #{newsLink,jdbcType=VARCHAR}
+            </if>
+            <if test="newsSource != null">
+                 and news_source = #{newsSource,jdbcType=VARCHAR}
+            </if>
+            <if test="newsImgUrl != null">
+                 and news_img_url = #{newsImgUrl,jdbcType=VARCHAR}
+            </if>
+            <if test="newsContent != null">
+                 and news_content = #{newsContent,jdbcType=VARCHAR}
+            </if>
+            <if test="newsContentHtml != null">
+                 and news_content_html = #{newsContentHtml,jdbcType=VARCHAR}
+            </if>
+            <if test="newsPubDate != null">
+                 and news_pub_date = #{newsPubDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="isTop != null">
+                 and is_top = #{isTop,jdbcType=INTEGER}
+            </if>
+            <if test="city != null">
+                 and city = #{city,jdbcType=VARCHAR}
+            </if>
+            <if test="seeTimes != null">
+                 and see_times = #{seeTimes,jdbcType=INTEGER}
+            </if>
+            <if test="newsCode != null">
+                and news_code = #{newsCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+        from news
+        where news_id = #{newsId,jdbcType=INTEGER}
+    </select>
+    
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select news_id, user_id, annex_id, news_title, news_link, news_source, news_img_url, 
+        news_content, news_content_html, news_pub_date, is_top, city, see_times,news_code
+        from news
+        <include refid="Base_Where_Clause" />
+    </select>
+    <select id="getAllNewsCode" resultType="java.lang.String">
+        select news_code from news;
+    </select>
+
+    <insert id="insert" keyColumn="news_id" keyProperty="newsId" parameterType="com.ysh.garbageRecyle.entity.NewsEntity" useGeneratedKeys="true">
+        insert into news (user_id, annex_id, news_title, 
+            news_link, news_source, news_img_url, 
+            news_content, news_content_html, news_pub_date, 
+            is_top, city, see_times,news_code
+            )
+        values (#{userId,jdbcType=INTEGER}, #{annexId,jdbcType=INTEGER}, #{newsTitle,jdbcType=VARCHAR}, 
+            #{newsLink,jdbcType=VARCHAR}, #{newsSource,jdbcType=VARCHAR}, #{newsImgUrl,jdbcType=VARCHAR}, 
+            #{newsContent,jdbcType=VARCHAR}, #{newsContentHtml,jdbcType=VARCHAR}, #{newsPubDate,jdbcType=TIMESTAMP}, 
+            #{isTop,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{seeTimes,jdbcType=INTEGER},#{newsCode,jdbcType=VARCHAR}
+            )
+    </insert>
+    
+    <insert id="insertSelective" keyColumn="news_id" keyProperty="newsId" parameterType="com.ysh.garbageRecyle.entity.NewsEntity" useGeneratedKeys="true">
+        insert into news
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="annexId != null">
+                annex_id,
+            </if>
+            <if test="newsTitle != null">
+                news_title,
+            </if>
+            <if test="newsLink != null">
+                news_link,
+            </if>
+            <if test="newsSource != null">
+                news_source,
+            </if>
+            <if test="newsImgUrl != null">
+                news_img_url,
+            </if>
+            <if test="newsContent != null">
+                news_content,
+            </if>
+            <if test="newsContentHtml != null">
+                news_content_html,
+            </if>
+            <if test="newsPubDate != null">
+                news_pub_date,
+            </if>
+            <if test="isTop != null">
+                is_top,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="seeTimes != null">
+                see_times,
+            </if>
+            <if test="newsCode != null">
+                news_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="annexId != null">
+                #{annexId,jdbcType=INTEGER},
+            </if>
+            <if test="newsTitle != null">
+                #{newsTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="newsLink != null">
+                #{newsLink,jdbcType=VARCHAR},
+            </if>
+            <if test="newsSource != null">
+                #{newsSource,jdbcType=VARCHAR},
+            </if>
+            <if test="newsImgUrl != null">
+                #{newsImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="newsContent != null">
+                #{newsContent,jdbcType=VARCHAR},
+            </if>
+            <if test="newsContentHtml != null">
+                #{newsContentHtml,jdbcType=VARCHAR},
+            </if>
+            <if test="newsPubDate != null">
+                #{newsPubDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isTop != null">
+                #{isTop,jdbcType=INTEGER},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="seeTimes != null">
+                #{seeTimes,jdbcType=INTEGER},
+            </if>
+            <if test="newsCode != null">
+                #{newsCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.ysh.garbageRecyle.entity.NewsEntity">
+        update news
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="annexId != null">
+                annex_id = #{annexId,jdbcType=INTEGER},
+            </if>
+            <if test="newsTitle != null">
+                news_title = #{newsTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="newsLink != null">
+                news_link = #{newsLink,jdbcType=VARCHAR},
+            </if>
+            <if test="newsSource != null">
+                news_source = #{newsSource,jdbcType=VARCHAR},
+            </if>
+            <if test="newsImgUrl != null">
+                news_img_url = #{newsImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="newsContent != null">
+                news_content = #{newsContent,jdbcType=VARCHAR},
+            </if>
+            <if test="newsContentHtml != null">
+                news_content_html = #{newsContentHtml,jdbcType=VARCHAR},
+            </if>
+            <if test="newsPubDate != null">
+                news_pub_date = #{newsPubDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isTop != null">
+                is_top = #{isTop,jdbcType=INTEGER},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="seeTimes != null">
+                see_times = #{seeTimes,jdbcType=INTEGER},
+            </if>
+            <if test="newsCode != null">
+                news_code = #{newsCode,jdbcType=INTEGER},
+            </if>
+        </set>
+        where news_id = #{newsId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateByPrimaryKey" parameterType="com.ysh.garbageRecyle.entity.NewsEntity">
+        update news
+        set user_id = #{userId,jdbcType=INTEGER},
+            annex_id = #{annexId,jdbcType=INTEGER},
+            news_title = #{newsTitle,jdbcType=VARCHAR},
+            news_link = #{newsLink,jdbcType=VARCHAR},
+            news_source = #{newsSource,jdbcType=VARCHAR},
+            news_img_url = #{newsImgUrl,jdbcType=VARCHAR},
+            news_content = #{newsContent,jdbcType=VARCHAR},
+            news_content_html = #{newsContentHtml,jdbcType=VARCHAR},
+            news_pub_date = #{newsPubDate,jdbcType=TIMESTAMP},
+            is_top = #{isTop,jdbcType=INTEGER},
+            city = #{city,jdbcType=VARCHAR},
+            see_times = #{seeTimes,jdbcType=INTEGER},
+            news_code = #{newsCode,jdbcType=VARCHAR}
+        where news_id = #{newsId,jdbcType=INTEGER}
+    </update>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from news
+        where news_id = #{newsId,jdbcType=INTEGER}
+    </delete>
+</mapper>

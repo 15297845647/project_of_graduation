@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysh.garbageRecyle.mapper.GarbageLawMapper">
+    
+    <resultMap id="BaseResultMap" type="com.ysh.garbageRecyle.entity.GarbageLawEntity">
+        <id column="law_id" jdbcType="INTEGER" property="lawId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="annex_id" jdbcType="INTEGER" property="annexId" />
+        <result column="law_title" jdbcType="VARCHAR" property="lawTitle" />
+        <result column="law_file_name" jdbcType="VARCHAR" property="lawFileName" />
+        <result column="law_pub_date" jdbcType="TIMESTAMP" property="lawPubDate" />
+        <result column="law_location" jdbcType="VARCHAR" property="lawLocation" />
+        <result column="see_times" jdbcType="INTEGER" property="seeTimes" />
+        <result column="law_code" jdbcType="VARCHAR" property="lawCode" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        law_id, user_id, annex_id, law_title, law_file_name, law_pub_date, law_location, 
+        see_times,law_code
+    </sql>
+    
+    <sql id="Base_Where_Clause">
+        <where>
+            <if test="userId != null">
+                 and user_id = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="annexId != null">
+                 and annex_id = #{annexId,jdbcType=INTEGER}
+            </if>
+            <if test="lawTitle != null">
+                 and law_title = #{lawTitle,jdbcType=VARCHAR}
+            </if>
+            <if test="lawFileName != null">
+                 and law_file_name = #{lawFileName,jdbcType=VARCHAR}
+            </if>
+            <if test="lawPubDate != null">
+                 and law_pub_date = #{lawPubDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="lawLocation != null">
+                 and law_location = #{lawLocation,jdbcType=VARCHAR}
+            </if>
+            <if test="seeTimes != null">
+                 and see_times = #{seeTimes,jdbcType=INTEGER}
+            </if>
+            <if test="lawCode != null">
+                and law_code = #{lawCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+        from garbage_law
+        where law_id = #{lawId,jdbcType=INTEGER}
+    </select>
+    
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select law_id, user_id, annex_id, law_title, law_file_name, law_pub_date, law_location, 
+        see_times,law_code
+        from garbage_law
+        <include refid="Base_Where_Clause" />
+    </select>
+
+    <select id="getAllCode" resultType="java.lang.String">
+        select law_code from garbage_law
+    </select>
+
+    <insert id="insert" keyColumn="law_id" keyProperty="lawId" parameterType="com.ysh.garbageRecyle.entity.GarbageLawEntity" useGeneratedKeys="true">
+        insert into garbage_law (user_id, annex_id, law_title, 
+            law_file_name, law_pub_date, law_location,law_code,
+            see_times)
+        values (#{userId,jdbcType=INTEGER}, #{annexId,jdbcType=INTEGER}, #{lawTitle,jdbcType=VARCHAR}, 
+            #{lawFileName,jdbcType=VARCHAR}, #{lawPubDate,jdbcType=TIMESTAMP}, #{lawLocation,jdbcType=VARCHAR}, 
+            #{seeTimes,jdbcType=INTEGER},#{lawCode,jdbcType=VARCHAR})
+    </insert>
+    
+    <insert id="insertSelective" keyColumn="law_id" keyProperty="lawId" parameterType="com.ysh.garbageRecyle.entity.GarbageLawEntity" useGeneratedKeys="true">
+        insert into garbage_law
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="annexId != null">
+                annex_id,
+            </if>
+            <if test="lawTitle != null">
+                law_title,
+            </if>
+            <if test="lawFileName != null">
+                law_file_name,
+            </if>
+            <if test="lawPubDate != null">
+                law_pub_date,
+            </if>
+            <if test="lawLocation != null">
+                law_location,
+            </if>
+            <if test="seeTimes != null">
+                see_times,
+            </if>
+            <if test="lawCode != null">
+                law_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="annexId != null">
+                #{annexId,jdbcType=INTEGER},
+            </if>
+            <if test="lawTitle != null">
+                #{lawTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="lawFileName != null">
+                #{lawFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="lawPubDate != null">
+                #{lawPubDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lawLocation != null">
+                #{lawLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="seeTimes != null">
+                #{seeTimes,jdbcType=INTEGER},
+            </if>
+            <if test="lawCode != null">
+                #{lawCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.ysh.garbageRecyle.entity.GarbageLawEntity">
+        update garbage_law
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="annexId != null">
+                annex_id = #{annexId,jdbcType=INTEGER},
+            </if>
+            <if test="lawTitle != null">
+                law_title = #{lawTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="lawFileName != null">
+                law_file_name = #{lawFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="lawPubDate != null">
+                law_pub_date = #{lawPubDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lawLocation != null">
+                law_location = #{lawLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="seeTimes != null">
+                see_times = #{seeTimes,jdbcType=INTEGER},
+            </if>
+            <if test="lawCode != null">
+                law_code = #{lawCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where law_id = #{lawId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateByPrimaryKey" parameterType="com.ysh.garbageRecyle.entity.GarbageLawEntity">
+        update garbage_law
+        set user_id = #{userId,jdbcType=INTEGER},
+            annex_id = #{annexId,jdbcType=INTEGER},
+            law_title = #{lawTitle,jdbcType=VARCHAR},
+            law_file_name = #{lawFileName,jdbcType=VARCHAR},
+            law_pub_date = #{lawPubDate,jdbcType=TIMESTAMP},
+            law_location = #{lawLocation,jdbcType=VARCHAR},
+            see_times = #{seeTimes,jdbcType=INTEGER},
+            law_code = #{lawCode,jdbcType=VARCHAR}
+        where law_id = #{lawId,jdbcType=INTEGER}
+    </update>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from garbage_law
+        where law_id = #{lawId,jdbcType=INTEGER}
+    </delete>
+</mapper>
