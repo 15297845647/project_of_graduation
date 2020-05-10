@@ -1,25 +1,13 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>垃圾分类查询</title>
-    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="../css/nivoslider.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="../css/prettyPhoto.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="../css/responsive.css" type="text/css" media="all" />
-
-    <link rel="shortcut icon" href="images/favicon.ico" />
-    <script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.nivo.slider.pack.js"></script>
-    <script type="text/javascript" src="../js/jquery.carouFredSel-5.6.2.js"></script>
-    <script type="text/javascript" src="../js/jquery.prettyPhoto.js"></script>
-    <script type="text/javascript" src="../js/jquery.sticky.js"></script>
-    <script type="text/javascript" src="../js/jquery-scroller-v1.min.js"></script>
-    <script type="text/javascript" src="../js/kendo.web.min.js"></script>
-    <script type="text/javascript" src="../js/custom.js"></script>
-    <script src="../assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
-
+    <meta charset="utf-8" />
+    <title>法律法规明细</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <meta name="MobileOptimized" content="320">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="../assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -33,61 +21,59 @@
     <link href="../assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
     <link href="../assets/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
-    <link rel="shortcut icon" href="favicon.ico" />
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link href="../assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
-    <style>
-        div.search {
-            padding:10px 0;
-        }
-        form {
-            position:relative;
-            width:800px;
-            margin:0 auto;
-        }
-        input,button {
-            border:none;
-            outline:none;
-        }
-        input {
-            width:100%;
-            height:42px;
-            padding-left:13px;
-        }
-        button {
-            height:42px;
-            width:42px;
-            cursor:pointer;
-            position:absolute;
-        }
-        .bar7 form {
-            height:42px;
-        }
-        .bar7 input {
-            width:400px;
-            border-radius:42px;
-            border:2px solid #324B4E;
-            background:#F9F0DA;
-            transition:.3s linear;
-            float:right;
-        }
-        .bar7 input:focus {
-            width:500px;
-        }
-        .bar7 button {
-            background:none;
-            top:-2px;
-            right:20px;
-        }
-        .bar7 button:before {
-            content:"Search";
-            font-family:FontAwesome;
-            color:#324b4e;
-        }
-    </style>
+    <!-- END PAGE LEVEL STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
 </head>
-<body class="page-header-fixed page-sidebar-closed" style="background-color: rgb(236,240,241)">
-<!-- BEGIN HEADER -->
+<body class="page-header-fixed page-sidebar-closed">
+<style type="text/css">
+    .head_title {
+        font-size: 36px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.1;
+        color: inherit;
+        margin: .67em 0;
+    }
+
+    .article-content {
+        max-width: 600px;
+        display:inline-block;
+        text-align: justify;
+    }
+
+    .article-content img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin-right: auto;
+        margin-left: auto;
+        word-wrap: break-word;
+        word-break: break-all;
+        vertical-align: middle;
+    }
+
+    .article-content p {
+        font-size: 16px;
+        line-height: 24px;
+        color: #333;
+        text-align: justify;
+        margin-top: 22px;
+    }
+
+    .para {
+        font-size: 14px;
+        word-wrap: break-word;
+        color: #333;
+        margin-bottom: 15px;
+        text-indent: 2em;
+        line-height: 24px;
+        zoom: 1;
+    }
+</style>
 <div class="header navbar navbar-inverse navbar-fixed-top">
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="header-inner">
@@ -102,7 +88,7 @@
                 <li>
                     <a href="/news/toNewsList">新闻资讯</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/garbageLaw/toLawsList">法律法规</a>
                 </li>
                 <li>
@@ -111,12 +97,12 @@
                 <li>
                     <a href="">小题库</a>
                 </li>
-                <li class="active">
+                <li>
                     <a data-toggle="dropdown" data-hover="dropdown" data-close-others="true" class="dropdown-toggle" href="">小知识
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/garbage/garbageQuery" >垃圾分类查询</a></li>
+                        <li><a href="/garbage/toQueryGarbage">垃圾分类查询</a></li>
                         <li><a href="index.html">垃圾分类图标</a></li>
                         <li><a href="index.html">垃圾分类大全</a></li>
                     </ul>
@@ -166,12 +152,9 @@
     </div>
     <!-- END TOP NAVIGATION BAR -->
 </div>
-<!-- END HEADER -->
 <div class="container">
     <div class="page-container">
         <div class="page-content">
-
-            <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
             <!-- BEGIN STYLE CUSTOMIZER -->
             <div class="theme-panel hidden-xs hidden-sm">
                 <div class="toggler"></div>
@@ -219,87 +202,44 @@
                 </div>
             </div>
             <!-- END STYLE CUSTOMIZER -->
-            <!-- BEGIN PAGE HEADER-->
             <div class="row">
                 <div class="col-md-12">
-                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-                    <h3 class="page-title">
-                        垃圾分类查询
-                    </h3>
                     <ul class="page-breadcrumb breadcrumb">
                         <li>
                             <i class="fa fa-home"></i>
-                            <a href="/index/toIndexPage">首页</a>
+                            <a href="/garbageLaw/toLawsList">法律法规列表</a>
                             <i class="fa fa-angle-right"></i>
                         </li>
-                        <li><a href="/garbage/garbageQuery">垃圾分类查询</a></li>
+                        <li><a href="#">详情</a></li>
                     </ul>
                     <!-- END PAGE TITLE & BREADCRUMB-->
                 </div>
             </div>
-            <!-- END PAGE HEADER-->
-            <div style="margin-left: auto;margin-right: auto">
-                <div class="row" style="width:50%;display: block;margin-left: auto;margin-right: auto">
+            <div style="text-align: center">
+                <h3 class="block" th:text="${lawsDetailModel.lawsDetail.lawTitle}"></h3>
+                <div style="text-align: center;height: 30px;">
+                    <p>发布时间：<span th:text="${#dates.format(lawsDetailModel.lawsDetail.lawPubDate,'yyyy-MM-dd')}"></span>&emsp; &emsp; &emsp; 发布城市：[[${lawsDetailModel.lawsDetail.lawLocation}]]</p>
+                </div>
+                <hr style="border: 1px solid dodgerblue">
 
-                    <div class="col-md-1"><img src="../images/favicon.png" style="width: 45px;height: 50px;"></div>
-                    <div class="col-md-4"><b><h3>垃圾分类查询</h3></b></div>
-                </div>
-                <div class="row" style="width: 100%;">
-                    <div class="search bar7" style="padding:10px 0;">
-                        <form style="width: 30%" action="/garbage/garbageQuery">
-                            <input type="text" placeholder="请输入垃圾名称" name="garbageName" th:value="@{garbageModel.queryGarbage}!=null?${garbageModel.queryGarbage}:'' ">
-                            <button type="submit"></button>
-                        </form>
+                <div id="dynamic_pager_content1" class="well" style="text-align: left">
+                    <input type="hidden" id="files" th:value="${lawsDetailModel.lawsDetail.lawFileName}">
+                    <div class="row">
+                        <div class="col-md-1 col-xs-0"></div>
+                        <div class="col-md-9 col-xs-12">
+                            <div style="text-align: center" id="lawContent" >
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div style="margin-left: 20%;margin-right: 20%;font-family:Microsoft YaHei">
-                    <strong><h3 style="color: rgb(119,119,119)">热门查询:</h3></strong>
-                    <ul class="list-inline sidebar-tags" th:each="garbage:${garbageModel.garbageTopList}">
-                        <li style="float:left;margin-right: 10px;"><a th:href="@{'/garbage/garbageQuery?garbageName='+${garbage.garbageName}}"><i class="fa fa-tags"></i>[[${garbage.garbageName}]]</a></li>
-                    </ul>
-
-                </div>
-                <hr style="width: 60%;margin-left: 15%;margin-top: 10%">
-                <div style="margin-left: 20%;margin-top: 5%;margin-right: 20%" id="queryResult">
-                    <div th:each="garbage:${garbageModel.queryList}" th:if="${garbageModel.queryList!=null}">
-<!--                            <img src="" style="width: 200px;height: 200px">-->
-                        <h3>[[${garbage.garbageName}]]属于[[${garbage.categoryName}]]</h3>
-                        <h3>[[${garbage.categoryName}]]是指</h3>
-                        <p>[[${garbage.categoryExplain}]]</p>
-                        <br>
-                        <h3>[[${garbage.categoryName}]]投放要求</h3>
-                        <p>[[${garbage.categoryRequire}]]</p>
-                        <br>
-                        <h3>[[${garbage.categoryName}]]常见物品</h3>
-                        <p>[[${garbage.categoryCommon}]]</p>
-                        <hr>
-                    </div>
-                </div>
             </div>
-
         </div>
-        <div id="place">
-<!--            <iframe style="width: 100%" src="../images/test.html" scrolling="no"  marginwidth="0" id="iframepage" onLoad="iFrameHeight()"></iframe>-->
-        </div>
-        <!-- END PAGE -->
     </div>
-
 </div>
 
-<!-- BEGIN FOOTER -->
-<div class="footer">
-    <div class="footer-inner">
-        2020 yinshuhao
-    </div>
-    <div class="footer-tools">
-			<span class="go-top">
-			<i class="fa fa-angle-up"></i>
-			</span>
-    </div>
-</div>
-<!-- END FOOTER -->
 
 
+
+<script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script src="../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
@@ -314,33 +254,31 @@
 <script type="text/javascript" src="../assets/plugins/jquery-bootpag/jquery.bootpag.min.js"></script>
 <script type="text/javascript" src="../assets/plugins/holder.js"></script>
 <!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="../assets/scripts/app.js"></script>
 <script src="../assets/scripts/ui-general.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+    <script>
+        function toContent(fileNames){
+            fetch("../laws/"+fileNames).then(response => {
+                return response.text();
+        })
+        .then(data => {
+                document.getElementById("lawContent").innerHTML = data;
+        });
+        }
+
+    </script>
 <script>
+    var fileName;
     jQuery(document).ready(function() {
+        // initiate layout and plugins
+        fileName=document.getElementById("files").value;
+        toContent(fileName);
         App.init();
         UIGeneral.init();
     });
 </script>
 
-
-<script type="text/javascript" language="javascript">
-    function iFrameHeight() {
-        var ifm= document.getElementById("iframepage");
-        var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;
-        if(ifm != null && subWeb != null) {
-            ifm.height = subWeb.body.scrollHeight;
-            ifm.width = subWeb.body.scrollWidth;
-        }
-    }
-</script>
-<script>
-    fetch("../test2.html").then(response => {
-        return response.text();
-    })
-    .then(data => {
-        document.getElementById("place").innerHTML = data;
-    });
-</script>
 </body>
 </html>

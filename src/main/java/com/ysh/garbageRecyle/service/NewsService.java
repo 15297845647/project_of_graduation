@@ -29,4 +29,8 @@ public interface NewsService {
     * 获取所有新闻的代码
     */
     public List<String> getAllNewsCode();
+    /*
+    *获取所有的新闻的城市
+    */
+    public List<String> getAllCity();
 }

@@ -14,5 +14,7 @@ import com.ysh.garbageRecyle.entity.GarbageLawEntity;
 public interface GarbageLawMapper extends BaseMapper<GarbageLawEntity>  {
 	
     List<String> getAllCode();
+
+    List<String> getAllLawCity();
 	
 }

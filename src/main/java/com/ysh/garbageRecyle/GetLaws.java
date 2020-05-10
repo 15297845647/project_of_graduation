@@ -238,7 +238,7 @@ public class GetLaws {
         for (Laws law:allNews){
             GarbageLawEntity garbageLawEntity=new GarbageLawEntity();
             garbageLawEntity.setLawFileName(law.getHtmlContentFileName());
-            SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:MM:SS");
+            SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
             String s = law.getTime();
             Date date=null;
             try {

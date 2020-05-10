@@ -71,11 +71,19 @@ public class GarbageServiceImpl  implements GarbageService {
 	public List<GarbageEntity> getTopGarbage() {
 		return garbageMapper.getTopGarbage();
 	}
-
+	/*根据垃圾的名称等模糊查找*/
 	@Override
 	public List<GarbageEntity> findGarbageByName(GarbageEntity entity) {
 		return garbageMapper.findGarbageByCondition(entity);
 	}
-
+	/*
+	*根据垃圾名称精确查询
+	*/
+	@Override
+	public GarbageEntity findByEqualName(String garbageName){
+		GarbageEntity entity=new GarbageEntity();
+		 entity=garbageMapper.findByname(garbageName);
+		return entity;
+	}
 
 }

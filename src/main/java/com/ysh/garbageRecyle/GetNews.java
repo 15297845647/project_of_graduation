@@ -220,7 +220,7 @@ public class GetNews {
 
         for (News news:allNews){
             NewsEntity newsEntity=new NewsEntity();
-            SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:MM:SS");
+            SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
             String s =news.getTime();
             Date date=null;
             try {
