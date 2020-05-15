@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,9 +44,7 @@ public class QuestionServiceImpl  implements QuestionService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Map<String, Object> save(QuestionEntity entity) {
-    	entity.setQuestionId(0);
     	questionMapper.insertSelective(entity);
-    	
     	Map<String, Object> result = new HashMap<>();
     	result.put("id" , entity.getQuestionId());
     	return result;
@@ -65,6 +64,19 @@ public class QuestionServiceImpl  implements QuestionService {
     	}
     	return questionMapper.updateByPrimaryKeySelective(questionEntity);
     }
+
+
+    //随机获得试卷题目
+	@Override
+	public List<QuestionEntity> getBtRand(int dataNum) {
+		return questionMapper.getByRand(dataNum);
+	}
+
+	//查询所有题目
+	@Override
+	public List<QuestionEntity> findAll() {
+		return questionMapper.selectByCondition(null);
+	}
 
 
 }

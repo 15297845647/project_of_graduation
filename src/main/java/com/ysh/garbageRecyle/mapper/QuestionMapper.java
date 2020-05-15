@@ -13,6 +13,7 @@ import com.ysh.garbageRecyle.entity.QuestionEntity;
 @Repository
 public interface QuestionMapper extends BaseMapper<QuestionEntity>  {
 	
-	
-	
+	//从数据库中随机取n条数据
+    public List<QuestionEntity> getByRand(int dataNum);
+
 }

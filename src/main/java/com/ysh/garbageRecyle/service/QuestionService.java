@@ -5,6 +5,7 @@ import com.ysh.garbageRecyle.entity.QuestionEntity;
 import com.github.pagehelper.PageInfo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,4 +25,9 @@ public interface QuestionService {
 	public Integer deleteById(QuestionEntity questionEntity);
 
     public Integer updateById(QuestionEntity questionEntity);
+
+    public List<QuestionEntity> getBtRand(int dataNum);
+
+    //查询所有题目
+    public List<QuestionEntity> findAll();
 }

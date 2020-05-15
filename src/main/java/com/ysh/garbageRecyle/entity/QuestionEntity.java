@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springframework.data.annotation.Transient;
 
 /**
  * question
@@ -62,79 +63,17 @@ public class QuestionEntity implements Serializable {
      * 答错次数
      */
     private Integer answersWrong;
+    /*
+    *垃圾类别
+    */
+    private Integer questionCategory;
+
+    /*
+    * 垃圾类别名称
+    */
+    @Transient
+    private String categoryName;
 
     private static final long serialVersionUID = 1L;
-
-    public Integer getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(Integer questionId) {
-        this.questionId = questionId;
-    }
-
-    public String getQuestionContent() {
-        return questionContent;
-    }
-
-    public void setQuestionContent(String questionContent) {
-        this.questionContent = questionContent;
-    }
-
-    public Integer getAnswerNumber() {
-        return answerNumber;
-    }
-
-    public void setAnswerNumber(Integer answerNumber) {
-        this.answerNumber = answerNumber;
-    }
-
-    public Integer getQuestionType() {
-        return questionType;
-    }
-
-    public void setQuestionType(Integer questionType) {
-        this.questionType = questionType;
-    }
-
-    public String getRightAnswer() {
-        return rightAnswer;
-    }
-
-    public void setRightAnswer(String rightAnswer) {
-        this.rightAnswer = rightAnswer;
-    }
-
-    public String getQuestionTitle() {
-        return questionTitle;
-    }
-
-    public void setQuestionTitle(String questionTitle) {
-        this.questionTitle = questionTitle;
-    }
-
-    public Integer getQuestionStatus() {
-        return questionStatus;
-    }
-
-    public void setQuestionStatus(Integer questionStatus) {
-        this.questionStatus = questionStatus;
-    }
-
-    public Integer getAnswersTime() {
-        return answersTime;
-    }
-
-    public void setAnswersTime(Integer answersTime) {
-        this.answersTime = answersTime;
-    }
-
-    public Integer getAnswersWrong() {
-        return answersWrong;
-    }
-
-    public void setAnswersWrong(Integer answersWrong) {
-        this.answersWrong = answersWrong;
-    }
 
 }

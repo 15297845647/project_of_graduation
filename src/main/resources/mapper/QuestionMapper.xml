@@ -12,11 +12,13 @@
         <result column="question_status" jdbcType="INTEGER" property="questionStatus" />
         <result column="answers_time" jdbcType="INTEGER" property="answersTime" />
         <result column="answers_wrong" jdbcType="INTEGER" property="answersWrong" />
+        <result column="question_category" jdbcType="INTEGER" property="questionCategory" />
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
     </resultMap>
     
     <sql id="Base_Column_List">
         question_id, question_content, answer_number, question_type, right_answer, question_title, 
-        question_status, answers_time, answers_wrong
+        question_status, answers_time, answers_wrong, question_category
     </sql>
     
     <sql id="Base_Where_Clause">
@@ -45,30 +47,48 @@
             <if test="answersWrong != null">
                  and answers_wrong = #{answersWrong,jdbcType=INTEGER}
             </if>
+            <if test="questionCategory != null">
+                and question_category = #{questionCategory,jdbcType=INTEGER}
+            </if>
         </where>
     </sql>
     
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select 
-        <include refid="Base_Column_List" />
-        from question
+    <select id="selectByPrimaryKey" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity" resultMap="BaseResultMap">
+       SELECT
+            q.question_id,
+            q.question_content,
+            q.answer_number,
+            q.question_type,
+            q.right_answer,
+            q.question_title,
+            q.question_status,
+            q.answers_time,
+            q.answers_wrong,
+            q.question_category,
+            gb.category_name
+        FROM
+            question q
+            LEFT JOIN garbage_category gb ON q.question_category = gb.category_id
         where question_id = #{questionId,jdbcType=INTEGER}
     </select>
     
     <select id="selectByCondition" resultMap="BaseResultMap">
-        select question_id, question_content, answer_number, question_type, right_answer, 
-        question_title, question_status, answers_time, answers_wrong
-        from question
+        select q.question_id, q.question_content, q.answer_number, q.question_type, q.right_answer,
+        q.question_title, q.question_status, q.answers_time, q.answers_wrong, q.question_category,gb.category_name
+        from question q left join garbage_category gb on q.question_category=gb.category_id
         <include refid="Base_Where_Clause" />
     </select>
-    
+    <select id="getByRand" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * FROM question ORDER BY rand() LIMIT #{dataNum};
+    </select>
+
     <insert id="insert" keyColumn="question_id" keyProperty="questionId" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity" useGeneratedKeys="true">
         insert into question (question_content, answer_number, question_type, 
-            right_answer, question_title, question_status, 
+            right_answer, question_title, question_status, question_category,
             answers_time, answers_wrong)
         values (#{questionContent,jdbcType=VARCHAR}, #{answerNumber,jdbcType=INTEGER}, #{questionType,jdbcType=INTEGER}, 
             #{rightAnswer,jdbcType=VARCHAR}, #{questionTitle,jdbcType=VARCHAR}, #{questionStatus,jdbcType=INTEGER}, 
-            #{answersTime,jdbcType=INTEGER}, #{answersWrong,jdbcType=INTEGER})
+            #{answersTime,jdbcType=INTEGER}, #{answersWrong,jdbcType=INTEGER},#{questionCategory,jdbcType=INTEGER})
     </insert>
     
     <insert id="insertSelective" keyColumn="question_id" keyProperty="questionId" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity" useGeneratedKeys="true">
@@ -98,6 +118,9 @@
             <if test="answersWrong != null">
                 answers_wrong,
             </if>
+            <if test="questionCategory != null">
+                question_category,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="questionContent != null">
@@ -123,6 +146,9 @@
             </if>
             <if test="answersWrong != null">
                 #{answersWrong,jdbcType=INTEGER},
+            </if>
+            <if test="questionCategory != null">
+                #{questionCategory,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -154,6 +180,9 @@
             <if test="answersWrong != null">
                 answers_wrong = #{answersWrong,jdbcType=INTEGER},
             </if>
+            <if test="questionCategory != null">
+                question_category = #{questionCategory,jdbcType=INTEGER},
+            </if>
         </set>
         where question_id = #{questionId,jdbcType=INTEGER}
     </update>
@@ -167,12 +196,15 @@
             question_title = #{questionTitle,jdbcType=VARCHAR},
             question_status = #{questionStatus,jdbcType=INTEGER},
             answers_time = #{answersTime,jdbcType=INTEGER},
-            answers_wrong = #{answersWrong,jdbcType=INTEGER}
+            answers_wrong = #{answersWrong,jdbcType=INTEGER},
+            question_category=#{questionCategory,jdbcType=INTEGER}
         where question_id = #{questionId,jdbcType=INTEGER}
     </update>
     
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <delete id="deleteByPrimaryKey" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity">
         delete from question
         where question_id = #{questionId,jdbcType=INTEGER}
     </delete>
+
+
 </mapper>
