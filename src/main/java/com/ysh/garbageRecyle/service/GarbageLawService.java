@@ -29,4 +29,8 @@ public interface GarbageLawService {
     * 获取所有法律法规code
     */
     public List<String> getAllCode();
+    /*
+    *获取所有城市
+    */
+    public List<String> getAllLawCity();
 }

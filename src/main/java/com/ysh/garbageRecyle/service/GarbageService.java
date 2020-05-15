@@ -29,4 +29,6 @@ public interface GarbageService {
     public List<GarbageEntity> getTopGarbage();
 
     public List<GarbageEntity> findGarbageByName(GarbageEntity entity);
+
+    public GarbageEntity findByEqualName(String garbageName);
 }

@@ -72,5 +72,10 @@ public class NewsServiceImpl  implements NewsService {
 		return newsMapper.getAllNewsCode();
 	}
 
+	@Override
+	public List<String> getAllCity() {
+		return newsMapper.getAllCity();
+	}
+
 
 }

@@ -71,5 +71,10 @@ public class GarbageLawServiceImpl  implements GarbageLawService {
         return garbageLawMapper.getAllCode();
     }
 
+    @Override
+    public List<String> getAllLawCity() {
+        return garbageLawMapper.getAllLawCity();
+    }
+
 
 }

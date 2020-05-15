@@ -108,6 +108,25 @@ public class GarbageController {
         model.addAttribute("garbageTopList",list);
         return new ModelAndView("queryGarbage","garbageModel",model);
     }
-
+    /*
+    * 根据垃圾名称精确查找
+    */
+    @RequestMapping(value = "/queryGarbageByName", method = RequestMethod.GET,produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String queryGarbageByName(@RequestParam(required = false) String garbageName){
+        String result="";
+        GarbageEntity entity=new GarbageEntity();
+        if(garbageName!=""&&garbageName!=null){
+            entity=service.findByEqualName(garbageName);
+        }
+        if(entity==null){
+            result="The name not exit in system";
+        }else {
+           String categoryName=entity.getCategoryName();
+           result=garbageName+"   :   "+categoryName;
+        }
+        System.out.println(result);
+        return result;
+    }
 }
 

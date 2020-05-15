@@ -13,4 +13,8 @@ import org.springframework.stereotype.Repository;
 public interface GarbageMapper extends BaseMapper<GarbageEntity>{
     public List<GarbageEntity> getTopGarbage();
     public List<GarbageEntity> findGarbageByCondition(GarbageEntity GarbageEntity);
+    /*
+    *根据名字精确查询
+    */
+    public GarbageEntity findByname(String garbageName);
 }

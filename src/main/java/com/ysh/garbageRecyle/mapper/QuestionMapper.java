@@ -7,15 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.ysh.garbageRecyle.entity.NewsEntity;
+import com.ysh.garbageRecyle.entity.QuestionEntity;
 
 @Mapper
 @Repository
-public interface NewsMapper extends BaseMapper<NewsEntity>  {
+public interface QuestionMapper extends BaseMapper<QuestionEntity>  {
+	
+	//ä»æ•°æ®åº“ä¸­éšæœºå–næ¡æ•°æ®
+    public List<QuestionEntity> getByRand(int dataNum);
 
-    public List<String> getAllNewsCode();
-	/*
-    *»ñÈ¡ËùÓĞ³ÇÊĞ
-	*/
-	public List<String> getAllCity();
 }

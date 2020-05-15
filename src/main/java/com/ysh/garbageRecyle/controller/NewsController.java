@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.ysh.garbageRecyle.GetLaws;
 import com.ysh.garbageRecyle.GetNews;
 import com.ysh.garbageRecyle.entity.GarbageLawEntity;
@@ -8,10 +9,13 @@ import com.ysh.garbageRecyle.entity.NewsEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +52,7 @@ public class NewsController {
      * @param entity
      */
     @RequestMapping(value = "/queryByPage", method = RequestMethod.POST)
-    public Object queryByPage(@RequestParam Integer pageNo, @RequestParam Integer pageSize, @RequestBody Map<String, Object> map) {
+    public Object queryByPage(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "8") Integer pageSize, @RequestBody Map<String, Object> map) {
         return service.queryByPage(pageNo, pageSize, map);
     }
     
@@ -97,5 +101,33 @@ public class NewsController {
         return "ok";
     }
 
+    @RequestMapping(value = "/toNewsList",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView newsListIndex(Model model,@RequestParam(required = false) Integer pageNum,@RequestParam(required = false) String city){
+        List<String> cityList=service.getAllCity();
+        model.addAttribute("cityList",cityList);
+        PageInfo<NewsEntity> pageInfo;
+        Map<String,Object> maps=new HashMap<>();
+        if(city!=null&&city!=""){
+            maps.put("city",city);
+        }
+        if(pageNum!=null){
+            pageInfo=service.queryByPage(pageNum,8,maps);
+        }else {
+            pageInfo=service.queryByPage(1,8,maps);
+        }
+        model.addAttribute("pageInfo",pageInfo);
+        return new ModelAndView("newsList","newsModel",model);
+    }
+
+    @RequestMapping(value = "/queryNewsDetail",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView newsListIndex(@RequestParam Integer newsId,Model model){
+        NewsEntity entity = new NewsEntity();
+        entity.setNewsId(newsId);
+        entity=service.getByPrimaryKey(entity);
+        model.addAttribute("newsDetail",entity);
+        return new ModelAndView("newsDetail","newsDetailModel",model);
+    }
 }
 

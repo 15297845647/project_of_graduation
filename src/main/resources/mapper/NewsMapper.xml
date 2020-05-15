@@ -21,7 +21,7 @@
     
     <sql id="Base_Column_List">
         news_id, user_id, annex_id, news_title, news_link, news_source, news_img_url, news_content, 
-        news_content_html, news_pub_date, is_top, city, see_times.news_code
+        news_content_html, news_pub_date, is_top, city, see_times,news_code
     </sql>
     
     <sql id="Base_Where_Clause">
@@ -80,9 +80,13 @@
         news_content, news_content_html, news_pub_date, is_top, city, see_times,news_code
         from news
         <include refid="Base_Where_Clause" />
+        order by news_pub_date desc
     </select>
     <select id="getAllNewsCode" resultType="java.lang.String">
         select news_code from news;
+    </select>
+    <select id="getAllCity" resultType="java.lang.String">
+        SELECT DISTINCT(n.city) from news n;
     </select>
 
     <insert id="insert" keyColumn="news_id" keyProperty="newsId" parameterType="com.ysh.garbageRecyle.entity.NewsEntity" useGeneratedKeys="true">

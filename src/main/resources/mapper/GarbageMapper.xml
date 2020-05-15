@@ -69,6 +69,24 @@
             </if>
         </where>
     </select>
+    <select id="findByname" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        g.garbage_id,
+        g.garbage_name,
+        g.garbage_category_code,
+        gc.category_name,
+        gc.category_explain,
+        gc.category_require,
+        gc.category_common
+        FROM
+        garbage g left join garbage_category gc ON g.garbage_category_code=gc.category_code
+        <where>
+            <if test="garbageName!=null">
+                AND g.garbage_name = #{garbageName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
 
     <insert id="insert" keyColumn="garbage_id" keyProperty="garbageId" parameterType="com.ysh.garbageRecyle.entity.GarbageEntity" useGeneratedKeys="true">
         insert into garbage (garbage_name, garbage_category_code)

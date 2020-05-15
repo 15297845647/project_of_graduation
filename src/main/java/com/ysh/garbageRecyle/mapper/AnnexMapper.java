@@ -7,15 +7,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.ysh.garbageRecyle.entity.NewsEntity;
+import com.ysh.garbageRecyle.entity.AnnexEntity;
 
 @Mapper
 @Repository
-public interface NewsMapper extends BaseMapper<NewsEntity>  {
-
-    public List<String> getAllNewsCode();
-	/*
-    *获取所有城市
-	*/
-	public List<String> getAllCity();
+public interface AnnexMapper extends BaseMapper<AnnexEntity>  {
+	
+	
+	
 }

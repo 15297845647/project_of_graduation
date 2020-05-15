@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysh.garbageRecyle.mapper.AnnexMapper">
+    
+    <resultMap id="BaseResultMap" type="com.ysh.garbageRecyle.entity.AnnexEntity">
+        <id column="annex_id" jdbcType="INTEGER" property="annexId" />
+        <result column="annex_name" jdbcType="VARCHAR" property="annexName" />
+        <result column="annex_link" jdbcType="VARCHAR" property="annexLink" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        annex_id, annex_name, annex_link
+    </sql>
+    
+    <sql id="Base_Where_Clause">
+        <where>
+            <if test="annexName != null">
+                 and annex_name = #{annexName,jdbcType=VARCHAR}
+            </if>
+            <if test="annexLink != null">
+                 and annex_link = #{annexLink,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+        from annex
+        where annex_id = #{annexId,jdbcType=INTEGER}
+    </select>
+    
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select annex_id, annex_name, annex_link
+        from annex
+        <include refid="Base_Where_Clause" />
+    </select>
+    
+    <insert id="insert" parameterType="com.ysh.garbageRecyle.entity.AnnexEntity">
+        insert into annex (annex_id, annex_name, annex_link
+            )
+        values (#{annexId,jdbcType=INTEGER}, #{annexName,jdbcType=VARCHAR}, #{annexLink,jdbcType=VARCHAR}
+            )
+    </insert>
+    
+    <insert id="insertSelective" parameterType="com.ysh.garbageRecyle.entity.AnnexEntity">
+        insert into annex
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="annexId != null">
+                annex_id,
+            </if>
+            <if test="annexName != null">
+                annex_name,
+            </if>
+            <if test="annexLink != null">
+                annex_link,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="annexId != null">
+                #{annexId,jdbcType=INTEGER},
+            </if>
+            <if test="annexName != null">
+                #{annexName,jdbcType=VARCHAR},
+            </if>
+            <if test="annexLink != null">
+                #{annexLink,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.ysh.garbageRecyle.entity.AnnexEntity">
+        update annex
+        <set>
+            <if test="annexName != null">
+                annex_name = #{annexName,jdbcType=VARCHAR},
+            </if>
+            <if test="annexLink != null">
+                annex_link = #{annexLink,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where annex_id = #{annexId,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateByPrimaryKey" parameterType="com.ysh.garbageRecyle.entity.AnnexEntity">
+        update annex
+        set annex_name = #{annexName,jdbcType=VARCHAR},
+            annex_link = #{annexLink,jdbcType=VARCHAR}
+        where annex_id = #{annexId,jdbcType=INTEGER}
+    </update>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from annex
+        where annex_id = #{annexId,jdbcType=INTEGER}
+    </delete>
+</mapper>

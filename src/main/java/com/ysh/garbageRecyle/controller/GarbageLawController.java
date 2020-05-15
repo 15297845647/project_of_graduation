@@ -1,12 +1,16 @@
 package com.ysh.garbageRecyle.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.ysh.garbageRecyle.GetLaws;
+import com.ysh.garbageRecyle.entity.NewsEntity;
 import com.ysh.garbageRecyle.service.GarbageLawService;
 import com.ysh.garbageRecyle.entity.GarbageLawEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import java.util.ArrayList;
@@ -94,6 +98,32 @@ public class GarbageLawController {
         }
         return "ok";
     }
-
+    @RequestMapping(value = "/toLawsList",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView newsListIndex(Model model,@RequestParam(required = false) Integer pageNum,@RequestParam(required = false) String lawLocation){
+        List<String> cityList=service.getAllLawCity();
+        model.addAttribute("cityList",cityList);
+        Map<String,Object> map=null;
+        PageInfo<GarbageLawEntity> pageInfo;
+        if(lawLocation!=null&&lawLocation!=""){
+            map.put("lawLocation",lawLocation);
+        }
+        if(pageNum!=null){
+            pageInfo=service.queryByPage(pageNum,8,map);
+        }else {
+            pageInfo=service.queryByPage(1,8,map);
+        }
+        model.addAttribute("pageInfo",pageInfo);
+        return new ModelAndView("lawsList","lawsModel",model);
+    }
+    @RequestMapping(value = "/queryLawsDetail",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView newsListIndex(@RequestParam Integer lawsId,Model model){
+        GarbageLawEntity entity = new GarbageLawEntity();
+        entity.setLawId(lawsId);
+        entity=service.getByPrimaryKey(entity);
+        model.addAttribute("lawsDetail",entity);
+        return new ModelAndView("lawsDetail","lawsDetailModel",model);
+    }
 }
 

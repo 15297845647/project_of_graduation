@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>答题</title>
+
+    <link href="../assets/answer/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/answer/css/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/answer/css/test.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        .hasBeenAnswer {
+            background: #5d9cec;
+            color:#fff;
+        }
+    </style>
+
+</head>
+<body>
+<div class="main">
+    <!--nr start-->
+    <div class="test_main">
+        <div class="nr_left">
+            <div class="test">
+                <form action="" method="post">
+                    <div class="test_title">
+                        <p class="test_time">
+                            <i class="icon iconfont">&#xe6fb;</i><b class="alt-1">[[${paper.limitTime}]]</b>
+                        </p>
+                        <font><input type="button" name="test_jiaojuan" value="交卷" onclick="submitPaper()"></font>
+                    </div>
+
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>单选题</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">[[${paper.questionNumber}]]</i><span>题，</span><span>合计</span><i class="content_fs">[[${paper.sumScore}]]</i><span>分</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="test_content_nr" >
+                        <ul id="questionBox">
+
+                            <li th:each="question,questionStat:${paper.questionList}" th:id="${question.questionId}">
+                                <div class="test_content_nr_tt">
+                                    <i>[[${questionStat.index+1}]]</i><font th:text="${question.questionTitle}"></font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" th:id="'answer_'+${questionStat.index}+'_1'" th:attr="name='question['+${questionStat.index}+'].questionId'" value="A"/>
+
+
+                                            <label th:attr="for='answer_'+${questionStat.index}+'_1'">
+                                                A.
+                                                <p class="ue" style="display: inline;" th:text="${question.chooseDto.a}"></p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck"
+                                                   th:id="'answer_'+${questionStat.index}+'_2'" th:attr="name='question['+${questionStat.index}+'].questionId'" value="B"
+                                            />
+
+
+                                            <label th:attr="for='answer_'+${questionStat.index}+'_2'">
+                                                B.
+                                                <p class="ue" style="display: inline;" th:text="${question.chooseDto.b}"></p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck"
+                                                   th:id="'answer_'+${questionStat.index}+'_3'" th:attr="name='question['+${questionStat.index}+'].questionId'" value="C"
+                                            />
+
+
+                                            <label th:attr="for='answer_'+${questionStat.index}+'_3'" >
+                                                C.
+                                                <p class="ue" style="display: inline;" th:text="${question.chooseDto.c}"></p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" th:attr="name='question['+${questionStat.index}+'].questionId'" value="D"
+                                                   th:id="'answer_'+${questionStat.index}+'_4'"
+                                            />
+
+
+                                            <label th:attr="for='answer_'+${questionStat.index}+'_4'">
+                                                D.
+                                                <p class="ue" style="display: inline;" th:text="${question.chooseDto.c}"></p>
+                                            </label>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+
+
+                        </ul>
+                    </div>
+
+
+                </form>
+            </div>
+
+        </div>
+        <div class="nr_right">
+            <div class="nr_rt_main">
+                <div class="rt_nr1">
+                    <div class="rt_nr1_title">
+                        <h1>
+                            <i class="icon iconfont">&#xe692;</i>答题卡
+                        </h1>
+                        <p class="test_time">
+                            <i class="icon iconfont">&#xe6fb;</i><b class="alt-1">[[${paper.limitTime}]]</b>
+                        </p>
+                    </div>
+
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>单选题</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">[[${paper.questionNumber}]]</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet" id="rt_content_nr">
+                            <ul>
+
+                                <li th:each="questions,questionsStat:${paper.questionList}">
+                                    <a th:href="@{'#'+${questions.questionId}}">[[${questionsStat.index+1}]]</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--nr end-->
+    <div class="foot"></div>
+</div>
+
+<script src="../assets/answer/js/jquery-1.11.3.min.js"></script>
+<script src="../assets/answer/js/jquery.easy-pie-chart.js"></script>
+<!--时间js-->
+<script src="../assets/answer/js/jquery.countdown.js"></script>
+<script th:inline="javascript">
+    var paper = [[${examModel.paper}]];
+</script>
+<script>
+
+    window.jQuery(function($) {
+        "use strict";
+
+        $('time').countDown({
+            with_separators : false
+        });
+        $('.alt-1').countDown({
+            css_class : 'countdown-alt-1'
+        });
+        $('.alt-2').countDown({
+            css_class : 'countdown-alt-2'
+        });
+        // alert(paper.questionList.toString());
+        forTimeLisener();
+    });
+
+
+    $(function() {
+        $('li.option label').click(function() {
+            var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
+            var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
+            // 设置已答题
+            if(!cardLi.hasClass('hasBeenAnswer')){
+                cardLi.addClass('hasBeenAnswer');
+            }
+
+        });
+    });
+
+    //时间到了自动交卷
+    function forTimeLisener() {
+        var theTime=document.getElementsByTagName("time")[0];//content监听的元素id
+//options：监听的属性
+        var options = { attributes: true, attributeFilter:['datetime']};
+//回调事件
+        var mutationObserver = new MutationObserver(callback);
+        mutationObserver.observe(theTime, options);
+    }
+    function callback(mutationsList, observer) {
+
+        var times=document.getElementsByTagName("time");
+        var showtime = document.getElementsByTagName("time").item(0).attributes["datetime"].value;
+        console.log(showtime)
+        if(showtime=="PT00H00M00S"){
+            saveAnswer();
+            toSubmit();
+        }
+    }
+    function saveAnswer() {
+        //获得用户选的答案,存入paper中
+        $('#questionBox').children().each(function(){
+            var questionId=$(this).attr('id');
+            var useSelect='';
+            $(this).find('input').each(function () {
+                if($(this).is(":checked")){
+                    useSelect=$(this).val();
+                }
+            });
+            var questionList=paper.questionList;
+            for(var i=0;i<questionList.length;i++){
+                if(questionId==(questionList[i].questionId)){
+                    questionList[i].usersAnser=useSelect;
+                    // alert(questionList[i].usersAnser);
+                }
+            }
+            paper.questionList=questionList;
+        });
+    }
+    function toSubmit() {
+        var papers=JSON.stringify(paper);
+        $.ajax({
+            url: "/question/toTestResult",
+            type: 'POST',
+            dataType : "json",//后台返回值类型
+            contentType: "application/json", //如果提交的是json数据类型，则必须有此参数,表示提交的数据类型
+            data: papers,
+            success : function(data){
+            }
+        });
+    }
+    function submitPaper() {
+
+        $('#rt_content_nr ul li a').each(function() {
+            if (!($(this).hasClass('hasBeenAnswer'))) {
+                var al=confirm("还有题目未完成是否确认交卷？");
+                if(al==false){
+                    return false;
+                }else {
+                    saveAnswer();
+                    toSubmit();
+                }
+                return false;
+            }
+        });
+    }
+</script>
+</body>
+</html>
