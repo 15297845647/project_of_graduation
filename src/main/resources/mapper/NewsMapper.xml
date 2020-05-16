@@ -88,6 +88,11 @@
     <select id="getAllCity" resultType="java.lang.String">
         SELECT DISTINCT(n.city) from news n;
     </select>
+    <select id="selectAllNews" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from news
+    </select>
 
     <insert id="insert" keyColumn="news_id" keyProperty="newsId" parameterType="com.ysh.garbageRecyle.entity.NewsEntity" useGeneratedKeys="true">
         insert into news (user_id, annex_id, news_title, 

@@ -52,4 +52,9 @@ public class IndexController {
     public String toIndexPage(Model model){
         return "index";
     }
+
+    @RequestMapping(value = "/toAdminIndexPage")
+    public String toAdminIndexPage(Model model){
+        return "adminIndex";
+    }
 }

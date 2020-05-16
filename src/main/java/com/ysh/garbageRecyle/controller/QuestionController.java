@@ -335,6 +335,27 @@ public class QuestionController {
         }else {
             return "failed";
         }
+    }
+
+    //删除题目
+    @RequestMapping(value = "/deleteTopic", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteTopic(@RequestParam(value = "ids[]") String[] ids,Model model){
+        int count=0;
+        for (int i=0;i<ids.length;i++){
+            int id=Integer.parseInt(ids[i]);
+            QuestionEntity questionEntity=new QuestionEntity();
+            questionEntity.setQuestionId(id);
+           int result= service.deleteById(questionEntity);
+            if(result>0){
+                count++;
+            }
+        }
+        if (count==ids.length){
+            return "success";
+        }else {
+            return "failed";
+        }
 
     }
 

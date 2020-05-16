@@ -18,4 +18,6 @@ public interface NewsMapper extends BaseMapper<NewsEntity>  {
     *获取所有城市
 	*/
 	public List<String> getAllCity();
+	//获取所有新闻
+	public List<NewsEntity> selectAllNews();
 }

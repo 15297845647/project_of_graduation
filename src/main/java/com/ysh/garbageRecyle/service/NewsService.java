@@ -33,4 +33,6 @@ public interface NewsService {
     *获取所有的新闻的城市
     */
     public List<String> getAllCity();
+    //获取所有新闻
+    public List<NewsEntity> selectAllNews();
 }

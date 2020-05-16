@@ -44,7 +44,6 @@ public class NewsServiceImpl  implements NewsService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Map<String, Object> save(NewsEntity entity) {
-    	entity.setNewsId(0);
     	newsMapper.insertSelective(entity);
     	
     	Map<String, Object> result = new HashMap<>();
@@ -75,6 +74,11 @@ public class NewsServiceImpl  implements NewsService {
 	@Override
 	public List<String> getAllCity() {
 		return newsMapper.getAllCity();
+	}
+
+	@Override
+	public List<NewsEntity> selectAllNews() {
+		return newsMapper.selectAllNews();
 	}
 
 

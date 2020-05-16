@@ -82,32 +82,28 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     <span class="title">首页</span>
                 </a>
             </li>
-            <li class="active">
+            <li class="">
                 <a href="javascript:;">
                     <i class="fa fa-cogs"></i>
                     <span class="title">题库管理</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="">
+                        <a href="layout_session_timeout.html">
+                            查看题库</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="active" data-placement="right">
+                <a href="#" target="_blank">
+                    <i class="fa fa-gift"></i>
+                    <span class="title">新闻资讯管理</span>
                     <span class="selected"></span>
                     <span class="arrow open"></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="active">
-                        <a href="layout_session_timeout.html">
-                            查看题库</a>
-                    </li>
-                    <li >
-                        <a href="layout_idle_timeout.html">
-                            录入题目</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="tooltips" data-placement="right" data-original-title="Frontend&nbsp;Theme For&nbsp;Metronic&nbsp;Admin">
-                <a href="#" target="_blank">
-                    <i class="fa fa-gift"></i>
-                    <span class="title">新闻资讯管理</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                    <li >
                         <a href="ui_general.html">
                             查看所有新闻资讯</a>
                     </li>
@@ -169,27 +165,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <!-- END SIDEBAR -->
     <!-- BEGIN PAGE -->
     <div class="page-content">
-        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-        <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                        Widget settings form goes here
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn blue">Save changes</button>
-                        <button type="button" class="btn default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM--><!-- /.modal -->
         <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
         <!-- BEGIN STYLE CUSTOMIZER -->
         <div class="theme-panel hidden-xs hidden-sm">
@@ -243,7 +219,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <div class="col-md-12">
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title">
-                    Dashboard <small>statistics and more</small>
+                    新闻管理 <small>垃圾分类新闻资讯</small>
                 </h3>
                 <ul class="page-breadcrumb breadcrumb">
                     <li>
@@ -251,7 +227,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <a href="index.html">首页</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
-                    <li><a href="#">题目管理</a></li>
+                    <li><a href="#">新闻管理</a></li>
                     <li class="pull-right">
                         <div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
                             <i class="fa fa-calendar"></i>
@@ -268,14 +244,14 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         <div class="row" style="margin-top: 3%">
             <div class="portlet box grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-user"></i>题目列表</div>
+                    <div class="caption"><i class="fa fa-user"></i>新闻列表</div>
                     <div class="actions">
-                        <a class="btn blue" data-toggle="modal" href="#responsive">><i class="fa fa-pencil"></i> 添加</a>
                         <div class="btn-group">
-                            <a class="btn red" id="deleteBtn">
-                                 删除
+                            <a class="btn red" id="deleteBtn" onclick="deleteBtn()">
+                                删除
                             </a>
                         </div>
+                        <a class="btn blue" onclick="updateNews()"><i class="fa fa-pencil"></i>更新</a>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -284,30 +260,23 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <tr>
                             <th style="width1:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_2 .checkboxes" /></th>
                             <th style="text-align: center">序号</th>
-                            <th style="text-align: center">题目</th>
-                            <th  style="text-align: center">题目选项</th>
-                            <th  style="text-align: center">题目类型</th>
-                            <th  style="text-align: center">关联垃圾类别</th>
-                            <th  style="text-align: center">题目状态</th>
-                            <th  style="text-align: center">题目正确答案</th>
+                            <th style="text-align: center">标题</th>
+                            <th  style="text-align: center">发布时间</th>
+                            <th  style="text-align: center">城市</th>
+                            <th  style="text-align: center">查看次数</th>
                             <th  style="text-align: center">操作</th>
                         </tr>
                         </thead>
                         <tbody id="topicList">
-                        <tr class="odd gradeX" th:each="topic,topicStat:${topicModel.topicList}">
-                            <td><input type="checkbox" name="questionIdCheck" class="checkboxes" th:value="${topic.questionId}"/></td>
-                            <td>[[${topicStat.index+1}]]</td>
-                            <td th:text="${topic.questionTitle}"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${topic.questionContent}"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${topic.questionType}==1?'单选':'多选'"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${topic.categoryName}"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${topic.questionStatus}==1?'启用':'未启用'"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${topic.rightAnswer}"  style="width: 50px;text-align: center"></td>
+                        <tr class="odd gradeX" th:each="news,newsStat:${newsManageModel.newsEntityList}">
+                            <td><input type="checkbox" name="newsIdCheck" class="checkboxes" th:value="${news.newsId}"/></td>
+                            <td>[[${newsStat.index+1}]]</td>
+                            <td th:text="${news.newsTitle}"  style="width: 50px;text-align: center"></td>
+                            <td th:text="${#dates.format(news.newsPubDate,'yyyy-MM-dd')}"  style="width: 50px;text-align: center"></td>
+                            <td th:text="${news.city}"  style="width: 50px;text-align: center"></td>
+                            <td th:text="${news.seeTimes}"  style="width: 50px;text-align: center"></td>
                             <td  style="width: 50px;text-align: center">
-                                <a th:onclick="'javascript:toEditOnUse('+${topic.questionId}+')'" th:if="${topic.questionStatus==1&&topic.questionStatus!=null}">关闭启用</a>
-                                <a th:onclick="'javascript:toEditOnUse('+${topic.questionId}+')'" th:if="${topic.questionStatus==0&&topic.questionStatus!=null}">启用</a>
-
-                                <a class="btn blue" th:href="@{'/question/toEditQuestion?topicId='+${topic.questionId}}"  style="margin-left: 10px">编辑</a>
+                                <a class="btn blue"  target="_blank" th:href="@{'/news/queryNewsDetail?newsId='+${news.newsId}}"  style="margin-left: 10px">查看详情</a>
                             </td>
                         </tr>
                         </tbody>
@@ -316,104 +285,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
             </div>
         </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
-        <div id="responsive" class="modal fade" tabindex="-1" data-width="760">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">添加题目</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="portlet box green ">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-reorder"></i> 添加题目
-                                </div>
-                                <div class="tools">
-                                    <a href="" class="collapse"></a>
-                                </div>
-                            </div>
-                            <div class="portlet-body form">
-                                <form class="form-horizontal" role="form">
-                                    <div class="form-body">
-                                        <div class="form-group">
-                                            <label  class="col-md-3 control-label">题目</label>
-                                            <div class="col-md-9">
-                                                <input type="hidden" id="questionId" >
-                                                <input type="text" class="form-control" id="questionTitle">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label  class="col-md-3 control-label">选项:</label>
-                                            <div class="col-md-9">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" id="chooseA" placeholder="选项A" >
-                                                    <input type="text" class="form-control" id="chooseB" placeholder="选项B" >
-                                                    <input type="text" class="form-control" id="chooseC" placeholder="选项C" >
-                                                    <input type="text" class="form-control" id="chooseD" placeholder="选项D" >
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label  class="col-md-3 control-label">题目类型</label>
-                                            <div class="col-md-9">
-                                                <select  class="form-control" disabled id="questionType">
-                                                    <option value="1">单选</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label  class="col-md-3 control-label">题目关联垃圾类别</label>
-                                            <div class="col-md-9">
-                                                <select  class="form-control"  id="questionCategory">
-                                                    <option th:each="category:${topicModel.categoryList}" th:text="${category.categoryName}" th:value="${category.categoryId}"></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label  class="col-md-3 control-label">题目状态</label>
-                                            <div class="col-md-9">
-                                                <select  class="form-control" id="questionStatus">
-                                                    <option  value="1">启用</option>
-                                                    <option  value="0">未启用</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label  class="col-md-3 control-label">正确答案</label>
-                                            <div class="col-md-9">
-                                                <div class="radio-list">
-                                                    <label class="radio-inline">
-                                                        <input type="radio" name="optionsRadios" id="optionsRadiosA" value="A" > A
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" name="optionsRadios" id="optionsRadiosB" value="B" > B
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" name="optionsRadios" id="optionsRadiosC" value="C" > C
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" name="optionsRadios" id="optionsRadiosD" value="D" > D
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
-                <button type="button" class="btn blue" onclick="addTopic()">提交</button>
-            </div>
-        </div>
-    </div>
-    <!-- END PAGE -->
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
@@ -481,102 +352,58 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     });
 </script>
 <script>
-function addTopic() {
-    var questionId=$('#questionId').val();
-    var questionTitle=$('#questionTitle').val();
-    var chooseA=$('#chooseA').val();
-    var chooseB=$('#chooseB').val();
-    var chooseC=$('#chooseC').val();
-    var chooseD=$('#chooseD').val();
+    $('#deleteBtn').click(function () {
+        var arr = [];
 
-    var questionType=$("#questionType option:selected").val();
-    var questionCategory=$("#questionCategory option:selected").val();
-    var status=$("#status option:selected").val();
-    var rightAnswer=$("input[name='optionsRadios']:checked").val();
-    $.ajax({
-        url: "/question/addTopic",
-        type: 'POST',
-        // dataType : "json",//后台返回值类型
-        contentType: "application/json", //如果提交的是json数据类型，则必须有此参数,表示提交的数据类型
-        data: JSON.stringify({
-            "questionId" : questionId,
-            "questionTitle" : questionTitle,
-            "chooseDto" : {"a" : chooseA,"b" : chooseB,"c" : chooseC,"d" : chooseD},
-            "rightAnswer" : rightAnswer,
-            "gabageCategoryId" : questionCategory,
-            "topicType" : questionType,
-            "status" : status
-        }),
-        success: function(data){
-            if(data=="success"){
-                alert("添加成功")
-                window.location.href="/question/toManageTopic";
-            }else {
-                alert("添加失败")
-                return
-            }
+        $('input[name="newsIdCheck"]:checked').each(function(){
+            arr.push($(this).val());
+        });
+        if(arr.length>0){
 
-        },error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("添加失败");
+            $.ajax({
+                url:"/news/deleteNews",
+                type:"post",
+                data:{
+                    ids:arr
+                },
+                success:function(data){
+                    if(data=="success"){
+                        alert("删除成功")
+                        window.location.href="/news/toNewsManagePage";
+                    }else {
+                        alert("删除失败")
+                        return
+                    }
+                },
+                error:function(err){
+                    alert("删除失败",err);
+                    return
+                }
+            })
+        }else {
+            alert("请至少选择一条数据")
             return
         }
     });
-}
-//删除
-$('#deleteBtn').click(function () {
-    var arr = [];
-
-    $('input[name="questionIdCheck"]:checked').each(function(){
-        arr.push($(this).val());
-    });
-
-    if(arr.length>0){
-
+    function  updateNews(){
         $.ajax({
-            url:"/question/deleteTopic",
-            type:"post",
-            data:{
-                ids:arr
-            },
+            url:"/news/updateNewsList",
+            type:"GET",
             success:function(data){
-                if(data=="success"){
-                    alert("删除成功")
-                    window.location.href="/question/toManageTopic";
+                if(data==0){
+                    alert("没有数据可更新")
+                    window.location.href="/news/toNewsManagePage";
                 }else {
-                    alert("删除失败")
-                    return
+                    alert("成功更新"+data+"条数据")
+                    window.location.href="/news/toNewsManagePage";
                 }
             },
             error:function(err){
-                alert("删除失败",err);
+                alert("失败",err);
                 return
             }
         })
-    }else {
-        alert("请至少选择一条数据")
-        return
     }
-});
-
-function  toEditOnUse(topicId){
-    $.ajax({
-        url:"/question/toEditOnUse?topicId="+topicId,
-        type:"GET",
-        success:function(data){
-            if(data=="success"){
-                alert("成功")
-                window.location.href="/question/toManageTopic";
-            }else {
-                alert("失败")
-                return
-            }
-        },
-        error:function(err){
-            alert("失败",err);
-            return
-        }
-    })
-}
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

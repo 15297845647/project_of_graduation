@@ -4,9 +4,13 @@ import com.github.pagehelper.PageInfo;
 import com.ysh.garbageRecyle.GetLaws;
 import com.ysh.garbageRecyle.GetNews;
 import com.ysh.garbageRecyle.entity.GarbageLawEntity;
+import com.ysh.garbageRecyle.entity.QuestionEntity;
 import com.ysh.garbageRecyle.service.NewsService;
 import com.ysh.garbageRecyle.entity.NewsEntity;
 
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 控制层
@@ -88,9 +91,10 @@ public class NewsController {
     	 entity.setNewsId(id);
          return service.updateById(entity);
     }
+    //更新新闻资讯
     @RequestMapping(value = "/updateNewsList",method = RequestMethod.GET)
     @ResponseBody
-    public String updateNewsList(){
+    public int updateNewsList(){
         GetNews getNews=new GetNews();
         List<String> codeList=service.getAllNewsCode();
         List<NewsEntity> list=new ArrayList<>();
@@ -98,7 +102,7 @@ public class NewsController {
         for(NewsEntity newsEntity:list){
             service.save(newsEntity);
         }
-        return "ok";
+        return list.size();
     }
 
     @RequestMapping(value = "/toNewsList",method = RequestMethod.GET)
@@ -126,8 +130,83 @@ public class NewsController {
         NewsEntity entity = new NewsEntity();
         entity.setNewsId(newsId);
         entity=service.getByPrimaryKey(entity);
+        //更新查看次数
+        int seeTimes=entity.getSeeTimes();
+        int see=seeTimes+1;
+        entity.setSeeTimes(see);
+        service.updateById(entity);
         model.addAttribute("newsDetail",entity);
         return new ModelAndView("newsDetail","newsDetailModel",model);
+    }
+    //跳转新闻管理页面
+    @RequestMapping(value = "/toNewsManagePage",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toNewsManagePage(Model model){
+        List<NewsEntity> newsEntityList=service.selectAllNews();
+        model.addAttribute("newsEntityList",newsEntityList);
+        return new ModelAndView("newsManage","newsManageModel",model);
+    }
+    //去新闻页面
+    @RequestMapping(value = "/toNewsAddPage",method = RequestMethod.GET)
+    public String toNewsAddPage(Model model){
+        return "newsAdd";
+    }
+    //发布新闻
+    @RequestMapping(value = "/addNews",method = RequestMethod.POST)
+    @ResponseBody
+    public String addNews(@RequestBody NewsEntity newsEntity,Model model){
+        String content=markdownToHtml(newsEntity.getNewsContentHtml());
+        SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            String s=formatter.format(newsEntity.getNewsPubDate());
+            date=formatter.parse(s);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //设置查看次数
+        newsEntity.setSeeTimes(0);
+        //设置新闻文本
+        newsEntity.setNewsContentHtml(content);
+        //设置新闻日期
+        newsEntity.setNewsPubDate(date);
+        Map<String,Object> map=service.save(newsEntity);
+        int id= (int) map.get("id");
+        if (id>0){
+            return "success";
+        }else {
+            return "false";
+        }
+    }
+
+    //删除题目
+    @RequestMapping(value = "/deleteNews", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteNews(@RequestParam(value = "ids[]") String[] ids,Model model){
+        int count=0;
+        for (int i=0;i<ids.length;i++){
+            int id=Integer.parseInt(ids[i]);
+            NewsEntity newsEntity=new NewsEntity();
+            newsEntity.setNewsId(id);
+            int result= service.deleteById(newsEntity);
+            if(result>0){
+                count++;
+            }
+        }
+        if (count==ids.length){
+            return "success";
+        }else {
+            return "failed";
+        }
+
+    }
+    //删除新闻
+    //把文本转html格式
+    public static String markdownToHtml(String markdown) {
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(markdown);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        return renderer.render(document);
     }
 }
 
