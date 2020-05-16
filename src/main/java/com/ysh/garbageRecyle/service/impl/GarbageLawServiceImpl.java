@@ -76,5 +76,10 @@ public class GarbageLawServiceImpl  implements GarbageLawService {
         return garbageLawMapper.getAllLawCity();
     }
 
+    @Override
+    public List<GarbageLawEntity> selectAllLaws() {
+        return garbageLawMapper.selectAllLaws();
+    }
+
 
 }

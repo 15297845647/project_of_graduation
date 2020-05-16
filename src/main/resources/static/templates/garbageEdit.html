@@ -82,27 +82,32 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     <span class="title">首页</span>
                 </a>
             </li>
-            <li class="">
+            <li class="active">
                 <a href="javascript:;">
                     <i class="fa fa-cogs"></i>
                     <span class="title">题库管理</span>
-                    <span class="arrow"></span>
+                    <span class="selected"></span>
+                    <span class="arrow open"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="">
+                    <li class="active">
                         <a href="layout_session_timeout.html">
                             查看题库</a>
                     </li>
+                    <li >
+                        <a href="layout_idle_timeout.html">
+                            录入题目</a>
+                    </li>
                 </ul>
             </li>
-            <li class="" data-placement="right">
+            <li class="tooltips" data-placement="right" data-original-title="Frontend&nbsp;Theme For&nbsp;Metronic&nbsp;Admin">
                 <a href="#" target="_blank">
                     <i class="fa fa-gift"></i>
                     <span class="title">新闻资讯管理</span>
-                    <span class="arrow"></span>
+                    <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="">
+                    <li >
                         <a href="ui_general.html">
                             查看所有新闻资讯</a>
                     </li>
@@ -112,15 +117,14 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
                 </ul>
             </li>
-            <li class="active">
+            <li class="">
                 <a href="javascript:;">
                     <i class="fa fa-bookmark-o"></i>
                     <span class="title">法律法规管理</span>
-                    <span class="selected"></span>
-                    <span class="arrow open"></span>
+                    <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="active">
+                    <li >
                         <a href="ui_general.html">
                             查看所有法律法规</a>
                     </li>
@@ -165,7 +169,27 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <!-- END SIDEBAR -->
     <!-- BEGIN PAGE -->
     <div class="page-content">
-        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM--><!-- /.modal -->
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        Widget settings form goes here
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn blue">Save changes</button>
+                        <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
         <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
         <!-- BEGIN STYLE CUSTOMIZER -->
         <div class="theme-panel hidden-xs hidden-sm">
@@ -219,7 +243,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <div class="col-md-12">
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title">
-                    法律法规管理 <small>垃圾分类法律法规</small>
+                    题目管理 <small>修改题目</small>
                 </h3>
                 <ul class="page-breadcrumb breadcrumb">
                     <li>
@@ -227,7 +251,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <a href="index.html">首页</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
-                    <li><a href="#">法律法规管理</a></li>
+                    <li><a href="#">题目管理</a></li>
                     <li class="pull-right">
                         <div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
                             <i class="fa fa-calendar"></i>
@@ -242,170 +266,143 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         <!-- END PAGE HEADER-->
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="row" style="margin-top: 3%">
-            <div class="portlet box grey">
-                <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-user"></i>法律法规列表</div>
-                    <div class="actions">
-                        <div class="btn-group">
-                            <a class="btn red" id="deleteBtn" onclick="deleteBtn()">
-                                删除
-                            </a>
+            <div class="col-md-12" >
+                <div class="portlet box green ">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-reorder"></i> 题目修改
                         </div>
-                        <a class="btn blue" onclick="updateLaws()"><i class="fa fa-pencil"></i>更新</a>
+                        <div class="tools">
+                            <a href="" class="collapse"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">垃圾名称</label>
+                                    <div class="col-md-9">
+                                        <input type="hidden" id="garbageId" th:value="${editGarbageModel.garbageEntity.garbageId}">
+                                        <input type="text" class="form-control" id="garbageName" th:value="${editGarbageModel.garbageEntity.garbageName}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">垃圾类别</label>
+                                    <div class="col-md-9">
+                                        <select  class="form-control"  id="garbageCategory">
+                                            <option th:each="category:${editGarbageModel.categoryList}" th:text="${category.categoryName}" th:value="${category.categoryCode}" th:selected="${category.categoryCode eq editGarbageModel.garbageEntity.garbageCategoryCode  }"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions fluid">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="button" class="btn green" onclick="updateGarbage()">修改</button>
+                                    <button type="button" class="btn default" onclick="backList()">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover" id="sample_2">
-                        <thead>
-                        <tr>
-                            <th style="width1:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_2 .checkboxes" /></th>
-                            <th style="text-align: center">序号</th>
-                            <th style="text-align: center">标题</th>
-                            <th  style="text-align: center">发布时间</th>
-                            <th  style="text-align: center">城市</th>
-                            <th  style="text-align: center">查看次数</th>
-                            <th  style="text-align: center">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody id="topicList">
-                        <tr class="odd gradeX" th:each="laws,lawsStat:${lawsManageModel.lawEntityList}">
-                            <td><input type="checkbox" name="lawsIdCheck" class="checkboxes" th:value="${laws.lawId}"/></td>
-                            <td>[[${lawsStat.index+1}]]</td>
-                            <td th:text="${laws.lawTitle}"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${#dates.format(laws.lawPubDate,'yyyy-MM-dd')}"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${laws.lawLocation}"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${laws.seeTimes}"  style="width: 50px;text-align: center"></td>
-                            <td  style="width: 50px;text-align: center">
-                                <a class="btn blue"  target="_blank" th:href="@{'/garbageLaw/queryLawsDetail?lawsId='+${laws.lawId}}"  style="margin-left: 10px">查看详情</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
             </div>
         </div>
     </div>
-    <!-- END CONTAINER -->
-    <!-- BEGIN FOOTER -->
-    <div class="footer">
-        <div class="footer-inner">
-            2013 &copy; Metronic by keenthemes.
-        </div>
-        <div class="footer-tools">
+    <!-- END PAGE -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="footer">
+    <div class="footer-inner">
+        2013 &copy; Metronic by keenthemes.
+    </div>
+    <div class="footer-tools">
 			<span class="go-top">
 			<i class="fa fa-angle-up"></i>
 			</span>
-        </div>
     </div>
-    <!-- END FOOTER -->
-    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-    <!-- BEGIN CORE PLUGINS -->
-    <!--[if lt IE 9]>
-    <script src="../assets/plugins/respond.min.js"></script>
-    <script src="../assets/plugins/excanvas.min.js"></script>
-    <![endif]-->
-    <script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-    <script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-    <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-    <script src="../assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
-    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
-    <script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-    <script src="../assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-    <script src="../assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
-    <script src="../assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
-    <!-- END CORE PLUGINS -->
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script src="../assets/plugins/flot/jquery.flot.js" type="text/javascript"></script>
-    <script src="../assets/plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
-    <script src="../assets/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
-    <script src="../assets/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
-    <script src="../assets/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
-    <script src="../assets/plugins/gritter/js/jquery.gritter.js" type="text/javascript"></script>
-    <!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
-    <script src="../assets/plugins/fullcalendar/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-    <script src="../assets/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="../assets/plugins/select2/select2.min.js"></script>
-    <script type="text/javascript" src="../assets/plugins/data-tables/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="../assets/plugins/data-tables/DT_bootstrap.js"></script>
-    <script src="../assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
-    <script src="../assets/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript" ></script>
-    <!-- END PAGE LEVEL PLUGINS -->
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="../assets/scripts/app.js" type="text/javascript"></script>
-    <script src="../assets/scripts/index.js" type="text/javascript"></script>
-    <script src="../assets/scripts/tasks.js" type="text/javascript"></script>
-    <script src="../assets/scripts/table-managed.js"></script>
-    <script src="../assets/scripts/ui-extended-modals.js"></script>
-    <!-- END PAGE LEVEL SCRIPTS -->
-    <script>
-        jQuery(document).ready(function() {
-            App.init(); // initlayout and core plugins
-            Index.init();
-            Index.initDashboardDaterange();
-            Index.initIntro();
-            Tasks.initDashboardWidget();
-            TableManaged.init();
-            UIExtendedModals.init();
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../assets/plugins/respond.min.js"></script>
+<script src="../assets/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
+<script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="../assets/plugins/flot/jquery.flot.js" type="text/javascript"></script>
+<script src="../assets/plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<script src="../assets/plugins/gritter/js/jquery.gritter.js" type="text/javascript"></script>
+<!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
+<script src="../assets/plugins/fullcalendar/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../assets/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="../assets/plugins/data-tables/DT_bootstrap.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../assets/scripts/app.js" type="text/javascript"></script>
+<script src="../assets/scripts/index.js" type="text/javascript"></script>
+<script src="../assets/scripts/tasks.js" type="text/javascript"></script>
+<script src="../assets/scripts/table-managed.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script>
+    jQuery(document).ready(function() {
+        App.init(); // initlayout and core plugins
+        Index.init();
+        Index.initDashboardDaterange();
+        Index.initIntro();
+        Tasks.initDashboardWidget();
+        TableManaged.init();
 
-        });
-    </script>
-    <script>
-        $('#deleteBtn').click(function () {
-            var arr = [];
-
-            $('input[name="lawsIdCheck"]:checked').each(function(){
-                arr.push($(this).val());
-            });
-            if(arr.length>0){
-
-                $.ajax({
-                    url:"/garbageLaw/deleteLaws",
-                    type:"post",
-                    data:{
-                        ids:arr
-                    },
-                    success:function(data){
-                        if(data=="success"){
-                            alert("删除成功")
-                            window.location.href="/garbageLaw/toLawsManagePage";
-                        }else {
-                            alert("删除失败")
-                            return
-                        }
-                    },
-                    error:function(err){
-                        alert("删除失败",err);
-                        return
-                    }
-                })
-            }else {
-                alert("请至少选择一条数据")
-                return
-            }
-        });
-        function  updateLaws(){
-            $.ajax({
-                url:"/garbageLaw/updateLawList",
-                type:"GET",
-                success:function(data){
-                    if(data==0){
-                        alert("没有数据可更新")
-                        window.location.href="/garbageLaw/toLawsManagePage";
-                    }else {
-                        alert("成功更新"+data+"条数据")
-                        window.location.href="/garbageLaw/toLawsManagePage";
-                    }
-                },
-                error:function(err){
-                    alert("失败",err);
+    });
+</script>
+<script>
+    function backList() {
+        window.location.href="/garbage/toGarbageManagePage";
+    }
+    function updateGarbage() {
+        var garbageId=$('#garbageId').val();
+        var garbageName=$('#garbageName').val();
+        var garbageCategory=$("#garbageCategory option:selected").val();
+        $.ajax({
+            url: "/garbage/updateGarbage",
+            type: 'POST',
+            // dataType : "json",//后台返回值类型
+            contentType: "application/json", //如果提交的是json数据类型，则必须有此参数,表示提交的数据类型
+            data: JSON.stringify({
+                "garbageId" : garbageId,
+                "garbageName" : garbageName,
+                "garbageCategoryCode" : garbageCategory
+            }),
+            success: function(data){
+                if(data=="success"){
+                    alert("修改成功")
+                    window.location.href="/garbage/toGarbageManagePage";
+                }else {
+                    alert("修改失败");
                     return
                 }
-            })
-        }
-    </script>
-    <!-- END JAVASCRIPTS -->
+            },error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("修改失败");
+            }
+        });
+    }
+</script>
+<!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
 </html>

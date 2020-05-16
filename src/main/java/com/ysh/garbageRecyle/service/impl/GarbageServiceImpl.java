@@ -44,7 +44,6 @@ public class GarbageServiceImpl  implements GarbageService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Map<String, Object> save(GarbageEntity entity) {
-    	entity.setGarbageId(0);
     	garbageMapper.insertSelective(entity);
     	
     	Map<String, Object> result = new HashMap<>();
@@ -84,6 +83,16 @@ public class GarbageServiceImpl  implements GarbageService {
 		GarbageEntity entity=new GarbageEntity();
 		 entity=garbageMapper.findByname(garbageName);
 		return entity;
+	}
+	//查询所有垃圾
+	@Override
+	public List<GarbageEntity> selectAllGarbage() {
+		return garbageMapper.selectAllGarbage();
+	}
+
+	@Override
+	public List<GarbageEntity> selectByGarbageCategotyCode(GarbageEntity garbageEntity) {
+		return garbageMapper.selecrGarbageByCode(garbageEntity);
 	}
 
 }

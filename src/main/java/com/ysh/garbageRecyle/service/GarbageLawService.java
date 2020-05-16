@@ -33,4 +33,7 @@ public interface GarbageLawService {
     *获取所有城市
     */
     public List<String> getAllLawCity();
+
+    //获取所有法律法规
+    public List<GarbageLawEntity> selectAllLaws();
 }

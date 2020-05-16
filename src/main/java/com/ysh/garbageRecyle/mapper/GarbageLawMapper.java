@@ -16,5 +16,8 @@ public interface GarbageLawMapper extends BaseMapper<GarbageLawEntity>  {
     List<String> getAllCode();
 
     List<String> getAllLawCity();
+
+    //查询所有的法律法规
+    List<GarbageLawEntity> selectAllLaws();
 	
 }

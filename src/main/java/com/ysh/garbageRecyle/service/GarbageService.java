@@ -31,4 +31,8 @@ public interface GarbageService {
     public List<GarbageEntity> findGarbageByName(GarbageEntity entity);
 
     public GarbageEntity findByEqualName(String garbageName);
+
+    public List<GarbageEntity> selectAllGarbage();
+
+    public List<GarbageEntity> selectByGarbageCategotyCode(GarbageEntity entity);
 }

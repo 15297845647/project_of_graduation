@@ -57,6 +57,7 @@
             g.garbage_id,
             g.garbage_name,
             g.garbage_category_code,
+            g.query_times,
             gc.category_name,
             gc.category_explain,
             gc.category_require,
@@ -74,6 +75,7 @@
         g.garbage_id,
         g.garbage_name,
         g.garbage_category_code,
+        g.query_times,
         gc.category_name,
         gc.category_explain,
         gc.category_require,
@@ -83,6 +85,37 @@
         <where>
             <if test="garbageName!=null">
                 AND g.garbage_name = #{garbageName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    <select id="selectAllGarbage" resultMap="BaseResultMap">
+        SELECT
+            g.garbage_id,
+            g.garbage_name,
+            g.garbage_category_code,
+            g.query_times,
+            gc.category_name,
+            gc.category_explain,
+            gc.category_require,
+            gc.category_common
+        FROM
+            garbage g left join garbage_category gc ON g.garbage_category_code=gc.category_code
+    </select>
+    <select id="selecrGarbageByCode" resultMap="BaseResultMap" parameterType="com.ysh.garbageRecyle.entity.GarbageEntity">
+        SELECT
+        g.garbage_id,
+        g.garbage_name,
+        g.garbage_category_code,
+        g.query_times,
+        gc.category_name,
+        gc.category_explain,
+        gc.category_require,
+        gc.category_common
+        FROM
+        garbage g left join garbage_category gc ON g.garbage_category_code=gc.category_code
+        <where>
+            <if test="garbageCategoryCode!=null">
+                AND g.garbage_category_code = #{garbageCategoryCode,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

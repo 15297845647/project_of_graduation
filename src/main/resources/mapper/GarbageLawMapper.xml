@@ -68,6 +68,11 @@
     <select id="getAllLawCity" resultType="java.lang.String">
         select DISTINCT(law_location) from garbage_law;
     </select>
+    <select id="selectAllLaws" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from garbage_law
+    </select>
 
     <insert id="insert" keyColumn="law_id" keyProperty="lawId" parameterType="com.ysh.garbageRecyle.entity.GarbageLawEntity" useGeneratedKeys="true">
         insert into garbage_law (user_id, annex_id, law_title, 

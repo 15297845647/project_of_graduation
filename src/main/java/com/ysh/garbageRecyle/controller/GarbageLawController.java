@@ -2,6 +2,7 @@ package com.ysh.garbageRecyle.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.ysh.garbageRecyle.GetLaws;
+import com.ysh.garbageRecyle.entity.GarbageCategoryEntity;
 import com.ysh.garbageRecyle.entity.NewsEntity;
 import com.ysh.garbageRecyle.service.GarbageLawService;
 import com.ysh.garbageRecyle.entity.GarbageLawEntity;
@@ -88,7 +89,7 @@ public class GarbageLawController {
     }
     @RequestMapping(value = "/updateLawList",method = RequestMethod.GET)
     @ResponseBody
-    public String updateLawList(){
+    public int updateLawList(){
         GetLaws getLaws=new GetLaws();
         List<String> codeList=service.getAllCode();
         List<GarbageLawEntity> list=new ArrayList<>();
@@ -96,7 +97,7 @@ public class GarbageLawController {
         for(GarbageLawEntity garbageLawEntity:list){
             service.save(garbageLawEntity);
         }
-        return "ok";
+        return list.size();
     }
     @RequestMapping(value = "/toLawsList",method = RequestMethod.GET)
     @ResponseBody
@@ -118,12 +119,48 @@ public class GarbageLawController {
     }
     @RequestMapping(value = "/queryLawsDetail",method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView newsListIndex(@RequestParam Integer lawsId,Model model){
+    public ModelAndView queryLawsDetail(@RequestParam Integer lawsId,Model model){
         GarbageLawEntity entity = new GarbageLawEntity();
         entity.setLawId(lawsId);
         entity=service.getByPrimaryKey(entity);
+        //更新查看次数
+        int seeTimes=entity.getSeeTimes();
+        int see=seeTimes+1;
+        entity.setSeeTimes(see);
+        service.updateById(entity);
         model.addAttribute("lawsDetail",entity);
         return new ModelAndView("lawsDetail","lawsDetailModel",model);
+    }
+
+    //跳转法律法规管理页面
+    @RequestMapping(value = "/toLawsManagePage",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toLawsManagePage(Model model){
+        List<GarbageLawEntity> garbageLawEntityList=service.selectAllLaws();
+        model.addAttribute("lawEntityList",garbageLawEntityList);
+        return new ModelAndView("lawsManage","lawsManageModel",model);
+    }
+
+    //删除法律法规
+    @RequestMapping(value = "/deleteLaws", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteLaws(@RequestParam(value = "ids[]") String[] ids,Model model){
+        int count=0;
+        for (int i=0;i<ids.length;i++){
+            int id=Integer.parseInt(ids[i]);
+            GarbageLawEntity lawEntity=new GarbageLawEntity();
+            lawEntity.setLawId(id);
+            int result= service.deleteById(lawEntity);
+            if(result>0){
+                count++;
+            }
+        }
+        if (count==ids.length){
+            return "success";
+        }else {
+            return "failed";
+        }
+
     }
 }
 

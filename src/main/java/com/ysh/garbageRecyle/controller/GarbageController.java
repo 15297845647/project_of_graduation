@@ -1,5 +1,13 @@
 package com.ysh.garbageRecyle.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageInfo;
+import com.ysh.garbageRecyle.dto.QuestionDto;
+import com.ysh.garbageRecyle.entity.GarbageCategoryEntity;
+import com.ysh.garbageRecyle.entity.GarbageLawEntity;
+import com.ysh.garbageRecyle.entity.QuestionEntity;
+import com.ysh.garbageRecyle.service.GarbageCategoryService;
 import com.ysh.garbageRecyle.service.GarbageService;
 import com.ysh.garbageRecyle.entity.GarbageEntity;
 
@@ -26,6 +34,9 @@ public class GarbageController {
 
     @Autowired
     private GarbageService service;
+
+    @Autowired
+    private GarbageCategoryService garbageCategoryService;
 
     /**
      * 根据Id 查询
@@ -128,5 +139,96 @@ public class GarbageController {
         System.out.println(result);
         return result;
     }
+
+    //跳转垃圾管理页面
+    @RequestMapping(value = "/toGarbageManagePage",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toGarbageManagePage(Model model,@RequestParam(required = false) Integer categoryCode){
+        List<GarbageEntity> garbageEntityList=new ArrayList<>();
+        if(categoryCode==null){
+            GarbageEntity garbageEntity=new GarbageEntity();
+            garbageEntity.setGarbageCategoryCode(1);
+            garbageEntityList=service.selectByGarbageCategotyCode(garbageEntity);
+            model.addAttribute("categorySet",1);
+        }else {
+            GarbageEntity garbageEntity=new GarbageEntity();
+            int code=categoryCode.intValue();
+            garbageEntity.setGarbageCategoryCode(code);
+            garbageEntityList=service.selectByGarbageCategotyCode(garbageEntity);
+            model.addAttribute("categorySet",categoryCode);
+        }
+        model.addAttribute("categorySet",categoryCode);
+        model.addAttribute("garbageEntityList",garbageEntityList);
+        PageInfo<GarbageCategoryEntity> pageInfo= garbageCategoryService.queryByPage(1,10,null);
+        List<GarbageCategoryEntity> categoryList=pageInfo.getList();
+        model.addAttribute("categoryList",categoryList);
+        return new ModelAndView("garbageManage","garbageManageModel",model);
+    }
+
+
+    //删除垃圾
+    @RequestMapping(value = "/deleteGarbage", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteGarbage(@RequestParam(value = "ids[]") String[] ids,Model model){
+        int count=0;
+        for (int i=0;i<ids.length;i++){
+            int id=Integer.parseInt(ids[i]);
+            GarbageEntity garbageEntity=new GarbageEntity();
+            garbageEntity.setGarbageId(id);
+            int result= service.deleteById(garbageEntity);
+            if(result>0){
+                count++;
+            }
+        }
+        if (count==ids.length){
+            return "success";
+        }else {
+            return "failed";
+        }
+
+    }
+
+    //添加垃圾
+    @RequestMapping(value = "/addGarbage", method = RequestMethod.POST)
+    @ResponseBody
+    public String addGarbage(@RequestBody GarbageEntity garbageEntity, Model model){
+
+        garbageEntity.setQueryTimes(0);
+        Map<String,Object> map=service.save(garbageEntity);
+        int id= (int) map.get("id");
+        if(id>0){
+            return "success";
+        }else {
+            return "failed";
+        }
+    }
+
+    //修改垃圾
+    @RequestMapping(value = "/updateGarbage", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateGarbage(@RequestBody GarbageEntity garbageEntity, Model model){
+       int i= service.updateById(garbageEntity);
+        if (i>0){
+            return "success";
+        }else {
+            return "failed";
+        }
+
+    }
+
+    //根据id返回一个垃圾
+    @RequestMapping(value = "/toEditGarbage", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toEditGarbage(@RequestParam("garbageId") Integer garbageId,Model model){
+        GarbageEntity garbageEntity=new GarbageEntity();
+        garbageEntity.setGarbageId(garbageId);
+        garbageEntity=service.getByPrimaryKey(garbageEntity);
+        model.addAttribute("garbageEntity",garbageEntity);
+        PageInfo<GarbageCategoryEntity> pageInfo= garbageCategoryService.queryByPage(1,10,null);
+        List<GarbageCategoryEntity> categoryList=pageInfo.getList();
+        model.addAttribute("categoryList",categoryList);
+        return new ModelAndView("garbageEdit","editGarbageModel",model);
+    }
+
 }
 

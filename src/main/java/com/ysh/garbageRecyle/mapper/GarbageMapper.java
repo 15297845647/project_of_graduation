@@ -17,4 +17,8 @@ public interface GarbageMapper extends BaseMapper<GarbageEntity>{
     *根据名字精确查询
     */
     public GarbageEntity findByname(String garbageName);
+    //查询所有垃圾
+    public List<GarbageEntity> selectAllGarbage();
+    //根据垃圾代码查询所有垃圾信息
+    public List<GarbageEntity> selecrGarbageByCode(GarbageEntity garbageEntity);
 }

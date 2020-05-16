@@ -1,18 +1,19 @@
 package com.ysh.garbageRecyle.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.ysh.garbageRecyle.entity.GarbageEntity;
 import com.ysh.garbageRecyle.service.GarbageCategoryService;
 import com.ysh.garbageRecyle.entity.GarbageCategoryEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,9 +58,13 @@ public class GarbageCategoryController {
      * Post请求，新增数据，成功返回ID
      * @param entity
      */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public Object save(@RequestBody GarbageCategoryEntity entity) {
-        return service.save(entity);
+    @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
+    @ResponseBody
+    public Object addCategory(@RequestBody GarbageCategoryEntity entity,Model model) {
+        entity.setQueryTimes(0);
+        Map<String,Object> map=service.save(entity);
+        int id= (int) map.get("id");
+        return id;
     }
     
 
@@ -84,7 +89,61 @@ public class GarbageCategoryController {
     	 entity.setCategoryId(id);
          return service.updateById(entity);
     }
-    
 
+    //跳转垃圾类别管理页面
+    @RequestMapping(value = "/toGarbageCategoryManagePage",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toGarbageCategoryManagePage(Model model){
+        List<GarbageCategoryEntity> categoryEntityList=new ArrayList<>();
+        categoryEntityList=service.queryByPage(1,10,null).getList();
+        model.addAttribute("categoryList",categoryEntityList);
+        return new ModelAndView("garbageCategoryManage","garbageCategoryManageModel",model);
+    }
+
+    //删除垃圾类别
+    @RequestMapping(value = "/deleteGarbageCategory", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteGarbageCategory(@RequestParam(value = "ids[]") String[] ids,Model model){
+        int count=0;
+        for (int i=0;i<ids.length;i++){
+            int id=Integer.parseInt(ids[i]);
+            GarbageCategoryEntity garbageCategoryEntity=new GarbageCategoryEntity();
+            garbageCategoryEntity.setCategoryId(id);
+            int result= service.deleteById(garbageCategoryEntity);
+            if(result>0){
+                count++;
+            }
+        }
+        if (count==ids.length){
+            return "success";
+        }else {
+            return "failed";
+        }
+
+    }
+
+    //根据id返回一个垃圾
+    @RequestMapping(value = "/toEditGarbageCategory", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toEditGarbageCategory(@RequestParam("categoryId") Integer categoryId,Model model){
+        GarbageCategoryEntity garbageCategoryEntity=new GarbageCategoryEntity();
+        garbageCategoryEntity.setCategoryId(categoryId);
+        garbageCategoryEntity=service.getByPrimaryKey(garbageCategoryEntity);
+        model.addAttribute("garbageCategoryEntity",garbageCategoryEntity);
+        return new ModelAndView("garbageEdit","editGarbageCategoryModel",model);
+    }
+
+    //修改垃圾类别
+    @RequestMapping(value = "/updateGarbageCategory", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateGarbageCategory(@RequestBody GarbageCategoryEntity garbageCategoryEntity, Model model){
+        int i= service.updateById(garbageCategoryEntity);
+        if (i>0){
+            return "success";
+        }else {
+            return "failed";
+        }
+
+    }
 }
 
