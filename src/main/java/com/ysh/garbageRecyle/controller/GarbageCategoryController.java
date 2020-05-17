@@ -60,11 +60,16 @@ public class GarbageCategoryController {
      */
     @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
     @ResponseBody
-    public Object addCategory(@RequestBody GarbageCategoryEntity entity,Model model) {
+    public String addCategory(@RequestBody GarbageCategoryEntity entity,Model model) {
         entity.setQueryTimes(0);
         Map<String,Object> map=service.save(entity);
-        int id= (int) map.get("id");
-        return id;
+        int id= (int) map.get("result");
+        if(id>0){
+            return "success";
+        }else {
+            return "failed";
+        }
+
     }
     
 
@@ -130,7 +135,7 @@ public class GarbageCategoryController {
         garbageCategoryEntity.setCategoryId(categoryId);
         garbageCategoryEntity=service.getByPrimaryKey(garbageCategoryEntity);
         model.addAttribute("garbageCategoryEntity",garbageCategoryEntity);
-        return new ModelAndView("garbageEdit","editGarbageCategoryModel",model);
+        return new ModelAndView("garbageCategoryEdit","editGarbageCategoryModel",model);
     }
 
     //修改垃圾类别

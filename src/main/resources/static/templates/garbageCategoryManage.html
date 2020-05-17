@@ -348,7 +348,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                         <div class="form-group">
                                             <label  class="col-md-3 control-label">垃圾类别代码</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" id="categoryCode">
+                                                <input type="text" class="form-control" placeholder="请输入纯数字" id="categoryCode" oninput="value=value.replace(/[^\d]/g,'')">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -492,14 +492,14 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     $('#deleteBtn').click(function () {
         var arr = [];
 
-        $('input[name="garbageIdCheck"]:checked').each(function(){
+        $('input[name="categoryIdCheck"]:checked').each(function(){
             arr.push($(this).val());
         });
 
         if(arr.length>0){
 
             $.ajax({
-                url:"/garbage/deleteGarbage",
+                url:"/garbageCategory/deleteGarbageCategory",
                 type:"post",
                 data:{
                     ids:arr
@@ -507,7 +507,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 success:function(data){
                     if(data=="success"){
                         alert("删除成功")
-                        window.location.href="/garbage/toGarbageManagePage";
+                        window.location.href="/garbageCategory/toGarbageCategoryManagePage";
                     }else {
                         alert("删除失败")
                         return
@@ -524,25 +524,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         }
     });
 
-    function  toEditOnUse(topicId){
-        $.ajax({
-            url:"/question/toEditOnUse?topicId="+topicId,
-            type:"GET",
-            success:function(data){
-                if(data=="success"){
-                    alert("成功")
-                    window.location.href="/question/toManageTopic";
-                }else {
-                    alert("失败")
-                    return
-                }
-            },
-            error:function(err){
-                alert("失败",err);
-                return
-            }
-        })
-    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

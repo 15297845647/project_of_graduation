@@ -289,7 +289,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                 <div class="form-group">
                                     <label  class="col-md-3 control-label">垃圾类别代码</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="categoryCode" th:value="${editGarbageCategoryModel.garbageCategoryEntity.categoryCode}">
+                                        <input type="text" class="form-control" id="categoryCode" placeholder="请输入纯数字" oninput="value=value.replace(/[^\d]/g,'')" th:value="${editGarbageCategoryModel.garbageCategoryEntity.categoryCode}">
                                     </div>
                                 </div>
                                 <div class="form-group">

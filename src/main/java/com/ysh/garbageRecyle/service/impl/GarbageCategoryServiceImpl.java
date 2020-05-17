@@ -43,11 +43,9 @@ public class GarbageCategoryServiceImpl  implements GarbageCategoryService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Map<String, Object> save(GarbageCategoryEntity entity) {
-    	entity.setCategoryId(0);
-    	garbageCategoryMapper.insertSelective(entity);
-    	
+    	int i=garbageCategoryMapper.insertSelective(entity);
     	Map<String, Object> result = new HashMap<>();
-    	result.put("id" , entity.getCategoryId());
+    	result.put("result" ,i);
     	return result;
     }
 

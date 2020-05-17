@@ -45,7 +45,6 @@ public class GarbageLawServiceImpl  implements GarbageLawService {
     @Transactional(propagation = Propagation.REQUIRED)
     public Map<String, Object> save(GarbageLawEntity entity) {
     	garbageLawMapper.insertSelective(entity);
-    	
     	Map<String, Object> result = new HashMap<>();
     	result.put("id" , entity.getLawId());
     	return result;
