@@ -1,12 +1,20 @@
 package com.ysh.garbageRecyle.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.ysh.garbageRecyle.entity.GarbageCategoryEntity;
+import com.ysh.garbageRecyle.entity.GarbageEntity;
+import com.ysh.garbageRecyle.entity.RoleEntity;
+import com.ysh.garbageRecyle.service.RoleService;
 import com.ysh.garbageRecyle.service.UsersService;
 import com.ysh.garbageRecyle.entity.UsersEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +30,8 @@ public class UsersController {
     @Autowired
     private UsersService service;
 
+    @Autowired
+    private RoleService roleService;
     /**
      * 根据Id 查询
      * @param id
@@ -52,10 +62,16 @@ public class UsersController {
      * Post请求，新增数据，成功返回ID
      * @param entity
      */
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String save(@RequestBody UsersEntity entity) {
-        service.save(entity);
-        return "保存成功";
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    @ResponseBody
+    public String save(@RequestBody UsersEntity entity,Model model) {
+       Map<String,Object> map= service.save(entity);
+        int id= (int) map.get("id");
+        if(id>0){
+            return "success";
+        }else {
+            return "failed";
+        }
     }
     
 
@@ -82,7 +98,64 @@ public class UsersController {
         service.updateById(entity);
          return "更新成功";
     }
-    
+
+    @RequestMapping(value ="/toUserManagePage",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toUserManagePage(Model model){
+        List<UsersEntity> usersEntityList=service.selectAll();
+        model.addAttribute("usersEntityList",usersEntityList);
+        List<RoleEntity> roleEntityList=roleService.selectAllRole();
+        model.addAttribute("roleEntityList",roleEntityList);
+        return new ModelAndView("userManage","userManageModel",model);
+    }
+
+    //删除垃圾
+    @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteUser(@RequestParam(value = "ids[]") String[] ids,Model model){
+        int count=0;
+        for (int i=0;i<ids.length;i++){
+            int id=Integer.parseInt(ids[i]);
+            UsersEntity usersEntity=new UsersEntity();
+            usersEntity.setUserId(id);
+            int result= service.deleteById(usersEntity);
+            if(result>0){
+                count++;
+            }
+        }
+        if (count==ids.length){
+            return "success";
+        }else {
+            return "failed";
+        }
+
+    }
+
+    //根据id跳转至编辑用户界面
+    @RequestMapping(value = "/toEditUser", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toEditUser(@RequestParam("userId") Integer userId,Model model){
+        UsersEntity usersEntity=new UsersEntity();
+        usersEntity.setUserId(userId);
+        usersEntity=service.getByPrimaryKey(usersEntity);
+        model.addAttribute("usersEntity",usersEntity);
+        List<RoleEntity> roleEntityList=roleService.selectAllRole();
+        model.addAttribute("roleEntityList",roleEntityList);
+        return new ModelAndView("userEdit","editUserModel",model);
+    }
+
+    //修改垃圾
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateUser(@RequestBody UsersEntity usersEntity, Model model){
+        int i= service.updateById(usersEntity);
+        if (i>0){
+            return "success";
+        }else {
+            return "failed";
+        }
+
+    }
 
 }
 

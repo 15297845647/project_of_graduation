@@ -5,6 +5,7 @@ import com.ysh.garbageRecyle.entity.UsersEntity;
 import com.github.pagehelper.PageInfo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,4 +25,6 @@ public interface UsersService {
 	public Integer deleteById(UsersEntity users);
 
     public Integer updateById(UsersEntity usersEntity);
+
+    public List<UsersEntity> selectAll();
 }

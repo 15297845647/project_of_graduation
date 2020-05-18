@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,11 +44,10 @@ public class RoleServiceImpl  implements RoleService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Map<String, Object> save(RoleEntity entity) {
-    	entity.setRoleId(0);
-    	roleMapper.insertSelective(entity);
+    	int i=roleMapper.insertSelective(entity);
     	
     	Map<String, Object> result = new HashMap<>();
-    	result.put("id" , entity.getRoleId());
+    	result.put("id" , i);
     	return result;
     }
 
@@ -65,6 +65,11 @@ public class RoleServiceImpl  implements RoleService {
     	}
     	return roleMapper.updateByPrimaryKeySelective(roleEntity);
     }
+
+	@Override
+	public List<RoleEntity> selectAllRole() {
+		return roleMapper.selectAllRole();
+	}
 
 
 }

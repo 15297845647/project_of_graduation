@@ -61,7 +61,12 @@
         from users
         <include refid="Base_Where_Clause" />
     </select>
-    
+    <select id="selectAllUser" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from users
+    </select>
+
     <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.ysh.garbageRecyle.entity.UsersEntity" useGeneratedKeys="true">
         insert into users (role_id, user_name, account_number, 
              password , phone_number, address, 

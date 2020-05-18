@@ -14,4 +14,6 @@ import com.ysh.garbageRecyle.entity.UsersEntity;
 @Repository
 public interface UsersMapper extends BaseMapper<UsersEntity>  {
 
+    //查询所有用户
+    List<UsersEntity> selectAllUser();
 }

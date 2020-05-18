@@ -35,7 +35,12 @@
         from role
         <include refid="Base_Where_Clause" />
     </select>
-    
+    <select id="selectAllRole" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from role
+    </select>
+
     <insert id="insert" keyColumn="role_id" keyProperty="roleId" parameterType="com.ysh.garbageRecyle.entity.RoleEntity" useGeneratedKeys="true">
         insert into role (role_code, role_name)
         values (#{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR})

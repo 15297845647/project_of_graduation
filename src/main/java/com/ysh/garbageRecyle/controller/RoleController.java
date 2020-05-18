@@ -1,13 +1,17 @@
 package com.ysh.garbageRecyle.controller;
 
+import com.ysh.garbageRecyle.entity.UsersEntity;
 import com.ysh.garbageRecyle.service.RoleService;
 import com.ysh.garbageRecyle.entity.RoleEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,9 +57,16 @@ public class RoleController {
      * Post请求，新增数据，成功返回ID
      * @param entity
      */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public Object save(@RequestBody RoleEntity entity) {
-        return service.save(entity);
+    @RequestMapping(value = "/addRole", method = RequestMethod.POST)
+    @ResponseBody
+    public String save(@RequestBody RoleEntity entity,Model model) {
+        Map<String,Object> map= service.save(entity);
+        int id= (int) map.get("id");
+        if(id>0){
+            return "success";
+        }else {
+            return "failed";
+        }
     }
     
 
@@ -80,7 +91,60 @@ public class RoleController {
     	 entity.setRoleId(id);
          return service.updateById(entity);
     }
-    
+
+    @RequestMapping(value ="/toRoleManagePage",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toRoleManagePage(Model model){
+        List<RoleEntity> roleEntityList=service.selectAllRole();
+        model.addAttribute("roleEntityList",roleEntityList);
+        return new ModelAndView("roleManage","roleManageModel",model);
+    }
+
+    //删除垃圾
+    @RequestMapping(value = "/deleteRole", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteRole(@RequestParam(value = "ids[]") String[] ids,Model model){
+        int count=0;
+        for (int i=0;i<ids.length;i++){
+            int id=Integer.parseInt(ids[i]);
+            RoleEntity roleEntity=new RoleEntity();
+            roleEntity.setRoleId(id);
+            int result= service.deleteById(roleEntity);
+            if(result>0){
+                count++;
+            }
+        }
+        if (count==ids.length){
+            return "success";
+        }else {
+            return "failed";
+        }
+
+    }
+    //根据id跳转至编辑用户界面
+    @RequestMapping(value = "/toEditRole", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toEditRole(@RequestParam("roleId") Integer roleId,Model model){
+        RoleEntity roleEntity=new RoleEntity();
+        roleEntity.setRoleId(roleId);
+        roleEntity=service.getByPrimaryKey(roleEntity);
+        model.addAttribute("roleEntity",roleEntity);
+        return new ModelAndView("roleEdit","editRoleModel",model);
+    }
+
+
+    //修改角色信息
+    @RequestMapping(value = "/updateRole", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateRole(@RequestBody RoleEntity roleEntity, Model model){
+        int i= service.updateById(roleEntity);
+        if (i>0){
+            return "success";
+        }else {
+            return "failed";
+        }
+
+    }
 
 }
 

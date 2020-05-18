@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleMapper extends BaseMapper<RoleEntity> {
 
+    //查询所有角色
+    public List<RoleEntity> selectAllRole();
 }

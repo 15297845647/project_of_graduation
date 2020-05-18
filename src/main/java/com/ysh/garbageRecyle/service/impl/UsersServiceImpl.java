@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,11 +44,9 @@ public class UsersServiceImpl  implements UsersService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Map<String, Object> save(UsersEntity entity) {
-    	entity.setUserId(0);
-    	usersMapper.insertSelective(entity);
-    	
+    	int i=usersMapper.insertSelective(entity);
     	Map<String, Object> result = new HashMap<>();
-    	result.put("id" , entity.getUserId());
+    	result.put("id" , i);
     	return result;
     }
 
@@ -65,6 +64,11 @@ public class UsersServiceImpl  implements UsersService {
     	}
     	return usersMapper.updateByPrimaryKeySelective(usersEntity);
     }
+
+	@Override
+	public List<UsersEntity> selectAll() {
+		return usersMapper.selectAllUser();
+	}
 
 
 }

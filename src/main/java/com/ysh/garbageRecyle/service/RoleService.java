@@ -5,6 +5,7 @@ import com.ysh.garbageRecyle.entity.RoleEntity;
 import com.github.pagehelper.PageInfo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,4 +25,6 @@ public interface RoleService {
 	public Integer deleteById(RoleEntity roleEntity);
 
     public Integer updateById(RoleEntity roleEntity);
+
+    public List<RoleEntity> selectAllRole();
 }

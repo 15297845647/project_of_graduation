@@ -82,15 +82,15 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     <span class="title">首页</span>
                 </a>
             </li>
-            <li class="">
+            <li class="active">
                 <a href="javascript:;">
                     <i class="fa fa-cogs"></i>
                     <span class="title">题库管理</span>
-
+                    <span class="selected"></span>
                     <span class="arrow open"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="">
+                    <li class="active">
                         <a href="layout_session_timeout.html">
                             查看题库</a>
                     </li>
@@ -134,21 +134,16 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
                 </ul>
             </li>
-            <li class="active">
+            <li class="">
                 <a href="javascript:;">
                     <i class="fa fa-table"></i>
                     <span class="title">垃圾分类</span>
-                    <span class="selected"></span>
-                    <span class="arrow open"></span>
+                    <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="active">
+                    <li >
                         <a href="form_controls.html">
-                            垃圾信息</a>
-                    </li>
-                    <li class="">
-                        <a href="form_controls.html">
-                            垃圾类别信息</a>
+                            垃圾类别</a>
                     </li>
                     <li >
                         <a href="form_layouts.html">
@@ -248,7 +243,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <div class="col-md-12">
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title">
-                    Dashboard <small>statistics and more</small>
+                    题目管理 <small>修改题目</small>
                 </h3>
                 <ul class="page-breadcrumb breadcrumb">
                     <li>
@@ -256,7 +251,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <a href="index.html">首页</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
-                    <li><a href="#">垃圾信息管理</a></li>
+                    <li><a href="#">题目管理</a></li>
                     <li class="pull-right">
                         <div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
                             <i class="fa fa-calendar"></i>
@@ -271,105 +266,68 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         <!-- END PAGE HEADER-->
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="row" style="margin-top: 3%">
-            <div class="portlet box grey">
-                <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-user"></i>垃圾列表</div>
-                    <div class="actions">
-                        <a class="btn blue" data-toggle="modal" href="#responsive">><i class="fa fa-pencil"></i> 添加</a>
-                        <div class="btn-group">
-                            <a class="btn red" id="deleteBtn">
-                                删除
-                            </a>
+            <div class="col-md-12" >
+                <div class="portlet box green ">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-reorder"></i> 用户修改
+                        </div>
+                        <div class="tools">
+                            <a href="" class="collapse"></a>
                         </div>
                     </div>
-                </div>
-                <div class="portlet-body">
-                    <div>
-                        <label  class="col-md-1 control-label">垃圾类别</label>
-                        <div class="col-md-4">
-                            <select  class="form-control"  id="garbageCategory" onchange="queryByCode()">
-                                <option   th:each="category:${garbageManageModel.categoryList}" th:text="${category.categoryName}" th:value="${category.categoryCode}" th:selected="${category.categoryCode==categorySet}"></option>
-                            </select>
-                        </div>
-                    </div>
-                    <table class="table table-striped table-bordered table-hover" id="sample_2">
-                        <thead>
-                        <tr>
-                            <th style="width1:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_2 .checkboxes" /></th>
-                            <th style="text-align: center">序号</th>
-                            <th style="text-align: center">垃圾名称</th>
-                            <th  style="text-align: center">垃圾类别代码</th>
-                            <th  style="text-align: center">垃圾类别</th>
-                            <th  style="text-align: center">查询次数</th>
-                            <th  style="text-align: center">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody id="topicList">
-                        <tr class="odd gradeX" th:each="garbage,garbageStat:${garbageManageModel.garbageEntityList}">
-                            <td><input type="checkbox" name="garbageIdCheck" class="checkboxes" th:value="${garbage.garbageId}"/></td>
-                            <td>[[${garbageStat.index+1}]]</td>
-                            <td th:text="${garbage.garbageName}"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${garbage.garbageCategoryCode}"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${garbage.categoryName}"  style="width: 50px;text-align: center"></td>
-                            <td th:text="${garbage.queryTimes}"  style="width: 50px;text-align: center"></td>
-                            <td  style="width: 50px;text-align: center">
-                                <a class="btn blue" th:href="@{'/garbage/toEditGarbage?garbageId='+${garbage.garbageId}}"  style="margin-left: 10px">编辑</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
-        <div id="responsive" class="modal fade" tabindex="-1" data-width="760">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">添加垃圾信息</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="portlet box green ">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-reorder"></i> 添加垃圾信息
-                                </div>
-                                <div class="tools">
-                                    <a href="" class="collapse"></a>
-                                </div>
-                            </div>
-                            <div class="portlet-body form">
-                                <form class="form-horizontal" role="form">
-                                    <div class="form-body">
-                                        <div class="form-group">
-                                            <label  class="col-md-3 control-label">垃圾名称</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control" id="garbageName">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label  class="col-md-3 control-label">垃圾类别</label>
-                                            <div class="col-md-9">
-                                                <select  class="form-control"  id="addGarbageCategory">
-                                                    <option th:each="category:${garbageManageModel.categoryList}" th:text="${category.categoryName}" th:value="${category.categoryCode}"></option>
-                                                </select>
-                                            </div>
-                                        </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">用户名称</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="userId" th:value="${editUserModel.usersEntity.userId}">
+                                        <input type="text" class="form-control" id="userName" th:value="${editUserModel.usersEntity.userName}">
                                     </div>
-                                </form>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">用户账号</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="accountNumber" th:value="${editUserModel.usersEntity.accountNumber}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">用户密码</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="password" th:value="${editUserModel.usersEntity.password}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">用户手机号</label>
+                                    <div class="col-md-9">
+                                        <input type="text" maxlength="11" minlength="11" oninput="value=value.replace(/[^\d]/g,'')"  class="form-control" id="phoneNumber" th:value="${editUserModel.usersEntity.phoneNumber}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">地址</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="address" th:value="${editUserModel.usersEntity.address}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">角色</label>
+                                    <div class="col-md-9">
+                                        <select  class="form-control" id="roleId">
+                                            <option th:each="role:${editUserModel.roleEntityList}" th:text="${role.roleName}" th:value="${role.roleId}" th:selected="${editUserModel.usersEntity.roleId eq role.roleId}"></option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-actions fluid">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="button" class="btn green" onclick="updateUser()">修改</button>
+                                    <button type="button" class="btn default" onclick="backList()">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
-                <button type="button" class="btn blue" onclick="addGarbage()">提交</button>
             </div>
         </div>
     </div>
@@ -418,15 +376,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <script type="text/javascript" src="../assets/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="../assets/plugins/data-tables/jquery.dataTables.js"></script>
 <script type="text/javascript" src="../assets/plugins/data-tables/DT_bootstrap.js"></script>
-<script src="../assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
-<script src="../assets/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript" ></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="../assets/scripts/app.js" type="text/javascript"></script>
 <script src="../assets/scripts/index.js" type="text/javascript"></script>
 <script src="../assets/scripts/tasks.js" type="text/javascript"></script>
 <script src="../assets/scripts/table-managed.js"></script>
-<script src="../assets/scripts/ui-extended-modals.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
     jQuery(document).ready(function() {
@@ -436,99 +391,47 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         Index.initIntro();
         Tasks.initDashboardWidget();
         TableManaged.init();
-        UIExtendedModals.init();
 
     });
 </script>
 <script>
-    function queryByCode() {
-        var code=$("#garbageCategory option:selected").val();
-        var url="/garbage/toGarbageManagePage?categoryCode="+code;
-        window.location.href=url;
+    function backList() {
+        window.location.href="/users/toUserManagePage";
     }
-
-    function addGarbage() {
-        var garbageName=$('#garbageName').val();
-
-        var addGarbageCategory=$("#addGarbageCategory option:selected").val();
+    function updateUser() {
+        var userName=$('#userName').val();
+        var userId=$('#userId').val();
+        var accountNumber=$('#accountNumber').val();
+        var password=$('#password').val();
+        var phoneNumber=$('#phoneNumber').val();
+        var address=$('#address').val();
+        var roleId=$("#roleId option:selected").val();
         $.ajax({
-            url: "/garbage/addGarbage",
+            url: "/users/updateUser",
             type: 'POST',
             // dataType : "json",//后台返回值类型
             contentType: "application/json", //如果提交的是json数据类型，则必须有此参数,表示提交的数据类型
             data: JSON.stringify({
-                "garbageName" : garbageName,
-                "garbageCategoryCode" : addGarbageCategory
+                "userId" : userId,
+                "userName" : userName,
+                "accountNumber" : accountNumber,
+                "password" : password,
+                "phoneNumber" : phoneNumber,
+                "address" : address,
+                "roleId" : roleId
             }),
             success: function(data){
                 if(data=="success"){
-                    alert("添加成功")
-                    window.location.href="/garbage/toGarbageManagePage";
+                    alert("修改成功")
+                    window.location.href="/users/toUserManagePage";
                 }else {
-                    alert("添加失败")
+                    alert("修改失败");
                     return
                 }
-
             },error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("添加失败");
-                return
+                alert("修改失败");
             }
         });
-    }
-    //删除
-    $('#deleteBtn').click(function () {
-        var arr = [];
-
-        $('input[name="garbageIdCheck"]:checked').each(function(){
-            arr.push($(this).val());
-        });
-
-        if(arr.length>0){
-
-            $.ajax({
-                url:"/garbage/deleteGarbage",
-                type:"post",
-                data:{
-                    ids:arr
-                },
-                success:function(data){
-                    if(data=="success"){
-                        alert("删除成功")
-                        window.location.href="/garbage/toGarbageManagePage";
-                    }else {
-                        alert("删除失败")
-                        return
-                    }
-                },
-                error:function(err){
-                    alert("删除失败",err);
-                    return
-                }
-            })
-        }else {
-            alert("请至少选择一条数据")
-            return
-        }
-    });
-
-    function  toEditOnUse(topicId){
-        $.ajax({
-            url:"/question/toEditOnUse?topicId="+topicId,
-            type:"GET",
-            success:function(data){
-                if(data=="success"){
-                    alert("成功")
-                    window.location.href="/question/toManageTopic";
-                }else {
-                    alert("失败")
-                    return
-                }
-            },
-            error:function(err){
-                alert("失败",err);
-                return
-            }
-        })
     }
 </script>
 <!-- END JAVASCRIPTS -->

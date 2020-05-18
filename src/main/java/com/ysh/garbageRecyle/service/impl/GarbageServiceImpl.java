@@ -44,10 +44,10 @@ public class GarbageServiceImpl  implements GarbageService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Map<String, Object> save(GarbageEntity entity) {
-    	garbageMapper.insertSelective(entity);
+    	int i=garbageMapper.insertSelective(entity);
     	
     	Map<String, Object> result = new HashMap<>();
-    	result.put("id" , entity.getGarbageId());
+    	result.put("id" ,i);
     	return result;
     }
 
