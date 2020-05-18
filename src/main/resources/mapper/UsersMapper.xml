@@ -66,6 +66,13 @@
         <include refid="Base_Column_List" />
         from users
     </select>
+    <select id="userLogin" resultMap="BaseResultMap" parameterType="com.ysh.garbageRecyle.entity.UsersEntity">
+        select
+        <include refid="Base_Column_List" />
+        from users u
+        where
+        u.account_number = #{accountNumber,jdbcType=VARCHAR} and u.password= #{password,jdbcType=VARCHAR}
+    </select>
 
     <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.ysh.garbageRecyle.entity.UsersEntity" useGeneratedKeys="true">
         insert into users (role_id, user_name, account_number, 

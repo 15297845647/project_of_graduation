@@ -16,4 +16,7 @@ public interface UsersMapper extends BaseMapper<UsersEntity>  {
 
     //查询所有用户
     List<UsersEntity> selectAllUser();
+
+    //用户登录
+    UsersEntity userLogin(UsersEntity usersEntity);
 }

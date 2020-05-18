@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.ysh.garbageRecyle.entity.GarbageCategoryEntity;
 import com.ysh.garbageRecyle.entity.GarbageEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -156,6 +158,35 @@ public class UsersController {
         }
 
     }
+    @RequestMapping(value = "/toLogin",method = RequestMethod.GET)
+    public String tologin(){
+        return "login";
+    }
+
+    @RequestMapping(value = "/check" ,method = RequestMethod.POST)
+    @ResponseBody
+    public  UsersEntity check(@RequestBody UsersEntity usersEntity, HttpSession session){
+        System.out.println("收到前端ajax请求");
+        //向后台数据库查询用户id
+        usersEntity=service.userLogin(usersEntity);
+        //如果id争取，则传回信息
+        if(usersEntity.getUserId()>0){
+            session.setAttribute("cur_user",usersEntity);
+            System.out.println("传回正确信息");
+            return usersEntity;
+        }else{
+            System.out.println("传回错误信息");
+            return usersEntity;
+        }
+    }
+
+    @RequestMapping(value = "/logout" ,method = RequestMethod.GET)
+    public String logout(HttpSession session) {
+        // 移除session
+        session.removeAttribute("cur_user");
+        return "login";
+    }
+
 
 }
 

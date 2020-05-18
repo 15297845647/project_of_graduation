@@ -27,4 +27,7 @@ public interface UsersService {
     public Integer updateById(UsersEntity usersEntity);
 
     public List<UsersEntity> selectAll();
+
+    //用户登录
+    public UsersEntity userLogin(UsersEntity usersEntity);
 }

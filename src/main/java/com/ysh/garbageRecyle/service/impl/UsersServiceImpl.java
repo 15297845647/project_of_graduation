@@ -70,5 +70,10 @@ public class UsersServiceImpl  implements UsersService {
 		return usersMapper.selectAllUser();
 	}
 
+	@Override
+	public UsersEntity userLogin(UsersEntity usersEntity) {
+		return usersMapper.userLogin(usersEntity);
+	}
+
 
 }
