@@ -30,4 +30,10 @@ public interface UsersService {
 
     //用户登录
     public UsersEntity userLogin(UsersEntity usersEntity);
+
+    //查询所有的账号
+    public List<String> selectAllAccountNumber();
+
+    //查询所有手机号
+    public List<String> selectAllPhoneNumber();
 }

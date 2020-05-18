@@ -2,6 +2,7 @@ package com.ysh.garbageRecyle.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
+import com.ysh.garbageRecyle.dto.RegisterDto;
 import com.ysh.garbageRecyle.entity.GarbageCategoryEntity;
 import com.ysh.garbageRecyle.entity.GarbageEntity;
 import com.ysh.garbageRecyle.entity.RoleEntity;
@@ -9,6 +10,7 @@ import com.ysh.garbageRecyle.service.RoleService;
 import com.ysh.garbageRecyle.service.UsersService;
 import com.ysh.garbageRecyle.entity.UsersEntity;
 
+import com.zhenzi.sms.ZhenziSmsClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * 控制层
@@ -185,6 +189,109 @@ public class UsersController {
         // 移除session
         session.removeAttribute("cur_user");
         return "login";
+    }
+    @RequestMapping(value = "/register" ,method = RequestMethod.POST)
+    @ResponseBody
+    public String register(@RequestBody RegisterDto registerDto,HttpSession session){
+        //验证码错误
+        if(!registerDto.getCode().equals(session.getAttribute("code"))){
+            return "3";
+        }
+        //判断账户是否已经存在
+        List<String> accountNumberList=service.selectAllAccountNumber();
+        if(accountNumberList.contains(registerDto.getAccountNumber())){
+            return "2";
+        }
+        //判断手机号是否已经注册了
+        List<String> phoneNumberList=service.selectAllPhoneNumber();
+        if(phoneNumberList.contains(registerDto.getPhoneNumber())){
+            return "4";
+        }
+
+        UsersEntity usersEntity=new UsersEntity();
+        usersEntity.setAccountNumber(registerDto.getAccountNumber());
+        usersEntity.setAddress(registerDto.getAddress());
+        usersEntity.setPassword(registerDto.getPassword());
+        usersEntity.setRoleId(1);
+        usersEntity.setUserName(registerDto.getUserName());
+        usersEntity.setPhoneNumber(registerDto.getPhoneNumber());
+        Map<String,Object> map= service.save(usersEntity);
+        int id= (int) map.get("id");
+        if(id>0){
+            session.removeAttribute("code");
+            return "0";
+        }else {
+            return "1";
+        }
+    }
+    @RequestMapping(value = "/resertPassword" ,method = RequestMethod.POST)
+    @ResponseBody
+    public String resertPassword(@RequestBody RegisterDto registerDto,HttpSession session){
+        //验证码错误
+        if(!registerDto.getCode().equals(session.getAttribute("code"))){
+            return "3";
+        }
+        //判断手机号是否存在
+        List<String> phoneNumberList=service.selectAllPhoneNumber();
+        if(!phoneNumberList.contains(registerDto.getPhoneNumber())){
+            return "4";
+        }
+        //通过手机号查找用户
+        Map<String,Object> map=new HashMap<>();
+        map.put("phoneNumber",registerDto.getPhoneNumber());
+        PageInfo page=service.queryByPage(1,1,map);
+        List<UsersEntity> list=page.getList();
+        //系统错误，同一个手机号有多个用户
+        if(list.size()!=1){
+            return "2";
+        }
+        UsersEntity usersEntity=list.get(0);
+        usersEntity.setPassword(registerDto.getPassword());
+        int i=service.updateById(usersEntity);
+        if(i>0){
+            session.removeAttribute("code");
+            return "0";
+        }else {
+            return "1";
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("/getCode")
+    public boolean getCode(@RequestParam("memPhone") String memPhone, HttpSession httpSession){
+        String apiUrl = "https://sms_developer.zhenzikj.com";
+        String appId = "105816";
+        String appSecret = "b9dc352e-6c68-437f-b429-1e924ed10f3d";
+        try {
+            JSONObject json = null;
+            //随机生成验证码
+            String code = String.valueOf(new Random().nextInt(999999));
+            //将验证码通过榛子云接口发送至手机
+            ZhenziSmsClient client = new ZhenziSmsClient(apiUrl, appId, appSecret);
+
+            //设置发送，模板
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("number", memPhone);
+            params.put("templateId", "138");
+            String[] templateParams = new String[2];
+            templateParams[0] = code;
+            templateParams[1] = "5";
+            params.put("templateParams", templateParams);
+            String result = client.send(params);
+
+            json = JSONObject.parseObject(result);
+            if (json.getIntValue("code")!=0){//发送短信失败
+                return  false;
+            }
+            //将验证码存到session中,同时存入创建时间
+            //以json存放，这里使用的是阿里的fastjson;
+            // 将认证码存入SESSION
+            httpSession.setAttribute("code",code);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 

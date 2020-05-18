@@ -58,18 +58,18 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <label class="control-label visible-ie8 visible-ie9">账号</label>
             <div class="input-icon">
                 <i class="fa fa-user"></i>
-                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="账号" id="accountNumber"/>
+                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="账号" id="accountNumber" name="accountNumber"/>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">密码</label>
             <div class="input-icon">
                 <i class="fa fa-lock"></i>
-                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" id="password"/>
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" id="password" name="password"/>
             </div>
         </div>
         <div class="form-actions">
-            <button type="button" onclick="usersLogin()" class="btn green pull-right">
+            <button type="submit" onclick="usersLogin()" class="btn green pull-right">
                 登录 <i class="m-icon-swapright m-icon-white"></i>
             </button>
         </div>
@@ -82,342 +82,120 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </div>
         <div class="create-account">
             <p>
-                Don't have an account yet ?&nbsp;
-                <a href="javascript:;" id="register-btn" >Create an account</a>
+                你有账户么 ?&nbsp;
+                <a href="javascript:;" id="register-btn" >创建一个账户</a>
             </p>
         </div>
     </form>
     <!-- END LOGIN FORM -->
     <!-- BEGIN FORGOT PASSWORD FORM -->
-    <form class="forget-form" action="index.html" method="post">
-        <h3 >Forget Password ?</h3>
-        <p>Enter your e-mail address below to reset your password.</p>
+    <form class="forget-form">
+        <h3 >忘记密码 ?</h3>
+        <p>请输入手机号重置密码.</p>
         <div class="form-group">
             <div class="input-icon">
                 <i class="fa fa-envelope"></i>
-                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email" />
+                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="手机号" id="resertPhoneNumber" name="resertPhoneNumber"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">验证码</label>
+            <div class="input-icon">
+                <i class="fa fa-location-arrow"></i>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="验证码" name="resertCode" id="resertCode" style="width: 50%;display: inline"/>
+                <input type="button" class="btn btn-primary" value="获取验证码" id="resertSendBtn" style="width:41%;margin-left: 18px;border-color:#1e9fff !important;" onclick="resertSendCode(this)"></input>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">密码</label>
+            <div class="input-icon">
+                <i class="fa fa-lock"></i>
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="resertpassword" id="resert_password"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">确认密码</label>
+            <div class="controls">
+                <div class="input-icon">
+                    <i class="fa fa-check"></i>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="确认密码" name="rresertpassword" id="rresert_rpassword"/>
+                </div>
             </div>
         </div>
         <div class="form-actions">
             <button type="button" id="back-btn" class="btn">
                 <i class="m-icon-swapleft"></i> Back
             </button>
-            <button type="submit" class="btn green pull-right">
+            <button type="submit" class="btn green pull-right" onclick="resertPassword()">
                 Submit <i class="m-icon-swapright m-icon-white"></i>
             </button>
         </div>
     </form>
     <!-- END FORGOT PASSWORD FORM -->
     <!-- BEGIN REGISTRATION FORM -->
-    <form class="register-form" action="index.html" method="post">
-        <h3 >Sign Up</h3>
-        <p>Enter your personal details below:</p>
+    <form class="register-form">
+        <h3 >注册</h3>
+        <p>请输入个人信息</p>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Full Name</label>
+            <label class="control-label visible-ie8 visible-ie9">名称</label>
             <div class="input-icon">
                 <i class="fa fa-font"></i>
-                <input class="form-control placeholder-no-fix" type="text" placeholder="Full Name" name="fullname"/>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="名称" id="register_userName" name="register_userName"/>
             </div>
         </div>
         <div class="form-group">
-            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">Email</label>
-            <div class="input-icon">
-                <i class="fa fa-envelope"></i>
-                <input class="form-control placeholder-no-fix" type="text" placeholder="Email" name="email"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Address</label>
+            <label class="control-label visible-ie8 visible-ie9">地址</label>
             <div class="input-icon">
                 <i class="fa fa-check"></i>
-                <input class="form-control placeholder-no-fix" type="text" placeholder="Address" name="address"/>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="地址" id="register_address" name="register_address"/>
             </div>
         </div>
+
+        <p>请输入账号详细信息</p>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">City/Town</label>
-            <div class="input-icon">
-                <i class="fa fa-location-arrow"></i>
-                <input class="form-control placeholder-no-fix" type="text" placeholder="City/Town" name="city"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Country</label>
-            <select name="country" id="select2_sample4" class="select2 form-control">
-                <option value=""></option>
-                <option value="AF">Afghanistan</option>
-                <option value="AL">Albania</option>
-                <option value="DZ">Algeria</option>
-                <option value="AS">American Samoa</option>
-                <option value="AD">Andorra</option>
-                <option value="AO">Angola</option>
-                <option value="AI">Anguilla</option>
-                <option value="AQ">Antarctica</option>
-                <option value="AR">Argentina</option>
-                <option value="AM">Armenia</option>
-                <option value="AW">Aruba</option>
-                <option value="AU">Australia</option>
-                <option value="AT">Austria</option>
-                <option value="AZ">Azerbaijan</option>
-                <option value="BS">Bahamas</option>
-                <option value="BH">Bahrain</option>
-                <option value="BD">Bangladesh</option>
-                <option value="BB">Barbados</option>
-                <option value="BY">Belarus</option>
-                <option value="BE">Belgium</option>
-                <option value="BZ">Belize</option>
-                <option value="BJ">Benin</option>
-                <option value="BM">Bermuda</option>
-                <option value="BT">Bhutan</option>
-                <option value="BO">Bolivia</option>
-                <option value="BA">Bosnia and Herzegowina</option>
-                <option value="BW">Botswana</option>
-                <option value="BV">Bouvet Island</option>
-                <option value="BR">Brazil</option>
-                <option value="IO">British Indian Ocean Territory</option>
-                <option value="BN">Brunei Darussalam</option>
-                <option value="BG">Bulgaria</option>
-                <option value="BF">Burkina Faso</option>
-                <option value="BI">Burundi</option>
-                <option value="KH">Cambodia</option>
-                <option value="CM">Cameroon</option>
-                <option value="CA">Canada</option>
-                <option value="CV">Cape Verde</option>
-                <option value="KY">Cayman Islands</option>
-                <option value="CF">Central African Republic</option>
-                <option value="TD">Chad</option>
-                <option value="CL">Chile</option>
-                <option value="CN">China</option>
-                <option value="CX">Christmas Island</option>
-                <option value="CC">Cocos (Keeling) Islands</option>
-                <option value="CO">Colombia</option>
-                <option value="KM">Comoros</option>
-                <option value="CG">Congo</option>
-                <option value="CD">Congo, the Democratic Republic of the</option>
-                <option value="CK">Cook Islands</option>
-                <option value="CR">Costa Rica</option>
-                <option value="CI">Cote d'Ivoire</option>
-                <option value="HR">Croatia (Hrvatska)</option>
-                <option value="CU">Cuba</option>
-                <option value="CY">Cyprus</option>
-                <option value="CZ">Czech Republic</option>
-                <option value="DK">Denmark</option>
-                <option value="DJ">Djibouti</option>
-                <option value="DM">Dominica</option>
-                <option value="DO">Dominican Republic</option>
-                <option value="EC">Ecuador</option>
-                <option value="EG">Egypt</option>
-                <option value="SV">El Salvador</option>
-                <option value="GQ">Equatorial Guinea</option>
-                <option value="ER">Eritrea</option>
-                <option value="EE">Estonia</option>
-                <option value="ET">Ethiopia</option>
-                <option value="FK">Falkland Islands (Malvinas)</option>
-                <option value="FO">Faroe Islands</option>
-                <option value="FJ">Fiji</option>
-                <option value="FI">Finland</option>
-                <option value="FR">France</option>
-                <option value="GF">French Guiana</option>
-                <option value="PF">French Polynesia</option>
-                <option value="TF">French Southern Territories</option>
-                <option value="GA">Gabon</option>
-                <option value="GM">Gambia</option>
-                <option value="GE">Georgia</option>
-                <option value="DE">Germany</option>
-                <option value="GH">Ghana</option>
-                <option value="GI">Gibraltar</option>
-                <option value="GR">Greece</option>
-                <option value="GL">Greenland</option>
-                <option value="GD">Grenada</option>
-                <option value="GP">Guadeloupe</option>
-                <option value="GU">Guam</option>
-                <option value="GT">Guatemala</option>
-                <option value="GN">Guinea</option>
-                <option value="GW">Guinea-Bissau</option>
-                <option value="GY">Guyana</option>
-                <option value="HT">Haiti</option>
-                <option value="HM">Heard and Mc Donald Islands</option>
-                <option value="VA">Holy See (Vatican City State)</option>
-                <option value="HN">Honduras</option>
-                <option value="HK">Hong Kong</option>
-                <option value="HU">Hungary</option>
-                <option value="IS">Iceland</option>
-                <option value="IN">India</option>
-                <option value="ID">Indonesia</option>
-                <option value="IR">Iran (Islamic Republic of)</option>
-                <option value="IQ">Iraq</option>
-                <option value="IE">Ireland</option>
-                <option value="IL">Israel</option>
-                <option value="IT">Italy</option>
-                <option value="JM">Jamaica</option>
-                <option value="JP">Japan</option>
-                <option value="JO">Jordan</option>
-                <option value="KZ">Kazakhstan</option>
-                <option value="KE">Kenya</option>
-                <option value="KI">Kiribati</option>
-                <option value="KP">Korea, Democratic People's Republic of</option>
-                <option value="KR">Korea, Republic of</option>
-                <option value="KW">Kuwait</option>
-                <option value="KG">Kyrgyzstan</option>
-                <option value="LA">Lao People's Democratic Republic</option>
-                <option value="LV">Latvia</option>
-                <option value="LB">Lebanon</option>
-                <option value="LS">Lesotho</option>
-                <option value="LR">Liberia</option>
-                <option value="LY">Libyan Arab Jamahiriya</option>
-                <option value="LI">Liechtenstein</option>
-                <option value="LT">Lithuania</option>
-                <option value="LU">Luxembourg</option>
-                <option value="MO">Macau</option>
-                <option value="MK">Macedonia, The Former Yugoslav Republic of</option>
-                <option value="MG">Madagascar</option>
-                <option value="MW">Malawi</option>
-                <option value="MY">Malaysia</option>
-                <option value="MV">Maldives</option>
-                <option value="ML">Mali</option>
-                <option value="MT">Malta</option>
-                <option value="MH">Marshall Islands</option>
-                <option value="MQ">Martinique</option>
-                <option value="MR">Mauritania</option>
-                <option value="MU">Mauritius</option>
-                <option value="YT">Mayotte</option>
-                <option value="MX">Mexico</option>
-                <option value="FM">Micronesia, Federated States of</option>
-                <option value="MD">Moldova, Republic of</option>
-                <option value="MC">Monaco</option>
-                <option value="MN">Mongolia</option>
-                <option value="MS">Montserrat</option>
-                <option value="MA">Morocco</option>
-                <option value="MZ">Mozambique</option>
-                <option value="MM">Myanmar</option>
-                <option value="NA">Namibia</option>
-                <option value="NR">Nauru</option>
-                <option value="NP">Nepal</option>
-                <option value="NL">Netherlands</option>
-                <option value="AN">Netherlands Antilles</option>
-                <option value="NC">New Caledonia</option>
-                <option value="NZ">New Zealand</option>
-                <option value="NI">Nicaragua</option>
-                <option value="NE">Niger</option>
-                <option value="NG">Nigeria</option>
-                <option value="NU">Niue</option>
-                <option value="NF">Norfolk Island</option>
-                <option value="MP">Northern Mariana Islands</option>
-                <option value="NO">Norway</option>
-                <option value="OM">Oman</option>
-                <option value="PK">Pakistan</option>
-                <option value="PW">Palau</option>
-                <option value="PA">Panama</option>
-                <option value="PG">Papua New Guinea</option>
-                <option value="PY">Paraguay</option>
-                <option value="PE">Peru</option>
-                <option value="PH">Philippines</option>
-                <option value="PN">Pitcairn</option>
-                <option value="PL">Poland</option>
-                <option value="PT">Portugal</option>
-                <option value="PR">Puerto Rico</option>
-                <option value="QA">Qatar</option>
-                <option value="RE">Reunion</option>
-                <option value="RO">Romania</option>
-                <option value="RU">Russian Federation</option>
-                <option value="RW">Rwanda</option>
-                <option value="KN">Saint Kitts and Nevis</option>
-                <option value="LC">Saint LUCIA</option>
-                <option value="VC">Saint Vincent and the Grenadines</option>
-                <option value="WS">Samoa</option>
-                <option value="SM">San Marino</option>
-                <option value="ST">Sao Tome and Principe</option>
-                <option value="SA">Saudi Arabia</option>
-                <option value="SN">Senegal</option>
-                <option value="SC">Seychelles</option>
-                <option value="SL">Sierra Leone</option>
-                <option value="SG">Singapore</option>
-                <option value="SK">Slovakia (Slovak Republic)</option>
-                <option value="SI">Slovenia</option>
-                <option value="SB">Solomon Islands</option>
-                <option value="SO">Somalia</option>
-                <option value="ZA">South Africa</option>
-                <option value="GS">South Georgia and the South Sandwich Islands</option>
-                <option value="ES">Spain</option>
-                <option value="LK">Sri Lanka</option>
-                <option value="SH">St. Helena</option>
-                <option value="PM">St. Pierre and Miquelon</option>
-                <option value="SD">Sudan</option>
-                <option value="SR">Suriname</option>
-                <option value="SJ">Svalbard and Jan Mayen Islands</option>
-                <option value="SZ">Swaziland</option>
-                <option value="SE">Sweden</option>
-                <option value="CH">Switzerland</option>
-                <option value="SY">Syrian Arab Republic</option>
-                <option value="TW">Taiwan, Province of China</option>
-                <option value="TJ">Tajikistan</option>
-                <option value="TZ">Tanzania, United Republic of</option>
-                <option value="TH">Thailand</option>
-                <option value="TG">Togo</option>
-                <option value="TK">Tokelau</option>
-                <option value="TO">Tonga</option>
-                <option value="TT">Trinidad and Tobago</option>
-                <option value="TN">Tunisia</option>
-                <option value="TR">Turkey</option>
-                <option value="TM">Turkmenistan</option>
-                <option value="TC">Turks and Caicos Islands</option>
-                <option value="TV">Tuvalu</option>
-                <option value="UG">Uganda</option>
-                <option value="UA">Ukraine</option>
-                <option value="AE">United Arab Emirates</option>
-                <option value="GB">United Kingdom</option>
-                <option value="US">United States</option>
-                <option value="UM">United States Minor Outlying Islands</option>
-                <option value="UY">Uruguay</option>
-                <option value="UZ">Uzbekistan</option>
-                <option value="VU">Vanuatu</option>
-                <option value="VE">Venezuela</option>
-                <option value="VN">Viet Nam</option>
-                <option value="VG">Virgin Islands (British)</option>
-                <option value="VI">Virgin Islands (U.S.)</option>
-                <option value="WF">Wallis and Futuna Islands</option>
-                <option value="EH">Western Sahara</option>
-                <option value="YE">Yemen</option>
-                <option value="ZM">Zambia</option>
-                <option value="ZW">Zimbabwe</option>
-            </select>
-        </div>
-        <p>Enter your account details below:</p>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            <label class="control-label visible-ie8 visible-ie9">账号</label>
             <div class="input-icon">
                 <i class="fa fa-user"></i>
-                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username"/>
+                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="账号" id="register_accountNumber" name="register_accountNumber"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Password</label>
+            <label class="control-label visible-ie8 visible-ie9">密码</label>
             <div class="input-icon">
                 <i class="fa fa-lock"></i>
-                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="Password" name="password"/>
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="register_password" id="register_password"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Re-type Your Password</label>
+            <label class="control-label visible-ie8 visible-ie9">确认密码</label>
             <div class="controls">
                 <div class="input-icon">
                     <i class="fa fa-check"></i>
-                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Re-type Your Password" name="rpassword"/>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="确认密码" name="rregister_password" id="rregister_password"/>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label>
-                <input type="checkbox" name="tnc"/> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-            </label>
-            <div id="register_tnc_error"></div>
+            <label class="control-label visible-ie8 visible-ie9">手机号</label>
+            <div class="input-icon">
+                <i class="fa fa-location-arrow"></i>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="手机号" id="register_phoneNumber" name="register_phoneNumber"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">验证码</label>
+            <div class="input-icon">
+                <i class="fa fa-location-arrow"></i>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="验证码" id="register_code" name="register_code" style="width: 50%;display: inline"/>
+                <input type="button" class="btn btn-primary" value="获取验证码" id="register_sendBtn" style="width:41%;margin-left: 18px;border-color:#1e9fff !important;" onclick="sendCode(this)"></input>
+            </div>
         </div>
         <div class="form-actions">
             <button id="register-back-btn" type="button" class="btn">
                 <i class="m-icon-swapleft"></i>  Back
             </button>
-            <button type="submit" id="register-submit-btn" class="btn green pull-right">
-                Sign Up <i class="m-icon-swapright m-icon-white"></i>
+            <button type="submit" id="register-submit-btn" class="btn green pull-right" onclick="userRegister()">
+                注册 <i class="m-icon-swapright m-icon-white"></i>
             </button>
         </div>
     </form>
@@ -460,9 +238,83 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 </script>
 <!-- END JAVASCRIPTS -->
 <script>
+    function userRegister(){
+        var userName=$("#register_userName").val();
+        var address=$("#register_address").val();
+        var password=$("#register_password").val();
+        var phoneNumber=$("#register_phoneNumber").val();
+        var register_code=$("#register_code").val();
+        var accountNumber=$("#register_accountNumber").val();
+        var rregister_password=$("#rregister_password").val();
+        if(!(password==rregister_password)){
+            return;
+        }
+        if(rregister_password==null||rregister_password==""){
+            return;
+        }
+        if(userName==null||userName==""){
+            return;
+        }
+        if(address==null||address==""){
+            return;
+        }
+        if(password==null||password==""){
+            return;
+        }
+        if(phoneNumber==null||phoneNumber==""){
+            return;
+        }if(register_code==null||register_code==""){
+            return;
+        }if(accountNumber==null||accountNumber==""){
+            return;
+        }
+        $.ajax({
+            url:"/users/register",
+            type:"post",
+            data:JSON.stringify({
+                "userName":userName,
+                "address":address,
+                "password":password,
+                "phoneNumber":phoneNumber,
+                "code":register_code,
+                "accountNumber":accountNumber
+            }),
+            contentType:"application/json",
+            error: function (data) {
+                alert("注册失败");
+            },
+            success:function (data) {
+                if(data=="0"){
+                    window.location.href="/users/toLogin";
+                }
+                if(data=="1"){
+                    alert("注册失败")
+                    return
+                }
+                if(data=="2"){
+                    alert("账号已存在")
+                    return
+                }
+                if(data=="3"){
+                    alert("验证码错误")
+                    return
+                }
+                if(data=="4"){
+                    alert("手机号已被注册")
+                    return
+                }
+            }
+        });
+    }
     function usersLogin() {
         var accountNumber=$("#accountNumber").val();
         var password=$("#password").val();
+        if(accountNumber==null||accountNumber==""){
+            return;
+        }
+        if(password==null||password==""){
+            return;
+        }
         $.ajax({
             url:"/users/check",
             type:"post",
@@ -486,6 +338,143 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             }
         });
     }
+    
+    function resertPassword() {
+        var resertPhoneNumber=$("#resertPhoneNumber").val();
+        var resertCode=$("#resertCode").val();
+        var resert_password=$("#resert_password").val();
+        var rresert_rpassword=$("#rresert_rpassword").val();
+        if(resertPhoneNumber==null||resertPhoneNumber==""){
+            return;
+        }
+        if(resertCode==null||resertCode==""){
+            return;
+        }
+        if(resert_password==null||resert_password==""){
+            return;
+        }
+        if(rresert_rpassword==null||rresert_rpassword==""){
+            return;
+        }
+        $.ajax({
+            url:"/users/resertPassword",
+            type:"post",
+            data:JSON.stringify({
+                "password":resert_password,
+                "phoneNumber":resertPhoneNumber,
+                "code":resertCode
+            }),
+            contentType:"application/json",
+            error: function (data) {
+                alert("修改失败");
+                return;
+            },
+            success:function (data) {
+                if(data=="0"){
+                    window.location.href="/users/toLogin";
+                }
+                if(data=="1"){
+                    alert("修改失败")
+                    return
+                }
+                if(data=="2"){
+                    alert("系统错误")
+                    return
+                }
+                if(data=="3"){
+                    alert("验证码错误")
+                    return
+                }
+                if(data=="4"){
+                    alert("手机号不存在")
+                    return
+                }
+
+            }
+        });
+    }
+    //重置验证码发送
+    //验证码发送
+    function resertSendCode(){
+        var memPhone = $("#resertPhoneNumber").val();
+        console.log(memPhone.length);
+        if(memPhone == '' || memPhone.length != 11){
+            alert("请输入正确的手机号！");
+            return;
+        }else{
+            $.ajax({
+                url: '/users/getCode?memPhone='+memPhone,
+                type: 'GET',
+                success: function(data) {
+                    if(data){
+                        resertTimer();
+                    }else{
+                        alert("获取验证码失败");
+                    }
+                },
+                error: function(data) {
+                    alert('连接超时！');
+                },
+            });
+        }
+    }
+    //注册验证码发送
+    function sendCode(){
+        var memPhone = $("#register_phoneNumber").val();
+        console.log(memPhone.length);
+        if(memPhone == '' || memPhone.length != 11){
+            alert("请输入正确的手机号！");
+            return;
+        }else{
+            $.ajax({
+                url: '/users/getCode?memPhone='+memPhone,
+                type: 'GET',
+                success: function(data) {
+                    if(data){
+                        timer();
+                    }else{
+                        alert("获取验证码失败");
+                    }
+                },
+                error: function(data) {
+                    alert('连接超时！');
+                },
+            });
+        }
+    }
+
+    var wait = 60;
+    //倒计时
+    function timer() {
+        if(wait == 0){
+            $("#register_sendBtn").val("获取验证码");
+            $("#register_sendBtn").removeAttr("disabled");
+            $("#register_sendBtn").css("border-color","1e9fff").css("background", "#ffffff").css("cursor", "pointer");
+            wait = 60;
+        }else{
+            $("#register_sendBtn").attr("disabled","true");
+            $("#register_sendBtn").css("border-color","fbfbfb").css("background", "#ccc").css("cursor", "not-allowed");
+            $("#register_sendBtn").val(wait + "秒后重发");
+            wait--;
+            setTimeout(function() {timer()}, 1000);
+        }
+    }
+    //倒计时
+    function resertTimer() {
+        if(wait == 0){
+            $("#resertSendBtn").val("获取验证码");
+            $("#resertSendBtn").removeAttr("disabled");
+            $("#resertSendBtn").css("border-color","1e9fff").css("background", "#ffffff").css("cursor", "pointer");
+            wait = 60;
+        }else{
+            $("#resertSendBtn").attr("disabled","true");
+            $("#resertSendBtn").css("border-color","fbfbfb").css("background", "#ccc").css("cursor", "not-allowed");
+            $("#resertSendBtn").val(wait + "秒后重发");
+            wait--;
+            setTimeout(function() {timer()}, 1000);
+        }
+    }
+
 </script>
 </body>
 <!-- END BODY -->

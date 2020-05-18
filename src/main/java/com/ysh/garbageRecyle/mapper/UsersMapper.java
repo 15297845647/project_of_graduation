@@ -19,4 +19,10 @@ public interface UsersMapper extends BaseMapper<UsersEntity>  {
 
     //用户登录
     UsersEntity userLogin(UsersEntity usersEntity);
+
+    //查询所有的账号
+    List<String> selectAllAccountNumber();
+
+    //查询所有账户手机号
+    List<String> selectAllPhoneNumber();
 }

@@ -75,5 +75,15 @@ public class UsersServiceImpl  implements UsersService {
 		return usersMapper.userLogin(usersEntity);
 	}
 
+	@Override
+	public List<String> selectAllAccountNumber() {
+		return usersMapper.selectAllAccountNumber();
+	}
+
+	@Override
+	public List<String> selectAllPhoneNumber() {
+		return usersMapper.selectAllPhoneNumber();
+	}
+
 
 }

@@ -7,23 +7,20 @@ var Login = function () {
 	            errorClass: 'help-block', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
 	            rules: {
-	                username: {
+					accountNumber: {
 	                    required: true
 	                },
-	                password: {
+					password: {
 	                    required: true
-	                },
-	                remember: {
-	                    required: false
 	                }
 	            },
 
 	            messages: {
-	                username: {
-	                    required: "Username is required."
+					accountNumber: {
+	                    required: "请输入账号"
 	                },
 	                password: {
-	                    required: "Password is required."
+	                    required: "请输入密码"
 	                }
 	            },
 
@@ -67,15 +64,24 @@ var Login = function () {
 	            focusInvalid: false, // do not focus the last invalid input
 	            ignore: "",
 	            rules: {
-	                email: {
-	                    required: true,
-	                    email: true
-	                }
-	            },
+					resertPhoneNumber: {
+	                    required: true
+	                },
+					resertpassword: {
+						required: true
+					},
+					rresertpassword: {
+						equalTo: "#resert_password"
+					},
+					resertCode: {
+						required: true
+					}
+
+				},
 
 	            messages: {
 	                email: {
-	                    required: "Email is required."
+	                    required: "请输入手机号"
 	                }
 	            },
 
@@ -154,34 +160,28 @@ var Login = function () {
 	            focusInvalid: false, // do not focus the last invalid input
 	            ignore: "",
 	            rules: {
-	                
-	                fullname: {
-	                    required: true
-	                },
-	                email: {
-	                    required: true,
-	                    email: true
-	                },
-	                address: {
-	                    required: true
-	                },
-	                city: {
-	                    required: true
-	                },
-	                country: {
-	                    required: true
-	                },
 
-	                username: {
+					register_userName: {
 	                    required: true
 	                },
-	                password: {
+					register_phoneNumber: {
 	                    required: true
 	                },
-	                rpassword: {
+					register_address: {
+	                    required: true
+	                },
+					register_accountNumber: {
+	                    required: true
+	                },
+					register_password: {
+	                    required: true
+	                },
+					rregister_password: {
 	                    equalTo: "#register_password"
 	                },
-
+					register_code: {
+						required: true
+					},
 	                tnc: {
 	                    required: true
 	                }

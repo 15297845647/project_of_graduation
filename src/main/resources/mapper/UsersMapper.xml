@@ -73,6 +73,16 @@
         where
         u.account_number = #{accountNumber,jdbcType=VARCHAR} and u.password= #{password,jdbcType=VARCHAR}
     </select>
+    <select id="selectAllAccountNumber" resultType="java.lang.String">
+        select u.account_number
+        from
+        users u
+    </select>
+    <select id="selectAllPhoneNumber" resultType="java.lang.String">
+        select u.phone_number
+        from
+        users u
+    </select>
 
     <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.ysh.garbageRecyle.entity.UsersEntity" useGeneratedKeys="true">
         insert into users (role_id, user_name, account_number, 
