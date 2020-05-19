@@ -449,11 +449,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         if(wait == 0){
             $("#register_sendBtn").val("获取验证码");
             $("#register_sendBtn").removeAttr("disabled");
-            $("#register_sendBtn").css("border-color","1e9fff").css("background", "#ffffff").css("cursor", "pointer");
+            $("#register_sendBtn").css("border-color","1e9fff").css("background", "#1C86EE").css("cursor", "pointer");
             wait = 60;
         }else{
             $("#register_sendBtn").attr("disabled","true");
-            $("#register_sendBtn").css("border-color","fbfbfb").css("background", "#ccc").css("cursor", "not-allowed");
+            $("#register_sendBtn").css("border-color","fbfbfb").css("background", "#9C9C9C").css("cursor", "not-allowed");
             $("#register_sendBtn").val(wait + "秒后重发");
             wait--;
             setTimeout(function() {timer()}, 1000);
@@ -464,11 +464,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         if(wait == 0){
             $("#resertSendBtn").val("获取验证码");
             $("#resertSendBtn").removeAttr("disabled");
-            $("#resertSendBtn").css("border-color","1e9fff").css("background", "#ffffff").css("cursor", "pointer");
+            $("#resertSendBtn").css("border-color","1e9fff").css("background", "#1C86EE").css("cursor", "pointer");
             wait = 60;
         }else{
             $("#resertSendBtn").attr("disabled","true");
-            $("#resertSendBtn").css("border-color","fbfbfb").css("background", "#ccc").css("cursor", "not-allowed");
+            $("#resertSendBtn").css("border-color","fbfbfb").css("background", "#9C9C9C").css("cursor", "not-allowed");
             $("#resertSendBtn").val(wait + "秒后重发");
             wait--;
             setTimeout(function() {timer()}, 1000);

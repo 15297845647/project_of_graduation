@@ -87,7 +87,7 @@
             <li class="dropdown user">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                     <img alt="" src="assets/img/avatar1_small.jpg"/>
-                    <span class="username">Bob Nilson</span>
+                    <span class="username">[[session.cur_user.userName]]/span>
                     <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu inlogin">
@@ -110,132 +110,71 @@
 <div class="clearfix"></div>
 <!-- BEGIN CONTAINER -->
 
-    <!-- BEGIN STYLE CUSTOMIZER -->
-    <div class="theme-panel hidden-xs hidden-sm">
-        <div class="toggler"></div>
-        <div class="toggler-close"></div>
-        <div class="theme-options">
-            <div class="theme-option theme-colors clearfix">
-                <span>THEME COLOR</span>
-                <ul>
-                    <li class="color-black current color-default" data-style="default"></li>
-                    <li class="color-blue" data-style="blue"></li>
-                    <li class="color-brown" data-style="brown"></li>
-                    <li class="color-purple" data-style="purple"></li>
-                    <li class="color-grey" data-style="grey"></li>
-                    <li class="color-white color-light" data-style="light"></li>
-                </ul>
-            </div>
-            <div class="theme-option">
-                <span>Layout</span>
-                <select class="layout-option form-control input-small">
-                    <option value="fluid" selected="selected">Fluid</option>
-                    <option value="boxed">Boxed</option>
-                </select>
-            </div>
-            <div class="theme-option">
-                <span>Header</span>
-                <select class="header-option form-control input-small">
-                    <option value="fixed" selected="selected">Fixed</option>
-                    <option value="default">Default</option>
-                </select>
-            </div>
-            <div class="theme-option">
-                <span>Sidebar</span>
-                <select class="sidebar-option form-control input-small">
-                    <option value="fixed">Fixed</option>
-                    <option value="default" selected="selected">Default</option>
-                </select>
-            </div>
-            <div class="theme-option">
-                <span>Footer</span>
-                <select class="footer-option form-control input-small">
-                    <option value="fixed">Fixed</option>
-                    <option value="default" selected="selected">Default</option>
-                </select>
-            </div>
+<!-- BEGIN STYLE CUSTOMIZER -->
+<div class="theme-panel hidden-xs hidden-sm">
+    <div class="toggler"></div>
+    <div class="toggler-close"></div>
+    <div class="theme-options">
+        <div class="theme-option theme-colors clearfix">
+            <span>THEME COLOR</span>
+            <ul>
+                <li class="color-black current color-default" data-style="default"></li>
+                <li class="color-blue" data-style="blue"></li>
+                <li class="color-brown" data-style="brown"></li>
+                <li class="color-purple" data-style="purple"></li>
+                <li class="color-grey" data-style="grey"></li>
+                <li class="color-white color-light" data-style="light"></li>
+            </ul>
+        </div>
+        <div class="theme-option">
+            <span>Layout</span>
+            <select class="layout-option form-control input-small">
+                <option value="fluid" selected="selected">Fluid</option>
+                <option value="boxed">Boxed</option>
+            </select>
+        </div>
+        <div class="theme-option">
+            <span>Header</span>
+            <select class="header-option form-control input-small">
+                <option value="fixed" selected="selected">Fixed</option>
+                <option value="default">Default</option>
+            </select>
+        </div>
+        <div class="theme-option">
+            <span>Sidebar</span>
+            <select class="sidebar-option form-control input-small">
+                <option value="fixed">Fixed</option>
+                <option value="default" selected="selected">Default</option>
+            </select>
+        </div>
+        <div class="theme-option">
+            <span>Footer</span>
+            <select class="footer-option form-control input-small">
+                <option value="fixed">Fixed</option>
+                <option value="default" selected="selected">Default</option>
+            </select>
         </div>
     </div>
-    <!-- END BEGIN STYLE CUSTOMIZER -->
-    <!-- BEGIN PAGE CONTENT-->
-    <div class="row" style="margin-top: 5%">
-        <div class="col-md-8">
-            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet box blue">
-                <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-edit"></i>错题列表</div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse"></a>
-                        <a href="#portlet-config" data-toggle="modal" class="config"></a>
-                        <a href="javascript:;" class="reload"></a>
-                        <a href="javascript:;" class="remove"></a>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-                        <thead>
-                        <tr>
-                            <th style="width: 80%">题目</th>
-                            <th>时间</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr onclick="showTopic(1)">
-                            <td>alex</td>
-                            <td>Alex Nilson</td>
+</div>
+<!-- END BEGIN STYLE CUSTOMIZER -->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row" style="margin-top: 20%">
+    <div class="col-md-4">
 
-                        </tr>
-                        <tr onclick="showTopic(1)">
-                            <td>lisa</td>
-                            <td>Lisa Wong</td>
-
-                        </tr>
-                        <tr onclick="showTopic(1)">
-                            <td>nick12</td>
-                            <td>Nick Roberts</td>
-
-                        </tr>
-                        <tr onclick="showTopic(1)">
-                            <td>goldweb</td>
-                            <td>Sergio Jackson</td>
-
-                        </tr>
-                        <tr onclick="showTopic(1)">
-                            <td>webriver</td>
-                            <td>Antonio Sanches</td>
-
-                        </tr>
-                        <tr onclick="showTopic(1)">
-                            <td>gist124</td>
-                            <td>Nick Roberts</td>
-
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+    <div class="col-md-4" style="border:2px solid black;width: 100%;height:300px;background-color:#43CD80;  ">
+        <div style="width: 70%;margin: 15% ">
+            <p style="color: red;">您本次答题得分为:[[${testResultDto.getScore}]]</p>
         </div>
-        <div id="wrongTopic" class="col-md-3" style="display: none;height: 380px;border: 1px solid black">
-            <div>
-                <p>手表属于（）垃圾</p>
-            </div>
-            <div class="checkbox-list">
-                <label>
-                    <input type="checkbox" value="1" name="garbageType" checked readonly disabled>A 有害垃圾
-                </label>
-                <label>
-                    <input type="checkbox" value="2" name="garbageType" readonly disabled>B 厨余垃圾
-                </label>
-                <label>
-                    <input type="checkbox" value="3" name="garbageType" readonly disabled>C 可回收垃圾
-                </label>
-                <label>
-                    <input type="checkbox" value="4" name="garbageType" readonly disabled>D 其它垃圾
-                </label>
-            </div>
+        <div style="width: 100%;text-align:center;">
+            <a style="display: inline" href="/index/toIndexPage"></a>
+            <a style="display: inline" href="/wrongQuestion/toWrongQuestionPage"></a>
         </div>
     </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
 
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->

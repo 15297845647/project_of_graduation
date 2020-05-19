@@ -1,18 +1,26 @@
 package com.ysh.garbageRecyle.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.ysh.garbageRecyle.dto.ChooseDto;
+import com.ysh.garbageRecyle.dto.QuestionDto;
+import com.ysh.garbageRecyle.entity.*;
+import com.ysh.garbageRecyle.service.GarbageCategoryService;
+import com.ysh.garbageRecyle.service.QuestionService;
 import com.ysh.garbageRecyle.service.WrongQuestionService;
-import com.ysh.garbageRecyle.entity.WrongQuestionEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +37,11 @@ public class WrongQuestionController {
     @Autowired
     private WrongQuestionService service;
 
+    @Autowired
+    private QuestionService questionService;
+
+    @Autowired
+    private GarbageCategoryService garbageCategoryService;
     /**
      * 根据Id 查询
      * @param id
@@ -84,7 +97,78 @@ public class WrongQuestionController {
     	 entity.setWqId(id);
          return service.updateById(entity);
     }
-    
+
+    @RequestMapping(value="/toWrongQuestionPage",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toWrongQuestionPage(Model model, HttpSession session, @RequestParam(required = false) Integer pageNum){
+        UsersEntity usersEntity=(UsersEntity)session.getAttribute("cur_user");
+        //根据用户id获取用户错题
+        //当首页时
+        Map<String,Object> map=new HashMap<>();
+        map.put("userId",usersEntity.getUserId());
+        List<QuestionDto> questionDtoList=new ArrayList<>();
+        PageInfo<WrongQuestionEntity> pageInfo=new PageInfo<>();
+        int pageNo;
+        if(pageNum!=null){
+            //获取错题的id
+            pageNo=pageNum;
+            pageInfo =service.queryByPage(pageNo,8,map);
+         }else {
+            pageNo=1;
+            pageInfo=service.queryByPage(pageNo,8,map);
+        }
+        List<WrongQuestionEntity> wrongList=pageInfo.getList();
+        //根据错题id查找出题目
+            for (WrongQuestionEntity w:wrongList){
+            QuestionEntity questionEntity=new QuestionEntity();
+            questionEntity.setQuestionId(w.getQuestionId());
+            questionEntity=questionService.getByPrimaryKey(questionEntity);
+            //转换成Dto
+            QuestionDto questionDto=new QuestionDto();
+            questionDto=questionEntityToDto(questionEntity,w);
+            questionDtoList.add(questionDto);
+            }
+            model.addAttribute("navigatepageNums",pageInfo.getNavigatepageNums());
+            model.addAttribute("pageNum",pageNo);
+            model.addAttribute("questionDtoList",questionDtoList);
+            model.addAttribute("nextPage",pageInfo.getNextPage());
+            model.addAttribute("prePage",pageInfo.getPrePage());
+        return new ModelAndView("wrongExam","wrongExamModel",model);
+    }
+
+    public QuestionDto questionEntityToDto(QuestionEntity entity,WrongQuestionEntity wrongQuestionEntity){
+        QuestionDto questionDto=new QuestionDto();
+        //设置题目
+        String title=entity.getQuestionTitle();
+        questionDto.setQuestionTitle(title);
+        //设置选项
+        String content=entity.getQuestionContent();
+        ChooseDto chooseDto= JSONObject.parseObject(content,ChooseDto.class);
+        System.out.println(chooseDto.toString());
+        questionDto.setChooseDto(chooseDto);
+        //设置题目Id
+        questionDto.setQuestionId(entity.getQuestionId());
+        //设置正确答案
+        questionDto.setRightAnswer(entity.getRightAnswer());
+        //设置被答总次数
+        questionDto.setAnswerTimes(entity.getAnswersTime());
+        //设置答错次数
+        questionDto.setAnsweWrongTimes(entity.getAnswersWrong());
+        //设置题目类型
+        questionDto.setTopicType(entity.getQuestionType());
+        //设置题目状态
+        questionDto.setStatus(entity.getQuestionStatus());
+        //设置用户的答案
+        questionDto.setUsersAnser(wrongQuestionEntity.getUserAnswer());
+        //设置垃圾类别id
+        questionDto.setGabageCategoryId(entity.getQuestionCategory());
+        GarbageCategoryEntity garbageCategoryEntity=new GarbageCategoryEntity();
+        garbageCategoryEntity.setCategoryId(entity.getQuestionCategory());
+        garbageCategoryEntity=garbageCategoryService.getByPrimaryKey(garbageCategoryEntity);
+        //设置垃圾类别名称
+        questionDto.setGarbageCategoryName(garbageCategoryEntity.getCategoryName());
+        return questionDto;
+    }
 
 }
 

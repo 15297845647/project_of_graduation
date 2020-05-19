@@ -48,6 +48,24 @@ public class IndexController {
         model.addAttribute("lawsEntityList",lawsEntityList);
         return "index::lawsShow";
     }
+
+    @RequestMapping(value = "/toManageIndexLawsList",method = RequestMethod.GET)
+    public String toManageIndexLawsList(Model model){
+        List<GarbageLawEntity> lawsEntityList=new ArrayList<>();
+        PageInfo<GarbageLawEntity> lawsPage=garbageLawService.queryByPage(1,8,null);
+        lawsEntityList=lawsPage.getList();
+        model.addAttribute("lawsEntityList",lawsEntityList);
+        return "adminIndex::lawsShow";
+    }
+
+    @RequestMapping(value = "/toManageIndexNewsList",method = RequestMethod.GET)
+    public String toManageIndexNewsList(Model model){
+        List<NewsEntity> newsEntityList=new ArrayList<>();
+        PageInfo<NewsEntity> newsPage=newsService.queryByPage(1,13,null);
+        newsEntityList=newsPage.getList();
+        model.addAttribute("newsEntityList",newsEntityList);
+        return "adminIndex::newsShow";
+    }
     @RequestMapping(value = "/toIndexPage")
     public String toIndexPage(Model model){
         return "index";

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ysh.garbageRecyle.mapper.QuestionMapper">
-    
+
     <resultMap id="BaseResultMap" type="com.ysh.garbageRecyle.entity.QuestionEntity">
         <id column="question_id" jdbcType="INTEGER" property="questionId" />
         <result column="question_content" jdbcType="VARCHAR" property="questionContent" />
@@ -15,12 +15,12 @@
         <result column="question_category" jdbcType="INTEGER" property="questionCategory" />
         <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
     </resultMap>
-    
+
     <sql id="Base_Column_List">
-        question_id, question_content, answer_number, question_type, right_answer, question_title, 
+        question_id, question_content, answer_number, question_type, right_answer, question_title,
         question_status, answers_time, answers_wrong, question_category
     </sql>
-    
+
     <sql id="Base_Where_Clause">
         <where>
             <if test="questionContent != null">
@@ -52,7 +52,7 @@
             </if>
         </where>
     </sql>
-    
+
     <select id="selectByPrimaryKey" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity" resultMap="BaseResultMap">
        SELECT
             q.question_id,
@@ -71,7 +71,7 @@
             LEFT JOIN garbage_category gb ON q.question_category = gb.category_id
         where question_id = #{questionId,jdbcType=INTEGER}
     </select>
-    
+
     <select id="selectByCondition" resultMap="BaseResultMap">
         select q.question_id, q.question_content, q.answer_number, q.question_type, q.right_answer,
         q.question_title, q.question_status, q.answers_time, q.answers_wrong, q.question_category,gb.category_name
@@ -83,14 +83,14 @@
     </select>
 
     <insert id="insert" keyColumn="question_id" keyProperty="questionId" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity" useGeneratedKeys="true">
-        insert into question (question_content, answer_number, question_type, 
+        insert into question (question_content, answer_number, question_type,
             right_answer, question_title, question_status, question_category,
             answers_time, answers_wrong)
-        values (#{questionContent,jdbcType=VARCHAR}, #{answerNumber,jdbcType=INTEGER}, #{questionType,jdbcType=INTEGER}, 
-            #{rightAnswer,jdbcType=VARCHAR}, #{questionTitle,jdbcType=VARCHAR}, #{questionStatus,jdbcType=INTEGER}, 
+        values (#{questionContent,jdbcType=VARCHAR}, #{answerNumber,jdbcType=INTEGER}, #{questionType,jdbcType=INTEGER},
+            #{rightAnswer,jdbcType=VARCHAR}, #{questionTitle,jdbcType=VARCHAR}, #{questionStatus,jdbcType=INTEGER},
             #{answersTime,jdbcType=INTEGER}, #{answersWrong,jdbcType=INTEGER},#{questionCategory,jdbcType=INTEGER})
     </insert>
-    
+
     <insert id="insertSelective" keyColumn="question_id" keyProperty="questionId" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity" useGeneratedKeys="true">
         insert into question
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -152,7 +152,7 @@
             </if>
         </trim>
     </insert>
-    
+
     <update id="updateByPrimaryKeySelective" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity">
         update question
         <set>
@@ -186,7 +186,7 @@
         </set>
         where question_id = #{questionId,jdbcType=INTEGER}
     </update>
-    
+
     <update id="updateByPrimaryKey" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity">
         update question
         set question_content = #{questionContent,jdbcType=VARCHAR},
@@ -200,7 +200,7 @@
             question_category=#{questionCategory,jdbcType=INTEGER}
         where question_id = #{questionId,jdbcType=INTEGER}
     </update>
-    
+
     <delete id="deleteByPrimaryKey" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity">
         delete from question
         where question_id = #{questionId,jdbcType=INTEGER}

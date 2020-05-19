@@ -9,12 +9,12 @@ import com.ysh.garbageRecyle.Decode;
 import com.ysh.garbageRecyle.dto.ChooseDto;
 import com.ysh.garbageRecyle.dto.QuestionDto;
 import com.ysh.garbageRecyle.dto.TestPaper;
-import com.ysh.garbageRecyle.entity.GarbageCategoryEntity;
-import com.ysh.garbageRecyle.entity.GarbageEntity;
+import com.ysh.garbageRecyle.dto.TestResultDto;
+import com.ysh.garbageRecyle.entity.*;
 import com.ysh.garbageRecyle.service.GarbageCategoryService;
 import com.ysh.garbageRecyle.service.QuestionService;
-import com.ysh.garbageRecyle.entity.QuestionEntity;
 
+import com.ysh.garbageRecyle.service.WrongQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.jws.WebParam;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,9 @@ public class QuestionController {
 
     @Autowired
     private GarbageCategoryService garbageCategoryService;
+
+    @Autowired
+    private WrongQuestionService wrongQuestionService;
 
     /**
      * 根据Id 查询
@@ -168,12 +173,51 @@ public class QuestionController {
      * 返回答题结果
      */
     @RequestMapping(value = "/toTestResult", method = RequestMethod.POST)
-    @ResponseBody
-    public List<QuestionDto> toTestResult(@RequestBody TestPaper paper){
+    public String toTestResult(@RequestBody TestPaper paper, HttpSession session,Model model){
+        //计算答错题目数
+        int wrongCount=0;
+        //获取答题
         List<QuestionDto> list=paper.getQuestionList();
-        return list;
-    }
+        //遍历题目获取答题情况
+        for (QuestionDto q:list){
+            //修改题目被答次数
+            QuestionEntity questionEntity=new QuestionEntity();
+            questionEntity.setQuestionId(q.getQuestionId());
+            questionEntity=service.getByPrimaryKey(questionEntity);
+            int answerTimes=questionEntity.getAnswersTime();
+            answerTimes+=1;
+            questionEntity.setAnswersTime(answerTimes);
+            service.updateById(questionEntity);
+              //如果是错题把题目存入错题库
+            if(!q.getRightAnswer().equals(q.getUsersAnser())){
+                //修改答错次数
+                QuestionEntity entity=new QuestionEntity();
+                entity.setQuestionId(q.getQuestionId());
+                entity=service.getByPrimaryKey(entity);
+                int answerWrongTimes=entity.getAnswersWrong();
+                answerWrongTimes+=1;
+                entity.setAnswersWrong(answerWrongTimes);
+                service.updateById(entity);
+                //存入错题库中
+                WrongQuestionEntity wrongQuestionEntity=new WrongQuestionEntity();
+                wrongQuestionEntity.setQuestionId(q.getQuestionId());
+                UsersEntity usersEntity= (UsersEntity) session.getAttribute("cur_user");
+                wrongQuestionEntity.setUserId(usersEntity.getUserId());
+                wrongQuestionEntity.setUserAnswer(q.getUsersAnser());
+                wrongQuestionService.save(wrongQuestionEntity);
+                wrongCount++;
+            }
+        }
+        //计算得分
+        int getScore=(paper.getQuestionNumber()-wrongCount)/paper.getQuestionNumber()*paper.getSumScore();
+        TestResultDto testResultDto=new TestResultDto();
+        testResultDto.setQuestionNumber(paper.getQuestionNumber());
+        testResultDto.setAnswerWrongNumber(wrongCount);
+        testResultDto.setGetScore(getScore);
+        model.addAttribute("testResultDto",testResultDto);
 
+        return "testResult";
+    }
 
     //进入题目管理界面
     @RequestMapping(value = "/toManageTopic", method = RequestMethod.GET)
