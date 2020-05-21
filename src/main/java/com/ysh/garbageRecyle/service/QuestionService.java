@@ -1,5 +1,8 @@
 package com.ysh.garbageRecyle.service;
 
+import com.ysh.garbageRecyle.dto.QuestionCategoryCountDto;
+import com.ysh.garbageRecyle.dto.QuestionCountDto;
+import com.ysh.garbageRecyle.dto.QuestionDto;
 import com.ysh.garbageRecyle.entity.QuestionEntity;
 
 import com.github.pagehelper.PageInfo;
@@ -30,4 +33,11 @@ public interface QuestionService {
 
     //查询所有题目
     public List<QuestionEntity> findAll();
+
+    //统计当个题目的情况
+    public List<QuestionCountDto> getQuestionCountDto();
+    //统计所有的答题总数
+    public QuestionCountDto getQuestionSumCount();
+    //统计垃圾类别有多少题目
+    public List<QuestionCategoryCountDto> getCtegoryQuestionCount();
 }

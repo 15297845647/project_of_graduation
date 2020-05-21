@@ -170,7 +170,7 @@ public class QuestionController {
         return new ModelAndView("exam","examModel",model);
     }
     /**
-     * 返回答题结果
+     * 返回答题结果到session中
      */
     @RequestMapping(value = "/toTestResult", method = RequestMethod.POST)
     public String toTestResult(@RequestBody TestPaper paper, HttpSession session,Model model){

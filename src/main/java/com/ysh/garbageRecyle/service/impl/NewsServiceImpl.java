@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle.service.impl;
 
+import com.ysh.garbageRecyle.dto.NewsCountDto;
 import com.ysh.garbageRecyle.service.NewsService;
 import com.ysh.garbageRecyle.entity.NewsEntity;
 import com.ysh.garbageRecyle.mapper.NewsMapper;
@@ -79,6 +80,11 @@ public class NewsServiceImpl  implements NewsService {
 	@Override
 	public List<NewsEntity> selectAllNews() {
 		return newsMapper.selectAllNews();
+	}
+
+	@Override
+	public List<NewsCountDto> getNewsCount() {
+		return newsMapper.getNewsCount();
 	}
 
 

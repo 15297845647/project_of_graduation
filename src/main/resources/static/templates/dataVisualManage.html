@@ -1,10 +1,808 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.0.2
+Version: 1.5.4
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <meta name="MobileOptimized" content="320">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="../assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
+    <link href="../assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL PLUGIN STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../assets/css/style-metronic.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/pages/tasks.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="../assets/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
 </head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
 <body>
+<div class="clearfix"></div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu">
+            <li>
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                <div class="sidebar-toggler hidden-phone"></div>
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+            </li>
+            <li>
+                <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                <form class="sidebar-search" action="extra_search.html" method="POST">
+                    <div class="form-container">
+                        <div class="input-box">
+                            <a href="javascript:;" class="remove"></a>
+                            <input type="text" placeholder="Search..."/>
+                            <input type="button" class="submit" value=" "/>
+                        </div>
+                    </div>
+                </form>
+                <!-- END RESPONSIVE QUICK SEARCH FORM -->
+            </li>
+            <li class="start">
+                <a href="index.html">
+                    <i class="fa fa-home"></i>
+                    <span class="title">首页</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="javascript:;">
+                    <i class="fa fa-cogs"></i>
+                    <span class="title">题库管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li >
+                        <a href="layout_session_timeout.html">
+                            查看题库</a>
+                    </li>
+                    <li >
+                        <a href="layout_idle_timeout.html">
+                            录入题目</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="tooltips" data-placement="right" data-original-title="Frontend&nbsp;Theme For&nbsp;Metronic&nbsp;Admin">
+                <a href="#" target="_blank">
+                    <i class="fa fa-gift"></i>
+                    <span class="title">新闻资讯管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li >
+                        <a href="ui_general.html">
+                            查看所有新闻资讯</a>
+                    </li>
+                    <li >
+                        <a href="ui_buttons.html">
+                            新闻资讯发布</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="javascript:;">
+                    <i class="fa fa-bookmark-o"></i>
+                    <span class="title">法律法规管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li >
+                        <a href="ui_general.html">
+                            查看所有法律法规</a>
+                    </li>
+                    <li >
+                        <a href="ui_buttons.html">
+                            发布法律法规信息</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="javascript:;">
+                    <i class="fa fa-table"></i>
+                    <span class="title">垃圾分类</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li >
+                        <a href="form_controls.html">
+                            垃圾类别</a>
+                    </li>
+                    <li >
+                        <a href="form_layouts.html">
+                            垃圾图标</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="javascript:;">
+                    <i class="fa fa-sitemap"></i>
+                    <span class="title">可视化数据</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="javascript:;">
+                    <i class="fa fa-gift"></i>
+                    <span class="title">个人设置</span>
+                </a>
+            </li>
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        Widget settings form goes here
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn blue">Save changes</button>
+                        <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <!-- BEGIN STYLE CUSTOMIZER -->
+        <div class="theme-panel hidden-xs hidden-sm">
+            <div class="toggler"></div>
+            <div class="toggler-close"></div>
+            <div class="theme-options">
+                <div class="theme-option theme-colors clearfix">
+                    <span>THEME COLOR</span>
+                    <ul>
+                        <li class="color-black current color-default" data-style="default"></li>
+                        <li class="color-blue" data-style="blue"></li>
+                        <li class="color-brown" data-style="brown"></li>
+                        <li class="color-purple" data-style="purple"></li>
+                        <li class="color-grey" data-style="grey"></li>
+                        <li class="color-white color-light" data-style="light"></li>
+                    </ul>
+                </div>
+                <div class="theme-option">
+                    <span>Layout</span>
+                    <select class="layout-option form-control input-small">
+                        <option value="fluid" selected="selected">Fluid</option>
+                        <option value="boxed">Boxed</option>
+                    </select>
+                </div>
+                <div class="theme-option">
+                    <span>Header</span>
+                    <select class="header-option form-control input-small">
+                        <option value="fixed" selected="selected">Fixed</option>
+                        <option value="default">Default</option>
+                    </select>
+                </div>
+                <div class="theme-option">
+                    <span>Sidebar</span>
+                    <select class="sidebar-option form-control input-small">
+                        <option value="fixed">Fixed</option>
+                        <option value="default" selected="selected">Default</option>
+                    </select>
+                </div>
+                <div class="theme-option">
+                    <span>Footer</span>
+                    <select class="footer-option form-control input-small">
+                        <option value="fixed">Fixed</option>
+                        <option value="default" selected="selected">Default</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- END BEGIN STYLE CUSTOMIZER -->
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    Dashboard <small>statistics and more</small>
+                </h3>
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li><a href="#">Dashboard</a></li>
+                    <li class="pull-right">
+                        <div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
+                            <i class="fa fa-calendar"></i>
+                            <span></span>
+                            <i class="fa fa-angle-down"></i>
+                        </div>
+                    </li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-5 " id="userVisual" style="height: 300px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-left: 5%"></div>
+            <div class="col-md-1" ></div>
+            <div class="col-md-5" id="garbageVisual" style="height: 300px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"></div>
+        </div>
+        <div class="clearfix"></div>
 
+        <div class="row" style="margin-top: 5%">
+            <div class="col-md-5 " id="questionAnswerVisual" style="height: 300px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-left: 5%"></div>
+            <div class="col-md-1" ></div>
+            <div class="col-md-5" id="questionAboutVisual" style="height: 300px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"></div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row" style="margin-top: 5%">
+            <div class="col-md-5 " id="newsVisual" style="height: 300px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-left: 5%"></div>
+            <div class="col-md-1" ></div>
+            <div class="col-md-5" id="garbageQueryVisual" style="height: 300px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"></div>
+        </div>
+        <div class="row" style="margin-top: 5%" >
+            <div class="col-md-12 " id="lawsVisual" style="height: 500px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"></div>
+        </div>
+
+    </div>
+    <!-- END PAGE -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="footer">
+    <div class="footer-inner">
+        ysh 2020
+    </div>
+    <div class="footer-tools">
+			<span class="go-top">
+			<i class="fa fa-angle-up"></i>
+			</span>
+    </div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../assets/plugins/respond.min.js"></script>
+<script src="../assets/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
+<script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+
+<script src="../assets/plugins/flot/jquery.flot.js" type="text/javascript"></script>
+<script src="../assets/plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<script src="../assets/plugins/gritter/js/jquery.gritter.js" type="text/javascript"></script>
+<!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
+<script src="../assets/plugins/fullcalendar/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../assets/scripts/app.js" type="text/javascript"></script>
+<script src="../assets/scripts/index.js" type="text/javascript"></script>
+<script src="../assets/scripts/echarts.min.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script>
+    jQuery(document).ready(function() {
+
+        App.init(); // initlayout and core plugins
+        Index.init();
+        getUserVisualData();
+        getGarbageVisualData();
+        getQuestionCountData();
+        getQuestionCategoryCountData();
+        getNewsCountData();
+        getLawsCountData();
+        getGarbageQueryCountData();
+    });
+
+    var userVisualData;
+    var garbageVisualData
+     function getUserVisualData() {
+         $.ajax({
+             url: "/dataVisual/testGetUserCount",
+             type: 'GET',
+             success: function (data) {
+                userVisualData=data;
+                 var legendData=[];
+                 var seriesData=[];
+                 var selected={};
+                 for(var i=0;i<data.length;i++){
+                     var userCountDto=data[i];
+                     var roleId=userCountDto.roleId;
+                     var roleCount=userCountDto.roleCount;
+                     var role=userCountDto.roleName;
+                     var sumUser=userCountDto.sumUser;
+                     legendData.push(role);
+                     seriesData.push({
+                         name:role,
+                         value:roleCount
+                     })
+
+                 }
+                 //绘制图
+                 option = {
+                     title: {
+                         text: '用户角色统计',
+                         subtext: '统计角色数量',
+                         left: 'center'
+                     },
+                     tooltip: {
+                         trigger: 'item',
+                         formatter: '{a} <br/>{b} : {c} ({d}%)'
+                     },
+                     legend: {
+                         type: 'scroll',
+                         orient: 'vertical',
+                         right: 10,
+                         top: 20,
+                         bottom: 20,
+                         data: legendData
+                     },
+                     series: [
+                         {
+                             name: '角色名称',
+                             type: 'pie',
+                             radius: '55%',
+                             center: ['40%', '50%'],
+                             data: seriesData,
+                             emphasis: {
+                                 itemStyle: {
+                                     shadowBlur: 10,
+                                     shadowOffsetX: 0,
+                                     shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                 }
+                             }
+                         }
+                     ]
+                 };
+                 var myChart = echarts.init(document.getElementById('userVisual'));
+                 // 使用刚指定的配置项和数据显示图表。
+                 myChart.setOption(option);
+             }
+
+
+         })
+     }
+
+    function getGarbageVisualData() {
+        $.ajax({
+            url: "/dataVisual/testGetGarbageCategoryCount",
+            type: 'GET',
+            success: function (data) {
+                garbageVisualData=data;
+
+                var legendData=[];
+                var seriesData=[];
+                for(var i=0;i<data.length;i++){
+                    var garbageCountDto=data[i];
+                    var categoryId=garbageCountDto.categoryId;
+                    var categoryName=garbageCountDto.categoryName;
+                    var garbageNumbers=garbageCountDto.garbageNumbers;
+                    var categoryQueryTime=garbageCountDto.categoryQueryTime;
+                    legendData.push(categoryName);
+                    seriesData.push({
+                        name:categoryName,
+                        value:garbageNumbers
+                    })
+
+                }
+
+                //设置option
+                option = {
+                    title: {
+                        text: '垃圾类别包含垃圾数量',
+                        subtext: '统计垃圾数量',
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b}: {c} ({d}%)'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 10,
+                        data: legendData
+                    },
+                    series: [
+                        {
+                            name: '垃圾类别',
+                            type: 'pie',
+                            radius: ['50%', '70%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            labelLine: {
+                                show: false
+                            },
+                            data: seriesData
+                        }
+                    ]
+                };
+                var myChart = echarts.init(document.getElementById('garbageVisual'));
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+            }
+        })
+    }
+
+    function getQuestionCategoryCountData() {
+        $.ajax({
+            url: "/dataVisual/testQuestionCategoryCount",
+            type: 'GET',
+            success: function (data) {
+                var questioCountDto=data
+                var categoryName=[];
+                var questionNumbers=[];
+                for(var i=0;i<data.length;i++){
+                    var cateNmae=data[i].categoryName;
+                    var questionNum=data[i].questionNumbers;
+                    categoryName.push(cateNmae);
+                    questionNumbers.push(questionNum);
+                }
+                //绘制图
+                option = {
+                    color: ['#3398DB'],
+                    title: {
+                        text: '垃圾类别对应题目数量',
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: categoryName,
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '垃圾类别',
+                            type: 'bar',
+                            barWidth: '60%',
+                            data: questionNumbers
+                        }
+                    ]
+                };
+                //放入页面
+                var myChart = echarts.init(document.getElementById('questionAboutVisual'));
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
+        })
+    }
+
+    function getQuestionCountData() {
+        $.ajax({
+            url: "/dataVisual/testQuestionCategoryCount",
+            type: 'GET',
+            success: function (data) {
+                var yData=[];
+                var answerRightTimes=[];
+                var answerWrongTimes=[];
+                var seriesData=[];
+                for(var i=0;i<data.length;i++){
+                    var questioCountDto=data[i];
+                    var sumTimes=questioCountDto.categoryQuestionSumTimes;
+                    var wrongTimes=questioCountDto.questionAnswerWrongTimes;
+                    var rightTimes=sumTimes-wrongTimes;
+                    yData.push(questioCountDto.categoryName);
+                    answerWrongTimes.push(wrongTimes);
+                    answerRightTimes.push(rightTimes);
+                }
+                //绘制图
+                option = {
+                    title: {
+                        text: '用户答题情况',
+                        left: 'left'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    legend: {
+                        data: ['答对次数', '答错次数']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value'
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: yData
+                    },
+                    series: [
+                        {
+                            name: '答对次数',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                show: true,
+                                position: 'insideRight'
+                            },
+                            data: answerRightTimes
+                        },
+                        {
+                            name: '答错次数',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                show: true,
+                                position: 'insideRight'
+                            },
+                            data: answerWrongTimes
+                        }
+                    ]
+                };
+                //放入页面
+                var myChart = echarts.init(document.getElementById('questionAnswerVisual'));
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
+        })
+    }
+    
+    function getNewsCountData() {
+        $.ajax({
+            url: "/dataVisual/testGetNewsCount",
+            type: 'GET',
+            success: function (data) {
+                var sourceData=[];
+                sourceData.push(['score', 'amount', 'product'])
+                for(var i=0;i<data.length;i++){
+                    var inData=[];
+                    var newsCity=data[i].newsCity;
+                    var cityNewsNumber=data[i].cityNewsNumber;
+                    var seeTimes=data[i].seeTimes;
+                    var sumSeeTimes=data[i].sumSeeTimes;
+                    var score=seeTimes/sumSeeTimes;
+                    inData=[score,cityNewsNumber,newsCity];
+                    sourceData.push(inData);
+                }
+                option = {
+                    title: {
+                        text: '新闻资讯情况',
+                        left: 'center'
+                    },
+                    dataset: {
+                        source: sourceData
+                    },
+                    grid: {containLabel: true},
+                    xAxis: {name: '新闻数量'},
+                    yAxis: {type: 'category'},
+                    visualMap: {
+                        orient: 'horizontal',
+                        left: 'center',
+                        min: 0,
+                        max: 100,
+                        text: ['高关注度', '低关注度'],
+                        // Map the score column to color
+                        dimension: 0,
+                        inRange: {
+                            color: ['#D7DA8B', '#E15457']
+                        }
+                    },
+                    series: [
+                        {
+                            type: 'bar',
+                            encode: {
+                                // Map the "amount" column to X axis.
+                                x: 'amount',
+                                // Map the "product" column to Y axis
+                                y: 'product'
+                            }
+                        }
+                    ]
+                };
+
+                //绘制图
+                //放入页面
+                var myChart = echarts.init(document.getElementById('newsVisual'));
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
+        })
+    }
+
+    function getLawsCountData() {
+        $.ajax({
+            url: "/dataVisual/testGetLawsCount",
+            type: 'GET',
+            success: function (data) {
+                var citys=[];
+                var sereisData=[];
+                for(var i=0;i<data.length;i++){
+                    citys.push(data[i].city);
+                    sereisData.push({
+                        name:data[i].city,
+                        value:data[i].sumLawsNumber
+                    })
+                }
+                option = {
+                    title: {
+                        text: '法律法规收录情况',
+                        left: 'left'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    },
+                    legend: {
+                        type: 'scroll',
+                        orient: 'vertical',
+                        right: 10,
+                        top: 20,
+                        bottom: 20,
+                        data: citys
+                    },
+                    series: [
+                        {
+                            name: '城市',
+                            type: 'pie',
+                            radius: '80%',
+                            center: ['40%', '50%'],
+                            data: sereisData,
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                //绘制图
+                //放入页面
+                var myChart = echarts.init(document.getElementById('lawsVisual'));
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
+        })
+    }
+    
+    function getGarbageQueryCountData() {
+        $.ajax({
+            url: "/dataVisual/testGetGarbageCategoryCount",
+            type: 'GET',
+            success: function (data) {
+                var garbageCategoryName=[];
+                var sereisData=[];
+                for(var i=0;i<data.length;i++){
+                    garbageCategoryName.push(data[i].categoryName);
+                    sereisData.push({
+                        name:data[i].categoryName,
+                        value:data[i].categoryQueryTime
+                    })
+                }
+                option = {
+                    title: {
+                        text: '垃圾类别查询次数统计',
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    },
+                    legend: {
+                        // orient: 'vertical',
+                        // top: 'middle',
+                        bottom: 10,
+                        left: 'center',
+                        data: garbageCategoryName
+                    },
+                    series: [
+                        {
+                            type: 'pie',
+                            radius: '65%',
+                            center: ['50%', '50%'],
+                            selectedMode: 'single',
+                            data: sereisData,
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                //绘制图
+                //放入页面
+                var myChart = echarts.init(document.getElementById('garbageQueryVisual'));
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
+        })
+    }
+
+</script>
+<!-- END JAVASCRIPTS -->
 </body>
+<!-- END BODY -->
 </html>

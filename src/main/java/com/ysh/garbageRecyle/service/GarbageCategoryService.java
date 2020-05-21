@@ -1,10 +1,12 @@
 package com.ysh.garbageRecyle.service;
 
+import com.ysh.garbageRecyle.dto.GarbageCountDto;
 import com.ysh.garbageRecyle.entity.GarbageCategoryEntity;
 
 import com.github.pagehelper.PageInfo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,4 +26,7 @@ public interface GarbageCategoryService {
 	public Integer deleteById(GarbageCategoryEntity garbageCategoryEntity);
 
     public Integer updateById(GarbageCategoryEntity garbageCategoryEntity);
+
+    //垃圾类别信息统计
+    public List<GarbageCountDto> getGarbageCount();
 }

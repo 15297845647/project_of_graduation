@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle.service.impl;
 
+import com.ysh.garbageRecyle.dto.UserCountDto;
 import com.ysh.garbageRecyle.service.RoleService;
 import com.ysh.garbageRecyle.entity.RoleEntity;
 import com.ysh.garbageRecyle.mapper.RoleMapper;
@@ -69,6 +70,11 @@ public class RoleServiceImpl  implements RoleService {
 	@Override
 	public List<RoleEntity> selectAllRole() {
 		return roleMapper.selectAllRole();
+	}
+
+	@Override
+	public List<UserCountDto> userRoleCount() {
+		return roleMapper.countUserRole();
 	}
 
 

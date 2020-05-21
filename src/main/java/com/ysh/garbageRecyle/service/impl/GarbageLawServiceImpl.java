@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle.service.impl;
 
+import com.ysh.garbageRecyle.dto.LawCountDto;
 import com.ysh.garbageRecyle.service.GarbageLawService;
 import com.ysh.garbageRecyle.entity.GarbageLawEntity;
 import com.ysh.garbageRecyle.mapper.GarbageLawMapper;
@@ -78,6 +79,11 @@ public class GarbageLawServiceImpl  implements GarbageLawService {
     @Override
     public List<GarbageLawEntity> selectAllLaws() {
         return garbageLawMapper.selectAllLaws();
+    }
+
+    @Override
+    public List<LawCountDto> getLawCount() {
+        return garbageLawMapper.getLawCount();
     }
 
 

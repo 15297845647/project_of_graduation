@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle.service;
 
+import com.ysh.garbageRecyle.dto.NewsCountDto;
 import com.ysh.garbageRecyle.entity.NewsEntity;
 
 import com.github.pagehelper.PageInfo;
@@ -35,4 +36,7 @@ public interface NewsService {
     public List<String> getAllCity();
     //获取所有新闻
     public List<NewsEntity> selectAllNews();
+
+    //新闻数据统计
+    public List<NewsCountDto> getNewsCount();
 }

@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle.service.impl;
 
+import com.ysh.garbageRecyle.dto.GarbageCountDto;
 import com.ysh.garbageRecyle.service.GarbageCategoryService;
 import com.ysh.garbageRecyle.entity.GarbageCategoryEntity;
 import com.ysh.garbageRecyle.mapper.GarbageCategoryMapper;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,6 +64,11 @@ public class GarbageCategoryServiceImpl  implements GarbageCategoryService {
     		return 0;
     	}
     	return garbageCategoryMapper.updateByPrimaryKeySelective(garbageCategoryEntity);
+    }
+
+    @Override
+    public List<GarbageCountDto> getGarbageCount() {
+        return garbageCategoryMapper.getGarbageCount();
     }
 
 

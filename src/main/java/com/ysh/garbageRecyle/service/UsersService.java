@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle.service;
 
+import com.ysh.garbageRecyle.dto.UserCountDto;
 import com.ysh.garbageRecyle.entity.UsersEntity;
 
 import com.github.pagehelper.PageInfo;
@@ -36,4 +37,5 @@ public interface UsersService {
 
     //查询所有手机号
     public List<String> selectAllPhoneNumber();
+
 }

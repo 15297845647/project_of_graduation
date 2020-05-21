@@ -1,5 +1,8 @@
 package com.ysh.garbageRecyle.service.impl;
 
+import com.ysh.garbageRecyle.dto.QuestionCategoryCountDto;
+import com.ysh.garbageRecyle.dto.QuestionCountDto;
+import com.ysh.garbageRecyle.dto.QuestionDto;
 import com.ysh.garbageRecyle.service.QuestionService;
 import com.ysh.garbageRecyle.entity.QuestionEntity;
 import com.ysh.garbageRecyle.mapper.QuestionMapper;
@@ -76,6 +79,21 @@ public class QuestionServiceImpl  implements QuestionService {
 	@Override
 	public List<QuestionEntity> findAll() {
 		return questionMapper.selectByCondition(null);
+	}
+
+	@Override
+	public List<QuestionCountDto> getQuestionCountDto() {
+		return questionMapper.getCountQuestion();
+	}
+
+	@Override
+	public QuestionCountDto getQuestionSumCount() {
+		return questionMapper.getQuestionCountSum();
+	}
+
+	@Override
+	public List<QuestionCategoryCountDto> getCtegoryQuestionCount() {
+		return questionMapper.getCategoryQuestionCount();
 	}
 
 

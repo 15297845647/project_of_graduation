@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle.service;
 
+import com.ysh.garbageRecyle.dto.LawCountDto;
 import com.ysh.garbageRecyle.entity.GarbageLawEntity;
 
 import com.github.pagehelper.PageInfo;
@@ -36,4 +37,7 @@ public interface GarbageLawService {
 
     //获取所有法律法规
     public List<GarbageLawEntity> selectAllLaws();
+
+    //获取统计的法律法规数据
+    public List<LawCountDto> getLawCount();
 }

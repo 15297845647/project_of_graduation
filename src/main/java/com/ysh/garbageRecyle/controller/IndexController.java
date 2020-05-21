@@ -75,4 +75,9 @@ public class IndexController {
     public String toAdminIndexPage(Model model){
         return "adminIndex";
     }
+
+    @RequestMapping(value = "/toDataVisualManagePage")
+    public String toDataVisualManagePage(Model model){
+        return "dataVisualManage";
+    }
 }

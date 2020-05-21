@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle.service;
 
+import com.ysh.garbageRecyle.dto.UserCountDto;
 import com.ysh.garbageRecyle.entity.RoleEntity;
 
 import com.github.pagehelper.PageInfo;
@@ -27,4 +28,6 @@ public interface RoleService {
     public Integer updateById(RoleEntity roleEntity);
 
     public List<RoleEntity> selectAllRole();
+
+    public List<UserCountDto> userRoleCount();
 }

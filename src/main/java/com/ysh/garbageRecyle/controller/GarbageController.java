@@ -93,6 +93,8 @@ public class GarbageController {
     	 entity.setGarbageId(id);
          return service.updateById(entity);
     }
+
+
     @RequestMapping(value = "/toQueryGarbage", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView getTopGarbage(Model model){
@@ -104,6 +106,8 @@ public class GarbageController {
         model.addAttribute("queryList",null);
         return new ModelAndView("queryGarbage","garbageModel",model);
     }
+
+
     @RequestMapping(value = "/garbageQuery", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView garbageQuery(@RequestParam(required = false) String garbageName,@RequestParam(required = false) String garbageId,Model model){
@@ -129,6 +133,10 @@ public class GarbageController {
         GarbageEntity entity=new GarbageEntity();
         if(garbageName!=""&&garbageName!=null){
             entity=service.findByEqualName(garbageName);
+            //更改查询次数
+            int queryTimes=entity.getQueryTimes();
+            entity.setQueryTimes(queryTimes+1);
+            service.updateById(entity);
         }
         if(entity==null){
             result="The name not exit in system";
