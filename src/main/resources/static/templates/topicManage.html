@@ -57,11 +57,15 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar navbar-collapse collapse">
         <!-- BEGIN SIDEBAR MENU -->
-        <ul class="page-sidebar-menu">
+        <ul class="page-sidebar-menu" th:object="${session.cur_user}">
             <li>
                 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                 <div class="sidebar-toggler hidden-phone"></div>
                 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+            </li>
+            <li th:if="${#object!= null}" style="color:rgb(224,224,224);text-align: center" >
+                <span>用户名称：</span>
+                <span class="username" th:text="${#object.userName}"></span>
             </li>
             <li>
                 <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
@@ -80,14 +84,13 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <a href="/index/toAdminIndexPage">
                     <i class="fa fa-home"></i>
                     <span class="title">首页</span>
-
                 </a>
             </li>
             <li class="">
                 <a href="javascript:;">
                     <i class="fa fa-cogs"></i>
                     <span class="title">用户管理</span>
-
+                    <span class="selected"></span>
                     <span class="arrow open"></span>
                 </a>
                 <ul class="sub-menu">
@@ -95,7 +98,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <a href="/users/toUserManagePage">
                             用户信息</a>
                     </li>
-                    <li >
+                    <li class="">
                         <a href="/role/toRoleManagePage">
                             角色信息</a>
                     </li>
@@ -166,6 +169,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <a href="/index/toDataVisualManagePage">
                     <i class="fa fa-sitemap"></i>
                     <span class="title">可视化数据</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="/users/logout">
+                    <i class="fa fa-sitemap"></i>
+                    <span class="title">退出登录</span>
                 </a>
             </li>
         </ul>

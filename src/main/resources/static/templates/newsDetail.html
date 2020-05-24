@@ -26,7 +26,7 @@
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
 </head>
-<body>
+<body th:object="${session.cur_user}">
 <style type="text/css">
     .head_title {
         font-size: 36px;
@@ -75,7 +75,7 @@
     }
 </style>
 <!-- BEGIN HEADER -->
-<div class="header navbar navbar-inverse navbar-fixed-top" th:object="${session.cur_user}" th:if="${#object.roleId!=2}">
+<div class="header navbar navbar-inverse navbar-fixed-top"  th:if="${#object==null||#object.roleId!=2}">
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="header-inner">
         <!-- BEGIN HORIZANTAL MENU -->
