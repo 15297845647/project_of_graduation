@@ -57,9 +57,13 @@
                     <a href="/question/toTestPaper">答题</a>
                 </li>
                 <li>
-                    <a   href="/garbage/toQueryGarbage">垃圾分类查询
-
+                    <a data-toggle="dropdown" data-hover="dropdown" data-close-others="true" class="dropdown-toggle" href="">垃圾分类
+                        <i class="fa fa-angle-down"></i>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/garbage/toQueryGarbage">垃圾分类查询</a></li>
+                        <li><a href="/garbage/toAllgartbagePage">垃圾分类大全</a></li>
+                    </ul>
                 </li>
                 <li>
                     <span class="hor-menu-search-form-toggler">&nbsp;</span>
@@ -126,25 +130,23 @@
                 <div class="col-md-12 slider-box-hover" style="border: 0.5px solid rgb(205,205,205)">
                     <div class="slider-wrapper">
                         <div id="slider" class="nivoSlider">
-                            <img src="../placeholders/slider/slide-1.jpg" alt="" title="#slide-caption-1" />
-                            <img src="../placeholders/slider/slide-2.jpg" alt="" title="#slide-caption-2" />
+                            <img src="../images/first.jpg" style="height: 320px"  alt="" title="#slide-caption-1" />
+                            <img src="../images/second.jpg" style="height: 320px" alt="" title="#slide-caption-2" />
                         </div>
                         <div id="slide-caption-1" class="nivo-html-caption">
                             <header>
-                                <span class="entry-category">in:&nbsp;</span>
-                                <a class="entry-category" href="#">Fashion</a><span class="entry-date">&nbsp;&nbsp;|&nbsp;&nbsp;07.08.2012</span>
-                                <h1><a href="single.html">Welcome to the Dummy Text Generator!</a></h1>
+                                <span class="entry-date"> 2020-03-30</span>
+                                <h1><a href="/news/queryNewsDetail?newsId=297">西安垃圾分类半年多, 部分小区再次出现垃圾不分类的陋习，不可掉以轻心</a></h1>
                             </header>
-                            <p>This handy tool helps you create dummy text for all your layout needs.We are gradually adding new functionality and we welcome your suggestions and feedback. Please feel free to send us any additional dummy texts.</p>
+                            <p>去年9月1日起，《西安市生活垃圾分类管理办法》正式实施，小区居民们开始转变观念，对生活垃圾进行分类投放。不过近日记者发现，随着时间推移，一些小区垃圾不分类的陋习死灰复燃，垃圾混扔现象亟须引起重视。</p>
                             <span class="entry-author">by:&nbsp;</span><a class="entry-author" href="#">Admin</a>
                         </div>
                         <div id="slide-caption-2" class="nivo-html-caption">
                             <header>
-                                <span class="entry-category">in:&nbsp;</span>
-                                <a class="entry-category" href="#">Fashion</a><span class="entry-date">&nbsp;&nbsp;|&nbsp;&nbsp;07.08.2012</span>
-                                <h1><a href="single.html">There are many vaiations of passages of Lorem</a></h1>
+                                <span class="entry-date"> 2020-03-30</span>
+                                <h1><a href="/news/queryNewsDetail?newsId=306">南京江心洲，垃圾分类覆盖率已经达到100%</a></h1>
                             </header>
-                            <p>NASA scientists hailed the Mars rover Curiosity's flawless descent and landing as a "miracle of engineering" as they scanned early images of an ancient crater that may hold clues about whether life took hold on the Red Plane</p>
+                            <p>说到江心洲，南京人再熟悉不过。历经近十年的开发建设，这个南京过去的“葡萄之乡”，已转型为一座现代化的绿色生态科技岛。</p>
                             <span class="entry-author">by:&nbsp;</span><a class="entry-author" href="#">Admin</a>
                         </div>
                     </div><!--end:slider-wrapper-->
@@ -246,7 +248,7 @@
                             <div class="caption">
                                 <h3>有害垃圾</h3>
                                 <p>对人体健康或自然环境造成直接或潜在的危害废弃物。</p><br>
-                                <p><a href="#" class="btn blue">查看该类垃圾</a> </p>
+                                <p><a href="/garbage/toAllgartbagePage" class="btn blue">查看该类垃圾</a> </p>
                             </div>
                         </div>
                     </div>
@@ -257,7 +259,7 @@
                                 <h3>厨余垃圾</h3>
                                 <p>部分地区又称”湿垃圾”，日常生活垃圾产生的容易腐烂的生物质废物。</p>
                                 <br>
-                                <p><a href="#" class="btn blue">查看该类垃圾</a> </p>
+                                <p><a href="/garbage/toAllgartbagePage" class="btn blue">查看该类垃圾</a> </p>
                             </div>
                         </div>
                     </div>
@@ -267,7 +269,7 @@
                             <div class="caption">
                                 <h3>其它垃圾</h3>
                                 <p> 部分地区又称”干垃圾”，除有害垃圾、可回收物、湿垃圾以外的生活废弃物。</p>
-                                <p><a href="#" class="btn blue">查看该类垃圾</a> </p>
+                                <p><a href="/garbage/toAllgartbagePage" class="btn blue">查看该类垃圾</a> </p>
                             </div>
                         </div>
                     </div>
@@ -277,7 +279,7 @@
                             <div class="caption">
                                 <h3>可回收垃圾</h3>
                                 <p>废纸张、废塑料、废玻璃制品、废金属、废织物等适宜回收、可循环利用的生活废弃物</p>
-                                <p><a href="#" class="btn blue">查看该类垃圾</a> </p>
+                                <p><a href="/garbage/toAllgartbagePage" class="btn blue">查看该类垃圾</a> </p>
                             </div>
                         </div>
                     </div>

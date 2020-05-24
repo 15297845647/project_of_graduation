@@ -66,9 +66,13 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     <a href="/question/toTestPaper">答题</a>
                 </li>
                 <li>
-                    <a   href="/garbage/toQueryGarbage">垃圾分类查询
-
+                    <a data-toggle="dropdown" data-hover="dropdown" data-close-others="true" class="dropdown-toggle" href="">垃圾分类
+                        <i class="fa fa-angle-down"></i>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/garbage/toQueryGarbage">垃圾分类查询</a></li>
+                        <li><a href="/garbage/toAllgartbagePage">垃圾分类大全</a></li>
+                    </ul>
                 </li>
                 <li>
                     <span class="hor-menu-search-form-toggler">&nbsp;</span>
@@ -110,10 +114,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <!-- END USER LOGIN DROPDOWN -->
 
             <li class="dropdown user" th:if="${#object== null}">
-                <a href="/users/toLogin" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <a href="/users/toLogin" class="dropdown-toggle">
                     <img alt="" src="../assets/img/avatar1_small.jpg"/>
                     <span class="username">未登录</span>
-                    <i class="fa fa-angle-down"></i>
                 </a>
             </li>
         </ul>

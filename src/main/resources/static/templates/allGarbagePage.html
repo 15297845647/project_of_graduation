@@ -53,13 +53,17 @@
                 <li>
                     <a href="/index/toDataVisualPage">看数据</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/question/toTestPaper">答题</a>
                 </li>
-                <li>
-                    <a   href="/garbage/toQueryGarbage">垃圾分类查询
-
+                <li class="active">
+                    <a data-toggle="dropdown" data-hover="dropdown" data-close-others="true" class="dropdown-toggle" href="">垃圾分类
+                        <i class="fa fa-angle-down"></i>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/garbage/toQueryGarbage">垃圾分类查询</a></li>
+                        <li class="active"><a href="/garbage/toAllgartbagePage">垃圾分类大全</a></li>
+                    </ul>
                 </li>
                 <li>
                     <span class="hor-menu-search-form-toggler">&nbsp;</span>
@@ -101,10 +105,9 @@
             <!-- END USER LOGIN DROPDOWN -->
 
             <li class="dropdown user" th:if="${#object== null}">
-                <a href="/users/toLogin" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <a href="/users/toLogin" class="dropdown-toggle">
                     <img alt="" src="../assets/img/avatar1_small.jpg"/>
                     <span class="username">未登录</span>
-                    <i class="fa fa-angle-down"></i>
                 </a>
             </li>
         </ul>
@@ -123,7 +126,7 @@
     <div class="page-content">
         <div class="portlet box blue">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-reorder"></i>Styled Tabs(justified)</div>
+                <div class="caption"><i class="fa fa-reorder"></i>垃圾分类大全</div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse"></a>
                     <a href="#portlet-config" data-toggle="modal" class="config"></a>

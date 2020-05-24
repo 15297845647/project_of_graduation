@@ -75,7 +75,7 @@
     }
 </style>
 <!-- BEGIN HEADER -->
-<div class="header navbar navbar-inverse navbar-fixed-top">
+<div class="header navbar navbar-inverse navbar-fixed-top" th:object="${session.cur_user}" th:if="${#object.roleId!=2}">
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="header-inner">
         <!-- BEGIN HORIZANTAL MENU -->
@@ -143,10 +143,9 @@
             <!-- END USER LOGIN DROPDOWN -->
 
             <li class="dropdown user" th:if="${#object== null}">
-                <a href="/users/toLogin" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <a href="/users/toLogin" class="dropdown-toggle">
                     <img alt="" src="../assets/img/avatar1_small.jpg"/>
                     <span class="username">未登录</span>
-                    <i class="fa fa-angle-down"></i>
                 </a>
             </li>
         </ul>
@@ -233,18 +232,6 @@
                 新闻详情
             </h3>
             <ul class="page-breadcrumb breadcrumb">
-                <li class="btn-group">
-                    <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                        <span>Actions</span> <i class="fa fa-angle-down"></i>
-                    </button>
-                    <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
                 <li>
                     <i class="fa fa-home"></i>
                     <a href="/news/toNewsList">新闻列表</a>
