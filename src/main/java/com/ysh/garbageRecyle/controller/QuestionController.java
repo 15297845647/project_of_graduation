@@ -173,6 +173,7 @@ public class QuestionController {
      * 返回答题结果到session中
      */
     @RequestMapping(value = "/toTestResult", method = RequestMethod.POST)
+    @ResponseBody
     public String toTestResult(@RequestBody TestPaper paper, HttpSession session,Model model){
         //计算答错题目数
         int wrongCount=0;
@@ -209,13 +210,21 @@ public class QuestionController {
             }
         }
         //计算得分
-        int getScore=(paper.getQuestionNumber()-wrongCount)/paper.getQuestionNumber()*paper.getSumScore();
+        int avg=paper.getSumScore()/paper.getQuestionNumber();
+        int rightNumber=paper.getQuestionNumber()-wrongCount;
+        int getScore=avg*rightNumber;
         TestResultDto testResultDto=new TestResultDto();
         testResultDto.setQuestionNumber(paper.getQuestionNumber());
         testResultDto.setAnswerWrongNumber(wrongCount);
         testResultDto.setGetScore(getScore);
-        model.addAttribute("testResultDto",testResultDto);
+     //   model.addAttribute("testResultDto",testResultDto);
+        session.setAttribute("testResultDto",testResultDto);
+        return "success";
+    }
 
+    //进入答题结果界面
+    @RequestMapping(value = "/toResultPage", method = RequestMethod.GET)
+    public String toResultPage(){
         return "testResult";
     }
 

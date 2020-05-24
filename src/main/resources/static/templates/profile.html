@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.0.2
+Version: 1.5.4
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>个人信息设置页面</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <meta name="MobileOptimized" content="320">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="../assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="../assets/plugins/bootstrap-fileupload/bootstrap-fileupload.css" />
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../assets/css/style-metronic.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="../assets/css/pages/profile.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-full-width  page-sidebar-closed">
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-inverse navbar-fixed-top">
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="header-inner">
+        <!-- BEGIN HORIZANTAL MENU -->
+        <div class="hor-menu hidden-sm hidden-xs" style="margin-left: 30%">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/index/toIndexPage">
+                        首页
+                    </a>
+                </li>
+                <li>
+                    <a href="/news/toNewsList">新闻资讯</a>
+                </li>
+                <li>
+                    <a href="/garbageLaw/toLawsList">法律法规</a>
+                </li>
+                <li>
+                    <a href="/index/toDataVisualPage">看数据</a>
+                </li>
+                <li>
+                    <a href="/question/toTestPaper">答题</a>
+                </li>
+                <li>
+                    <a   href="/garbage/toQueryGarbage">垃圾分类查询
+
+                    </a>
+                </li>
+                <li>
+                    <span class="hor-menu-search-form-toggler">&nbsp;</span>
+                    <div class="search-form">
+                        <form class="form-search">
+                            <div class="input-group">
+                                <input type="text" placeholder="Search..." class="form-control">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn"></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- END HORIZANTAL MENU -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <!--        <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">-->
+        <!--            <img src="assets/img/menu-toggler.png" alt="" />-->
+        <!--        </a>-->
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <ul class="nav navbar-nav pull-right" th:object="${session.cur_user}">
+            <!-- BEGIN USER LOGIN DROPDOWN -->
+            <li class="dropdown user" th:if="${#object!= null}">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img alt="" src="../assets/img/avatar1_small.jpg"/>
+                    <span class="username" th:text="${#object.userName}"></span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu inlogin">
+                    <li><a href="/users/toProfile"><i class="fa fa-user"></i>个人设置</a></li>
+                    <li><a href="/wrongQuestion/toWrongQuestionPage"><i class="fa fa-calendar"></i> 我的错题本</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/users/logout"><i class="fa fa-key"></i>退出登录</a></li>
+                </ul>
+            </li>
+            <!-- END USER LOGIN DROPDOWN -->
+
+            <li class="dropdown user" th:if="${#object== null}">
+                <a href="/users/toLogin" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img alt="" src="../assets/img/avatar1_small.jpg"/>
+                    <span class="username">未登录</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END TOP NAVIGATION BAR -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix"></div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <!-- END SIDEBAR -->
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        Widget settings form goes here
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn blue">Save changes</button>
+                        <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <!-- BEGIN STYLE CUSTOMIZER -->
+        <div class="theme-panel hidden-xs hidden-sm">
+            <div class="toggler"></div>
+            <div class="toggler-close"></div>
+            <div class="theme-options">
+                <div class="theme-option theme-colors clearfix">
+                    <span>THEME COLOR</span>
+                    <ul>
+                        <li class="color-black current color-default" data-style="default"></li>
+                        <li class="color-blue" data-style="blue"></li>
+                        <li class="color-brown" data-style="brown"></li>
+                        <li class="color-purple" data-style="purple"></li>
+                        <li class="color-grey" data-style="grey"></li>
+                        <li class="color-white color-light" data-style="light"></li>
+                    </ul>
+                </div>
+                <div class="theme-option">
+                    <span>Layout</span>
+                    <select class="layout-option form-control input-small">
+                        <option value="fluid" selected="selected">Fluid</option>
+                        <option value="boxed">Boxed</option>
+                    </select>
+                </div>
+                <div class="theme-option">
+                    <span>Header</span>
+                    <select class="header-option form-control input-small">
+                        <option value="fixed" selected="selected">Fixed</option>
+                        <option value="default">Default</option>
+                    </select>
+                </div>
+                <div class="theme-option">
+                    <span>Sidebar</span>
+                    <select class="sidebar-option form-control input-small">
+                        <option value="fixed">Fixed</option>
+                        <option value="default" selected="selected">Default</option>
+                    </select>
+                </div>
+                <div class="theme-option">
+                    <span>Footer</span>
+                    <select class="footer-option form-control input-small">
+                        <option value="fixed">Fixed</option>
+                        <option value="default" selected="selected">Default</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- END BEGIN STYLE CUSTOMIZER -->
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    用户信息
+                </h3>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row profile">
+            <div class="col-md-12">
+                <div class="portlet box green ">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-reorder"></i> 修改用户信息
+                        </div>
+                        <div class="tools">
+                            <a href="" class="collapse"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">用户名称</label>
+                                    <div class="col-md-9">
+                                        <input type="hidden" class="form-control" id="userId" th:value="${editUserModel.usersEntity.userId}">
+                                        <input type="text" class="form-control" id="userName" th:value="${editUserModel.usersEntity.userName}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">用户账号</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="accountNumber" th:value="${editUserModel.usersEntity.accountNumber}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">用户密码</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="password" th:value="${editUserModel.usersEntity.password}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">用户手机号</label>
+                                    <div class="col-md-9">
+                                        <input type="text" maxlength="11" minlength="11" oninput="value=value.replace(/[^\d]/g,'')"  class="form-control" id="phoneNumber" th:value="${editUserModel.usersEntity.phoneNumber}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">地址</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="address" th:value="${editUserModel.usersEntity.address}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">角色</label>
+                                    <div class="col-md-9">
+                                        <select  class="form-control" id="roleId" disabled>
+                                            <option th:each="role:${editUserModel.roleEntityList}" th:text="${role.roleName}" th:value="${role.roleId}" th:selected="${editUserModel.usersEntity.roleId eq role.roleId}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions fluid">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="button" class="btn green" onclick="updateUser()">修改</button>
+<!--                                    <button type="button" class="btn default" onclick="backList()">Cancel</button>-->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+    <!-- END PAGE -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="footer">
+    <div class="footer-inner">
+        2013 &copy; Metronic by keenthemes.
+    </div>
+    <div class="footer-tools">
+			<span class="go-top">
+			<i class="fa fa-angle-up"></i>
+			</span>
+    </div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../assets/plugins/respond.min.js"></script>
+<script src="../assets/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
+<script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="../assets/plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../assets/scripts/app.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script>
+    jQuery(document).ready(function() {
+        // initiate layout and plugins
+        App.init();
+    });
+    function updateUser() {
+        var userName=$('#userName').val();
+        var userId=$('#userId').val();
+        var accountNumber=$('#accountNumber').val();
+        var password=$('#password').val();
+        var phoneNumber=$('#phoneNumber').val();
+        var address=$('#address').val();
+        var roleId=$("#roleId option:selected").val();
+        $.ajax({
+            url: "/users/updateUser",
+            type: 'POST',
+            // dataType : "json",//后台返回值类型
+            contentType: "application/json", //如果提交的是json数据类型，则必须有此参数,表示提交的数据类型
+            data: JSON.stringify({
+                "userId" : userId,
+                "userName" : userName,
+                "accountNumber" : accountNumber,
+                "password" : password,
+                "phoneNumber" : phoneNumber,
+                "address" : address,
+                "roleId" : roleId
+            }),
+            success: function(data){
+                if(data=="success"){
+                    alert("修改成功")
+                    window.location.href="/index/toIndexPage";
+                }else {
+                    alert("修改失败");
+                    return
+                }
+            },error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("修改失败");
+            }
+        });
+    }
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

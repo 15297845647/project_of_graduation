@@ -106,20 +106,15 @@
                     <a href="/garbageLaw/toLawsList">法律法规</a>
                 </li>
                 <li>
-                    <a href="">看数据</a>
+                    <a href="/index/toDataVisualPage">看数据</a>
                 </li>
                 <li>
-                    <a href="">小题库</a>
+                    <a href="/question/toTestPaper">答题</a>
                 </li>
                 <li class="active">
-                    <a data-toggle="dropdown" data-hover="dropdown" data-close-others="true" class="dropdown-toggle" href="">小知识
-                        <i class="fa fa-angle-down"></i>
+                    <a   href="/garbage/toQueryGarbage">垃圾分类查询
+
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/garbage/garbageQuery" >垃圾分类查询</a></li>
-                        <li><a href="index.html">垃圾分类图标</a></li>
-                        <li><a href="index.html">垃圾分类大全</a></li>
-                    </ul>
                 </li>
                 <li>
                     <span class="hor-menu-search-form-toggler">&nbsp;</span>
@@ -143,24 +138,30 @@
         <!--        </a>-->
         <!-- END RESPONSIVE MENU TOGGLER -->
         <!-- BEGIN TOP NAVIGATION MENU -->
-        <ul class="nav navbar-nav pull-right">
+        <ul class="nav navbar-nav pull-right" th:object="${session.cur_user}">
             <!-- BEGIN USER LOGIN DROPDOWN -->
-            <li class="dropdown user">
+            <li class="dropdown user" th:if="${#object!= null}">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                     <img alt="" src="../assets/img/avatar1_small.jpg"/>
-                    <span class="username">Bob Nilson</span>
+                    <span class="username" th:text="${#object.userName}"></span>
                     <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu inlogin">
-                    <li><a href=""><i class="fa fa-user"></i>个人设置</a></li>
-                    <li><a href=""><i class="fa fa-calendar"></i> 我的错题本</a></li>
+                    <li><a href="/users/toProfile"><i class="fa fa-user"></i>个人设置</a></li>
+                    <li><a href="/wrongQuestion/toWrongQuestionPage"><i class="fa fa-calendar"></i> 我的错题本</a></li>
                     <li class="divider"></li>
-                    <li><a href="javascript:;" id="trigger_fullscreen"><i class="fa fa-move"></i>全屏</a></li>
-                    <li><a href="extra_lock.html"><i class="fa fa-lock"></i>锁屏</a></li>
-                    <li><a href="login.html"><i class="fa fa-key"></i>退出登录</a></li>
+                    <li><a href="/users/logout"><i class="fa fa-key"></i>退出登录</a></li>
                 </ul>
             </li>
             <!-- END USER LOGIN DROPDOWN -->
+
+            <li class="dropdown user" th:if="${#object== null}">
+                <a href="/users/toLogin" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img alt="" src="../assets/img/avatar1_small.jpg"/>
+                    <span class="username">未登录</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </li>
         </ul>
         <!-- END TOP NAVIGATION MENU -->
     </div>
@@ -279,7 +280,7 @@
 
         </div>
         <div id="place">
-<!--            <iframe style="width: 100%" src="../images/test.html" scrolling="no"  marginwidth="0" id="iframepage" onLoad="iFrameHeight()"></iframe>-->
+
         </div>
         <!-- END PAGE -->
     </div>

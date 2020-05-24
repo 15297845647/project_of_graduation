@@ -1,5 +1,7 @@
 package com.ysh.garbageRecyle.service;
 
+import com.ysh.garbageRecyle.dto.GarbageByFirstChar;
+import com.ysh.garbageRecyle.dto.GarbageFirstCharDto;
 import com.ysh.garbageRecyle.entity.GarbageEntity;
 
 import com.github.pagehelper.PageInfo;
@@ -35,4 +37,8 @@ public interface GarbageService {
     public List<GarbageEntity> selectAllGarbage();
 
     public List<GarbageEntity> selectByGarbageCategotyCode(GarbageEntity entity);
+    //查首字母列表
+   public List<GarbageByFirstChar> selectAllGarbageFirstChar(int categoryCode);
+    //查垃圾带首字母的
+    public List<GarbageFirstCharDto> selectAllGarbageBychar(int categoryCode);
 }

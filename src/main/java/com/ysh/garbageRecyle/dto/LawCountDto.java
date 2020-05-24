@@ -20,4 +20,5 @@ public class LawCountDto {
 
     //法律法规总查看次数
     private int sumSeeTimes;
+
 }

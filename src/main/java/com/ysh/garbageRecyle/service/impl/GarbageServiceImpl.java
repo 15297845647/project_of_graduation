@@ -1,5 +1,7 @@
 package com.ysh.garbageRecyle.service.impl;
 
+import com.ysh.garbageRecyle.dto.GarbageByFirstChar;
+import com.ysh.garbageRecyle.dto.GarbageFirstCharDto;
 import com.ysh.garbageRecyle.service.GarbageService;
 import com.ysh.garbageRecyle.entity.GarbageEntity;
 import com.ysh.garbageRecyle.mapper.GarbageMapper;
@@ -93,6 +95,16 @@ public class GarbageServiceImpl  implements GarbageService {
 	@Override
 	public List<GarbageEntity> selectByGarbageCategotyCode(GarbageEntity garbageEntity) {
 		return garbageMapper.selecrGarbageByCode(garbageEntity);
+	}
+
+	@Override
+	public List<GarbageByFirstChar> selectAllGarbageFirstChar(int categoryCode) {
+		return garbageMapper.selectAllGarbageFirstChar(categoryCode);
+	}
+
+	@Override
+	public List<GarbageFirstCharDto> selectAllGarbageBychar(int categoryCode) {
+		return garbageMapper.selectAllGarbageBychar(categoryCode);
 	}
 
 }

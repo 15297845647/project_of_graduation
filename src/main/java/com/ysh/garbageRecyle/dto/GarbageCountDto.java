@@ -13,7 +13,7 @@ public class GarbageCountDto {
     private int categoryId;
     //类别名称
     private String categoryName;
-    //垃圾数量
+    //该类垃圾数量
     private int garbageNumbers;
     //该类垃圾的查询次数
     private int categoryQueryTime;

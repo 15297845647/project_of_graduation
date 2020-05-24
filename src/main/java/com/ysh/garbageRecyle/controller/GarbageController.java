@@ -3,6 +3,8 @@ package com.ysh.garbageRecyle.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
+import com.ysh.garbageRecyle.dto.GarbageByFirstChar;
+import com.ysh.garbageRecyle.dto.GarbageFirstCharDto;
 import com.ysh.garbageRecyle.dto.QuestionDto;
 import com.ysh.garbageRecyle.entity.GarbageCategoryEntity;
 import com.ysh.garbageRecyle.entity.GarbageLawEntity;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.jws.WebParam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -238,5 +241,52 @@ public class GarbageController {
         return new ModelAndView("garbageEdit","editGarbageModel",model);
     }
 
+    //返回带字母的垃圾列表
+    @RequestMapping(value = "/toAllgartbagePage", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toAllgartbagePage(Model model){
+        //找出可回收垃圾的所有的首字母
+        List<GarbageByFirstChar> firstGarbageList=service.selectAllGarbageFirstChar(1);
+        List<GarbageFirstCharDto> garbageFirstCharDtoList=service.selectAllGarbageBychar(1);
+        List<GarbageByFirstChar> recyleGarbageList=chansferToFirstCharDto(firstGarbageList,garbageFirstCharDtoList);
+        model.addAttribute("recyleGarbageList",recyleGarbageList);
+        //找出可回收垃圾的所有的首字母
+        List<GarbageByFirstChar> firstGarbageList2=service.selectAllGarbageFirstChar(2);
+        List<GarbageFirstCharDto> garbageFirstCharDtoList2=service.selectAllGarbageBychar(2);
+        List<GarbageByFirstChar> harmfulGarbageList=chansferToFirstCharDto(firstGarbageList2,garbageFirstCharDtoList2);
+        model.addAttribute("harmfulGarbageList",harmfulGarbageList);
+        //找出可回收垃圾的所有的首字母
+        List<GarbageByFirstChar> firstGarbageList3=service.selectAllGarbageFirstChar(4);
+        List<GarbageFirstCharDto> garbageFirstCharDtoList3=service.selectAllGarbageBychar(4);
+        List<GarbageByFirstChar> wetGarbageList=chansferToFirstCharDto(firstGarbageList3,garbageFirstCharDtoList3);
+        model.addAttribute("wetGarbageList",wetGarbageList);
+        //找出可回收垃圾的所有的首字母
+        List<GarbageByFirstChar> firstGarbageList4=service.selectAllGarbageFirstChar(8);
+        List<GarbageFirstCharDto> garbageFirstCharDtoList4=service.selectAllGarbageBychar(8);
+        List<GarbageByFirstChar> dryGarbageList=chansferToFirstCharDto(firstGarbageList4,garbageFirstCharDtoList4);
+        model.addAttribute("dryGarbageList",dryGarbageList);
+        //找出可回收垃圾的所有的首字母
+        List<GarbageByFirstChar> firstGarbageList5=service.selectAllGarbageFirstChar(16);
+        List<GarbageFirstCharDto> garbageFirstCharDtoList5=service.selectAllGarbageBychar(16);
+        List<GarbageByFirstChar> bulkyGarbageList=chansferToFirstCharDto(firstGarbageList5,garbageFirstCharDtoList5);
+        model.addAttribute("bulkyGarbageList",bulkyGarbageList);
+        return new ModelAndView("allGarbagePage","allGarbageModel",model);
+    }
+
+    public List<GarbageByFirstChar> chansferToFirstCharDto(List<GarbageByFirstChar> charList,List<GarbageFirstCharDto> garbageDtoList){
+
+        for(int i=0;i<charList.size();i++){
+            List<GarbageFirstCharDto> list=new ArrayList<>();
+            for(int j=0;j<garbageDtoList.size();j++){
+                if(charList.get(i).getFirstChar().equals(garbageDtoList.get(j).getFirstChar())){
+                    list.add(garbageDtoList.get(j));
+                }else {
+                    continue;
+                }
+            }
+            charList.get(i).setGarbageFirstCharDtoList(list);
+        }
+        return charList;
+    }
 }
 

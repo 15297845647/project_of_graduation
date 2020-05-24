@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ysh.garbageRecyle.dto.ChooseDto;
 import com.ysh.garbageRecyle.dto.QuestionDto;
+import com.ysh.garbageRecyle.dto.WrongQuestionDto;
 import com.ysh.garbageRecyle.entity.*;
 import com.ysh.garbageRecyle.service.GarbageCategoryService;
 import com.ysh.garbageRecyle.service.QuestionService;
@@ -106,7 +107,7 @@ public class WrongQuestionController {
         //当首页时
         Map<String,Object> map=new HashMap<>();
         map.put("userId",usersEntity.getUserId());
-        List<QuestionDto> questionDtoList=new ArrayList<>();
+        List<WrongQuestionDto> wrongquestionDtoList=new ArrayList<>();
         PageInfo<WrongQuestionEntity> pageInfo=new PageInfo<>();
         int pageNo;
         if(pageNum!=null){
@@ -124,50 +125,72 @@ public class WrongQuestionController {
             questionEntity.setQuestionId(w.getQuestionId());
             questionEntity=questionService.getByPrimaryKey(questionEntity);
             //转换成Dto
-            QuestionDto questionDto=new QuestionDto();
-            questionDto=questionEntityToDto(questionEntity,w);
-            questionDtoList.add(questionDto);
+            WrongQuestionDto wrongQuestionDto=new WrongQuestionDto();
+                wrongQuestionDto=questionEntityToDto(questionEntity,w);
+                wrongquestionDtoList.add(wrongQuestionDto);
             }
             model.addAttribute("navigatepageNums",pageInfo.getNavigatepageNums());
             model.addAttribute("pageNum",pageNo);
-            model.addAttribute("questionDtoList",questionDtoList);
+            model.addAttribute("questionDtoList",wrongquestionDtoList);
             model.addAttribute("nextPage",pageInfo.getNextPage());
             model.addAttribute("prePage",pageInfo.getPrePage());
         return new ModelAndView("wrongExam","wrongExamModel",model);
     }
+    //获取到错题的问题Id查询出题目和错题记录合并成QuestionDto
 
-    public QuestionDto questionEntityToDto(QuestionEntity entity,WrongQuestionEntity wrongQuestionEntity){
-        QuestionDto questionDto=new QuestionDto();
+    //通过WqId找到错题
+    @RequestMapping(value = "/getWrongQeustionDto",method = RequestMethod.GET)
+    @ResponseBody
+    public WrongQuestionDto getWrongQeustionDto(int wqId){
+        //通过ID找出错题
+        WrongQuestionEntity wrongQuestionEntity=new WrongQuestionEntity();
+        wrongQuestionEntity.setWqId(wqId);
+        wrongQuestionEntity=service.getByPrimaryKey(wrongQuestionEntity);
+        //通过题目ID找出题目详情
+        QuestionEntity questionEntity=new QuestionEntity();
+        questionEntity.setQuestionId(wrongQuestionEntity.getQuestionId());
+        questionEntity=questionService.getByPrimaryKey(questionEntity);
+        //转换成DTO
+        WrongQuestionDto wrongQuestionDto=new WrongQuestionDto();
+        wrongQuestionDto=questionEntityToDto(questionEntity,wrongQuestionEntity);
+        return wrongQuestionDto;
+    }
+
+    //题目实体和错题实体共同结合成问题实体
+    public WrongQuestionDto questionEntityToDto(QuestionEntity entity,WrongQuestionEntity wrongQuestionEntity){
+        WrongQuestionDto wrongQuestionDto=new WrongQuestionDto();
+        //设置错题Id
+        wrongQuestionDto.setWqId(wrongQuestionEntity.getWqId());
         //设置题目
         String title=entity.getQuestionTitle();
-        questionDto.setQuestionTitle(title);
+        wrongQuestionDto.setQuestionTitle(title);
         //设置选项
         String content=entity.getQuestionContent();
         ChooseDto chooseDto= JSONObject.parseObject(content,ChooseDto.class);
         System.out.println(chooseDto.toString());
-        questionDto.setChooseDto(chooseDto);
+        wrongQuestionDto.setChooseDto(chooseDto);
         //设置题目Id
-        questionDto.setQuestionId(entity.getQuestionId());
+        wrongQuestionDto.setQuestionId(entity.getQuestionId());
         //设置正确答案
-        questionDto.setRightAnswer(entity.getRightAnswer());
+        wrongQuestionDto.setRightAnswer(entity.getRightAnswer());
         //设置被答总次数
-        questionDto.setAnswerTimes(entity.getAnswersTime());
+        wrongQuestionDto.setAnswerTimes(entity.getAnswersTime());
         //设置答错次数
-        questionDto.setAnsweWrongTimes(entity.getAnswersWrong());
+        wrongQuestionDto.setAnsweWrongTimes(entity.getAnswersWrong());
         //设置题目类型
-        questionDto.setTopicType(entity.getQuestionType());
+        wrongQuestionDto.setTopicType(entity.getQuestionType());
         //设置题目状态
-        questionDto.setStatus(entity.getQuestionStatus());
+        wrongQuestionDto.setStatus(entity.getQuestionStatus());
         //设置用户的答案
-        questionDto.setUsersAnser(wrongQuestionEntity.getUserAnswer());
+        wrongQuestionDto.setUsersAnser(wrongQuestionEntity.getUserAnswer());
         //设置垃圾类别id
-        questionDto.setGabageCategoryId(entity.getQuestionCategory());
+        wrongQuestionDto.setGabageCategoryId(entity.getQuestionCategory());
         GarbageCategoryEntity garbageCategoryEntity=new GarbageCategoryEntity();
         garbageCategoryEntity.setCategoryId(entity.getQuestionCategory());
         garbageCategoryEntity=garbageCategoryService.getByPrimaryKey(garbageCategoryEntity);
         //设置垃圾类别名称
-        questionDto.setGarbageCategoryName(garbageCategoryEntity.getCategoryName());
-        return questionDto;
+        wrongQuestionDto.setGarbageCategoryName(garbageCategoryEntity.getCategoryName());
+        return wrongQuestionDto;
     }
 
 }

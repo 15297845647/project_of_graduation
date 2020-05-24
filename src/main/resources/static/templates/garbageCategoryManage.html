@@ -65,7 +65,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             </li>
             <li>
                 <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
-                <form class="sidebar-search" action="extra_search.html" method="POST">
+                <form class="sidebar-search">
                     <div class="form-container">
                         <div class="input-box">
                             <a href="javascript:;" class="remove"></a>
@@ -77,26 +77,40 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
             <li class="start">
-                <a href="index.html">
+                <a href="/index/toAdminIndexPage">
                     <i class="fa fa-home"></i>
                     <span class="title">首页</span>
+
                 </a>
             </li>
             <li class="">
                 <a href="javascript:;">
                     <i class="fa fa-cogs"></i>
-                    <span class="title">题库管理</span>
+                    <span class="title">用户管理</span>
 
                     <span class="arrow open"></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="">
-                        <a href="layout_session_timeout.html">
-                            查看题库</a>
+                        <a href="/users/toUserManagePage">
+                            用户信息</a>
                     </li>
                     <li >
-                        <a href="layout_idle_timeout.html">
-                            录入题目</a>
+                        <a href="/role/toRoleManagePage">
+                            角色信息</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="javascript:;">
+                    <i class="fa fa-cogs"></i>
+                    <span class="title">题库管理</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li >
+                        <a href="/question/toManageTopic">
+                            查看题库</a>
                     </li>
                 </ul>
             </li>
@@ -104,33 +118,31 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <a href="#" target="_blank">
                     <i class="fa fa-gift"></i>
                     <span class="title">新闻资讯管理</span>
+
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li >
-                        <a href="ui_general.html">
+                    <li>
+                        <a href="/news/toNewsManagePage">
                             查看所有新闻资讯</a>
                     </li>
                     <li >
-                        <a href="ui_buttons.html">
+                        <a href="/news/toNewsAddPage">
                             新闻资讯发布</a>
                     </li>
                 </ul>
             </li>
-            <li class="">
+            <li>
                 <a href="javascript:;">
                     <i class="fa fa-bookmark-o"></i>
                     <span class="title">法律法规管理</span>
+
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
                     <li >
-                        <a href="ui_general.html">
+                        <a href="/garbageLaw/toLawsManagePage">
                             查看所有法律法规</a>
-                    </li>
-                    <li >
-                        <a href="ui_buttons.html">
-                            发布法律法规信息</a>
                     </li>
                 </ul>
             </li>
@@ -139,33 +151,23 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     <i class="fa fa-table"></i>
                     <span class="title">垃圾分类</span>
                     <span class="selected"></span>
-                    <span class="arrow open"></span>
+                    <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="active">
-                        <a href="form_controls.html">
-                            垃圾信息</a>
+                    <li>
+                        <a href="/garbage/toGarbageManagePage">
+                            垃圾信息管理</a>
                     </li>
-                    <li class="">
-                        <a href="form_controls.html">
+                    <li  class="active">
+                        <a href="/garbageCategory/toGarbageCategoryManagePage">
                             垃圾类别</a>
-                    </li>
-                    <li >
-                        <a href="form_layouts.html">
-                            垃圾图标</a>
                     </li>
                 </ul>
             </li>
             <li class="">
-                <a href="javascript:;">
+                <a href="/index/toDataVisualManagePage">
                     <i class="fa fa-sitemap"></i>
                     <span class="title">可视化数据</span>
-                </a>
-            </li>
-            <li class="">
-                <a href="javascript:;">
-                    <i class="fa fa-gift"></i>
-                    <span class="title">个人设置</span>
                 </a>
             </li>
         </ul>

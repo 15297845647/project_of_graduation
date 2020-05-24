@@ -188,6 +188,7 @@ public class UsersController {
     public String logout(HttpSession session) {
         // 移除session
         session.removeAttribute("cur_user");
+        session.removeAttribute("testResultDto");
         return "login";
     }
     @RequestMapping(value = "/register" ,method = RequestMethod.POST)
@@ -292,6 +293,17 @@ public class UsersController {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @RequestMapping(value = "/toProfile",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toProfile(HttpSession session,Model model){
+        UsersEntity usersEntity=new UsersEntity();
+        usersEntity= (UsersEntity) session.getAttribute("cur_user");
+        model.addAttribute("usersEntity",usersEntity);
+        List<RoleEntity> roleEntityList=roleService.selectAllRole();
+        model.addAttribute("roleEntityList",roleEntityList);
+        return new ModelAndView("profile","editUserModel",model);
     }
 
 

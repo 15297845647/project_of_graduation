@@ -75,9 +75,14 @@ public class IndexController {
     public String toAdminIndexPage(Model model){
         return "adminIndex";
     }
-
+    //可视化数据管理啊页面
     @RequestMapping(value = "/toDataVisualManagePage")
     public String toDataVisualManagePage(Model model){
         return "dataVisualManage";
+    }
+    //可视化数据展示页面
+    @RequestMapping(value = "/toDataVisualPage")
+    public String toDataVisualPage(Model model){
+        return "dataVisual";
     }
 }
