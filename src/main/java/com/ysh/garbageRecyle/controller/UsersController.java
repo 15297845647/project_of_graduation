@@ -150,7 +150,7 @@ public class UsersController {
         return new ModelAndView("userEdit","editUserModel",model);
     }
 
-    //修改垃圾
+    //修改用户
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
     public String updateUser(@RequestBody UsersEntity usersEntity, Model model){

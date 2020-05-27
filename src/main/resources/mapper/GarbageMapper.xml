@@ -36,8 +36,17 @@
     </select>
     
     <select id="selectByCondition" resultMap="BaseResultMap">
-        select garbage_id, garbage_name, garbage_category_code, query_times
-        from garbage
+        SELECT
+        g.garbage_id,
+        g.garbage_name,
+        g.garbage_category_code,
+        g.query_times,
+        gc.category_name,
+        gc.category_explain,
+        gc.category_require,
+        gc.category_common
+        FROM
+        garbage g left join garbage_category gc ON g.garbage_category_code=gc.category_code
         <include refid="Base_Where_Clause" />
     </select>
     <select id="getTopGarbage" resultMap="BaseResultMap">

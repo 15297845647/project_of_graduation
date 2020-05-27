@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -154,24 +155,34 @@ public class GarbageController {
     //跳转垃圾管理页面
     @RequestMapping(value = "/toGarbageManagePage",method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView toGarbageManagePage(Model model,@RequestParam(required = false) Integer categoryCode){
+    public ModelAndView toGarbageManagePage(Model model,@RequestParam(required = false) Integer categoryCode,@RequestParam(required = false) Integer pageNum){
         List<GarbageEntity> garbageEntityList=new ArrayList<>();
+        Map<String,Object> map=new HashMap<>();
         if(categoryCode==null){
             GarbageEntity garbageEntity=new GarbageEntity();
             garbageEntity.setGarbageCategoryCode(1);
-            garbageEntityList=service.selectByGarbageCategotyCode(garbageEntity);
+            map.put("garbageCategoryCode",1);
+            //garbageEntityList=service.selectByGarbageCategotyCode(garbageEntity);
             model.addAttribute("categorySet",1);
         }else {
             GarbageEntity garbageEntity=new GarbageEntity();
             int code=categoryCode.intValue();
-            garbageEntity.setGarbageCategoryCode(code);
-            garbageEntityList=service.selectByGarbageCategotyCode(garbageEntity);
+            map.put("garbageCategoryCode",code);
+            //garbageEntity.setGarbageCategoryCode(code);
+            //garbageEntityList=service.selectByGarbageCategotyCode(garbageEntity);
             model.addAttribute("categorySet",categoryCode);
         }
-        model.addAttribute("categorySet",categoryCode);
-        model.addAttribute("garbageEntityList",garbageEntityList);
-        PageInfo<GarbageCategoryEntity> pageInfo= garbageCategoryService.queryByPage(1,10,null);
-        List<GarbageCategoryEntity> categoryList=pageInfo.getList();
+        //查出分页信息
+        PageInfo<GarbageEntity> pageInfo;
+        if(pageNum!=null){
+            pageInfo=service.queryByPage(pageNum,10,map);
+        }else {
+            pageInfo=service.queryByPage(1,10,map);
+        }
+        model.addAttribute("pageInfo",pageInfo);
+        //model.addAttribute("garbageEntityList",garbageEntityList);
+        PageInfo<GarbageCategoryEntity> pageInfos= garbageCategoryService.queryByPage(1,10,null);
+        List<GarbageCategoryEntity> categoryList=pageInfos.getList();
         model.addAttribute("categoryList",categoryList);
         return new ModelAndView("garbageManage","garbageManageModel",model);
     }
