@@ -143,4 +143,6 @@
         delete from garbage_category
         where category_id = #{categoryId,jdbcType=INTEGER}
     </delete>
+
+
 </mapper>

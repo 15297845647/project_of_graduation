@@ -120,6 +120,27 @@ public class GarbageController {
            entity.setGarbageName(garbageName);
            List<GarbageEntity> querylist=service.findGarbageByName(entity);
            model.addAttribute("queryList",querylist);
+
+           for(int i=0;i<querylist.size();i++){
+               GarbageEntity garbageEntity=querylist.get(i);
+               //更改查询次数
+               if(garbageEntity!=null){
+                   int queryTimes=garbageEntity.getQueryTimes();
+                   garbageEntity.setQueryTimes(queryTimes+1);
+                   service.updateById(garbageEntity);
+                    //更新垃圾类别的查询次数
+                   GarbageCategoryEntity garbageCategoryEntity=new GarbageCategoryEntity();
+                  Map<String,Object> map=new HashMap<>();
+                  map.put("categoryCode",garbageEntity.getGarbageCategoryCode());
+                   PageInfo<GarbageCategoryEntity> pageInfo=garbageCategoryService.queryByPage(1,1,map);
+                   List<GarbageCategoryEntity> garbageCategoryEntityList=new ArrayList<>();
+                   garbageCategoryEntityList=pageInfo.getList();
+                   garbageCategoryEntity=garbageCategoryEntityList.get(0);
+                   int times=garbageCategoryEntity.getQueryTimes();
+                   garbageCategoryEntity.setQueryTimes(times+1);
+                   garbageCategoryService.updateById(garbageCategoryEntity);
+               }
+           }
        }
         List<GarbageEntity> list=new ArrayList<>();
         list=service.getTopGarbage();
