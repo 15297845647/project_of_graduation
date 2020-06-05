@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.ysh.garbageRecyle.Decode;
+import com.ysh.garbageRecyle.QuestionExcelImport;
 import com.ysh.garbageRecyle.dto.ChooseDto;
 import com.ysh.garbageRecyle.dto.QuestionDto;
 import com.ysh.garbageRecyle.dto.TestPaper;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -103,7 +105,6 @@ public class QuestionController {
     	 entity.setQuestionId(id);
          return service.updateById(entity);
     }
-
     /*
     *
     * 试卷初始化

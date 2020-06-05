@@ -43,7 +43,7 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-	                form.submit(); // form validation success, call ajax form submit
+					usersLogin(); // form validation success, call ajax form submit
 	            }
 	        });
 
@@ -51,6 +51,7 @@ var Login = function () {
 	            if (e.which == 13) {
 	                if ($('.login-form').validate().form()) {
 	                    $('.login-form').submit(); //form validation success, call ajax form submit
+						// usersLogin();
 	                }
 	                return false;
 	            }
@@ -104,7 +105,8 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-	                form.submit();
+	                // form.submit();
+					resertPassword();
 	            }
 	        });
 
@@ -112,6 +114,7 @@ var Login = function () {
 	            if (e.which == 13) {
 	                if ($('.forget-form').validate().form()) {
 	                    $('.forget-form').submit();
+						// resertPassword();
 	                }
 	                return false;
 	            }
@@ -218,7 +221,7 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-	                form.submit();
+					userRegister();
 	            }
 	        });
 
@@ -226,6 +229,7 @@ var Login = function () {
 	            if (e.which == 13) {
 	                if ($('.register-form').validate().form()) {
 	                    $('.register-form').submit();
+						// userRegister();
 	                }
 	                return false;
 	            }

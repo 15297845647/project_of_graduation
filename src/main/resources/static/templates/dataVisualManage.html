@@ -650,7 +650,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     var cityNewsNumber=data[i].cityNewsNumber;
                     var seeTimes=data[i].seeTimes;
                     var sumSeeTimes=data[i].sumSeeTimes;
-                    var score=seeTimes/sumSeeTimes;
+                    var score=seeTimes/sumSeeTimes*10000;
                     inData=[score,cityNewsNumber,newsCity];
                     sourceData.push(inData);
                 }
@@ -669,7 +669,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         orient: 'horizontal',
                         left: 'center',
                         min: 0,
-                        max: 100,
+                        max: 5000,
                         text: ['高关注度', '低关注度'],
                         // Map the score column to color
                         dimension: 0,

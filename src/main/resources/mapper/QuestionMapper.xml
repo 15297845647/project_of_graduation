@@ -79,7 +79,14 @@
         <include refid="Base_Where_Clause" />
     </select>
     <select id="getByRand" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * FROM question ORDER BY rand() LIMIT #{dataNum};
+        SELECT * FROM question
+        <where>
+            <if test="questionStatus != null">
+                and question_status =1
+            </if>
+        </where>
+        ORDER BY rand() LIMIT #{dataNum}
+
     </select>
 
     <insert id="insert" keyColumn="question_id" keyProperty="questionId" parameterType="com.ysh.garbageRecyle.entity.QuestionEntity" useGeneratedKeys="true">

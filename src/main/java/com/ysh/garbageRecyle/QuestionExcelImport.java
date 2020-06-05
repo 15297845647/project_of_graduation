@@ -1,5 +1,6 @@
 package com.ysh.garbageRecyle;
 
+import com.ysh.garbageRecyle.entity.QuestionEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -10,8 +11,10 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class questionExcelImport {
+public class QuestionExcelImport {
 
 
     public static void checkFile(MultipartFile file) throws Exception {
@@ -60,8 +63,8 @@ public class questionExcelImport {
      *
      * @return
      */
-    public static void readExcel(MultipartFile file) throws Exception {
-//        List<User> list = new ArrayList<User>();
+    public static List<QuestionEntity> readExcel(MultipartFile file) throws Exception {
+        List<QuestionEntity> list = new ArrayList<QuestionEntity>();
         try {
             checkFile(file);
             // 获得Workbook工作薄对象
@@ -75,24 +78,27 @@ public class questionExcelImport {
                     if (row == null) {//略过空行
                         continue;
                     }else{
-                        // 获取单元格中的值并存到对象中
-//                        User user = new User();
-//                        user.setFullName(row.getCell(0).getStringCellValue());
-//                        user.setPassword(row.getCell(1).getStringCellValue());
-//                        user.setUsername(row.getCell(2).getStringCellValue());
-//                        list.add(user);
-                        System.out.println(row.getCell(0).getStringCellValue());
-                        System.out.println(row.getCell(1).getStringCellValue());
-                        System.out.println(row.getCell(2).getStringCellValue());
-                        System.out.println((int)(row.getCell(3).getNumericCellValue()));
-                        System.out.println((int)(row.getCell(4).getNumericCellValue()));
-                        System.out.println((int)(row.getCell(5).getNumericCellValue()));
+                        QuestionEntity questionEntity=new QuestionEntity();
+                        questionEntity.setQuestionTitle(row.getCell(0).getStringCellValue());
+                        questionEntity.setQuestionContent(row.getCell(1).getStringCellValue());
+                        questionEntity.setRightAnswer(row.getCell(2).getStringCellValue());
+                        questionEntity.setQuestionType((int)(row.getCell(3).getNumericCellValue()));
+                        questionEntity.setAnswerNumber((int)(row.getCell(4).getNumericCellValue()));
+                        questionEntity.setQuestionCategory((int)(row.getCell(5).getNumericCellValue()));
+                        list.add(questionEntity);
+//                        System.out.println(row.getCell(0).getStringCellValue());
+//                        System.out.println(row.getCell(1).getStringCellValue());
+//                        System.out.println(row.getCell(2).getStringCellValue());
+//                        System.out.println((int)(row.getCell(3).getNumericCellValue()));
+//                        System.out.println((int)(row.getCell(4).getNumericCellValue()));
+//                        System.out.println((int)(row.getCell(5).getNumericCellValue()));
                     }
                 }
 
         } catch (Exception e) {
             throw new Exception("Excel导入失败！");
         }
+        return list;
     }
 
     public static void main(String[] args) throws Exception {
